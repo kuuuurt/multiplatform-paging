@@ -2,6 +2,7 @@ package com.kuuurt.paging.multiplatform
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
  * @since 01/10/2020
  */
 
-/* Actual is implemented on iosMain but `expect` looks for iosArm64 and iosX64 */
+@FlowPreview
 @ExperimentalCoroutinesApi
 expect class DataSource<T>(
     clientScope: CoroutineScope,

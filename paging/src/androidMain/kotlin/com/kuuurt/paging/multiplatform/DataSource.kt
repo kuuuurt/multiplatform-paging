@@ -13,8 +13,8 @@ import androidx.paging.DataSource as AndroidXDataSource
  * @since 01/10/2020
  */
 
-@FlowPreview
 @ExperimentalCoroutinesApi
+@FlowPreview
 actual class DataSource<T> actual constructor(
     private val clientScope: CoroutineScope,
     private val getCount: suspend () -> Int,

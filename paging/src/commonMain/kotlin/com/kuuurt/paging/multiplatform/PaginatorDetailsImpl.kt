@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@ExperimentalCoroutinesApi
 class PaginatorDetailsImpl<T>(
     private val clientScope: CoroutineScope,
     private val dataSourceFactory: DataSource.Factory<T>
