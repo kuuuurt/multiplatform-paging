@@ -6,9 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.kuuurt.paging.sample.multiplatform.library.MainViewModel
 
 /**
- * Copyright 2020, White Cloak Technologies, Inc., All rights reserved.
+ * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
  *
  * @author Kurt Renzo Acosta
  * @since 03/05/2020

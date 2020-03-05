@@ -1,9 +1,8 @@
-package com.kuuurt.paging.multiplatform.sample
+package com.kuuurt.paging.sample.multiplatform.library
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.kuuurt.paging.multiplatform.DataSource
 import com.kuuurt.paging.multiplatform.Paginator
+import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
 
 /**
  * Copyright 2020, White Cloak Technologies, Inc., All rights reserved.
@@ -12,14 +11,14 @@ import com.kuuurt.paging.multiplatform.Paginator
  * @since 03/05/2020
  */
 
-class MainViewModel : ViewModel() {
+class MainViewModel : BaseViewModel() {
     private val fakeData = FakeData()
     private val testDataSourceFactory = DataSource.Factory(
-        viewModelScope,
+        clientScope,
         { fakeData.getCount() },
         { a, b -> fakeData.getData(a, b) }
     )
-    val paginator = Paginator(viewModelScope, testDataSourceFactory)
+    val paginator = Paginator(clientScope, testDataSourceFactory)
 
     class FakeData {
         private var count = 0

@@ -47,24 +47,34 @@ android {
 }
 
 kotlin {
-    ios()
+    ios {
+        binaries {
+            framework(frameworkName) {
+                baseName = frameworkName
+            }
+        }
+    }
     android()
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${COROUTINES_VERSION}")
+        implementation("org.jetbrains.kotlinx:kotlinx-io:0.1.16")
+        api(project(":paging"))
     }
 
     sourceSets["iosMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${COROUTINES_VERSION}")
+        implementation("org.jetbrains.kotlinx:kotlinx-io-native:0.1.16")
     }
 }
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION")
-    implementation("androidx.paging:paging-runtime:2.1.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.16")
 
 }
