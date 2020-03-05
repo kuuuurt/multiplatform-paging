@@ -8,7 +8,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
 /**
- * Copyright 2020, White Cloak Technologies, Inc., All rights reserved.
+ * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
  *
  * @author Kurt Renzo Acosta
  * @since 01/10/2020

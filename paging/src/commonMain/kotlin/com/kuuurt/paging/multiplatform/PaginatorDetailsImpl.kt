@@ -2,11 +2,20 @@ package com.kuuurt.paging.multiplatform
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
+/**
+ * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
+ *
+ * @author Kurt Renzo Acosta
+ * @since 01/10/2020
+ */
+
 @ExperimentalCoroutinesApi
+@FlowPreview
 class PaginatorDetailsImpl<T>(
     private val clientScope: CoroutineScope,
     private val dataSourceFactory: DataSource.Factory<T>
