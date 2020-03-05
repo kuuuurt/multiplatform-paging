@@ -1,12 +1,13 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.multiplatform")
+    id("org.jetbrains.kotlin.native.cocoapods")
 }
 
 val KOTLIN_VERSION = "1.3.70"
 val COROUTINES_VERSION = "1.3.3"
 
-val frameworkName = "MultiplatformPaging"
+val iosFrameworkName = "MultiplatformPaging"
 
 android {
     compileSdkVersion(29)
@@ -47,14 +48,28 @@ android {
 }
 
 kotlin {
-    ios {
-        binaries {
-            framework(frameworkName) {
-                baseName = frameworkName
-            }
-        }
+    cocoapods {
+        summary = "Shared module for Android and iOS"
+        homepage = "Link to a Kotlin/Native module homepage"
+        frameworkName = iosFrameworkName
     }
+
+    ios()
     android()
+
+//    val iosArm64 = targets.getByName<KotlinNativeTarget>("iosArm64")
+//    val iosX64 = targets.getByName<KotlinNativeTarget>("iosX64")
+//
+//    tasks.create("releaseFatFramework", FatFrameworkTask::class) {
+//        baseName = frameworkName
+//
+//        destinationDir = buildDir.resolve("fat-framework/release")
+//
+//        from(
+//            iosX64.binaries.getFramework("DEBUG"),
+//            iosArm64.binaries.getFramework("DEBUG")
+//        )
+//    }
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
