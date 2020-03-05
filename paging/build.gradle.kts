@@ -57,17 +57,20 @@ kotlin {
     android()
 
     sourceSets["commonMain"].dependencies {
-
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${COROUTINES_VERSION}")
     }
 
     sourceSets["iosMain"].dependencies {
-
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${COROUTINES_VERSION}")
     }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION")
     implementation("androidx.paging:paging-runtime:2.1.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
 
 }
