@@ -38,7 +38,7 @@ actual class PageKeyedDataSource<T> actual constructor(
             val items = getBlock(1, params.requestedLoadSize)
             val count = getCount()
             _totalCount.offer(count)
-            callback.onResult(items, 0, count, null, 2)
+            callback.onResult(items, items.size, count, null, 2)
             _getState.offer(PaginatorState.Complete)
             if (items.isEmpty()) {
                 _getState.offer(PaginatorState.Empty)
@@ -80,12 +80,11 @@ actual class PageKeyedDataSource<T> actual constructor(
         actual val dataSource = _dataSource.asFlow()
 
         override fun create(): AndroidXDataSource<Int, T> {
-            val source =
-                PageKeyedDataSource(
-                    clientScope,
-                    getCount,
-                    getBlock
-                )
+            val source = PageKeyedDataSource(
+                clientScope,
+                getCount,
+                getBlock
+            )
             _dataSource.offer(source)
             return source
         }
