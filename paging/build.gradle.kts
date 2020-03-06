@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.multiplatform")
+    id("maven-publish")
+    id("com.jfrog.bintray")
 }
 
 val KOTLIN_VERSION = "1.3.61"
@@ -9,9 +11,47 @@ val COROUTINES_VERSION = "1.3.3"
 
 val frameworkName = "MultiplatformPaging"
 
+val GROUP_ID = "com.kuuurt"
+val ARTIFACT_ID = "multiplatform-paging"
+
+val BINTRAY_REPOSITORY = "multiplatform-paging"
+val BINTRAY_ORGINIZATION= "kuuuurt"
+
+val ISSUE_URL = "https://github.com/kuuuurt/multiplatform-paging/issues"
+val SITE_URL = "https://github.com/kuuuurt/multiplatform-paging"
+val VCS_URL= "https://github.com/kuuuurt/multiplatform-paging.git"
+val LIBRARY_VERSION_NAME= "0.1.0"
+
+bintray {
+    user = "kuuuurt"
+    key = findProperty("bintrayApiKey")
+    publish = true
+    setPublications(frameworkName)
+    pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
+        repo = "MultiplatformPaging"
+        name = "kuuuurt"
+        userOrg = "kuuuurt"
+        websiteUrl = SITE_URL
+        githubRepo = "kuuuurt/multiplatform-paging"
+        vcsUrl = VCS_URL
+        description = ""
+        setLabels("kotlin")
+        setLicenses("MIT")
+        desc = description
+    })
+}
+
+publishing {
+    repositories {
+        maven {
+            url = uri("test")
+        }
+    }
+}
+
 android {
     compileSdkVersion(29)
-    defaultConfig {
+    valaultConfig {
         minSdkVersion(21)
         targetSdkVersion(29)
 
@@ -55,7 +95,9 @@ kotlin {
             }
         }
     }
-    android()
+    android {
+        publishLibraryVariants("release")
+    }
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
