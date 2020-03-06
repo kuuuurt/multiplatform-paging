@@ -24,7 +24,7 @@ val LIBRARY_VERSION_NAME= "0.1.0"
 
 bintray {
     user = "kuuuurt"
-    key = findProperty("bintrayApiKey")
+    key = "asdf"
     publish = true
     setPublications(frameworkName)
     pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
@@ -51,7 +51,7 @@ publishing {
 
 android {
     compileSdkVersion(29)
-    valaultConfig {
+    defaultConfig {
         minSdkVersion(21)
         targetSdkVersion(29)
 
