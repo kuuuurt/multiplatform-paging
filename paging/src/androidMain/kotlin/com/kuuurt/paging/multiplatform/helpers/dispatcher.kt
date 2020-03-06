@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 /**
- * Copyright 2020, White Cloak Technologies, Inc., All rights reserved.
+ * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
  *
  * @author Kurt Renzo Acosta
  * @since 03/06/2020

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.io.core.Closeable
 
 /**
- * Copyright 2019, White Cloak Technologies, Inc., All rights reserved.
+ * Copyright 2019, Kurt Renzo Acosta, All rights reserved.
  *
  * @author Kurt Renzo Acosta
  * @since 12/11/2019

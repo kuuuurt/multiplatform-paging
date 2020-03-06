@@ -9,7 +9,7 @@
 import UIKit
 import MultiplatformPagingLibrary
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   @IBOutlet weak var testTableView: UITableView!
   
   private let viewModel = MainViewModel.init()
@@ -21,6 +21,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     super.viewDidLoad()
     testTableView.delegate = self
     testTableView.dataSource = self
+  
     testTableView.register(
       UINib.init(nibName: "TestTableViewCell", bundle: nil),
       forCellReuseIdentifier: "Test"
@@ -30,6 +31,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       guard let list = nullableArray?.compactMap({ $0 as? String }) else {
         return
       }
+      
       self.tests = list
       self.testTableView.reloadData()
     }
@@ -39,12 +41,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return
       }
       self.count = testCount
+      self.testTableView.reloadData()
     }
   }
 
 
+  func numberOfSections(in tableView: UITableView) -> Int {
+    1
+  }
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return count
+    count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,9 +60,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       for: indexPath
     ) as! TestTableViewCell
     
-    cell.txtTest.text = tests[indexPath.row]
+    var text = "Loading..."
+    if (indexPath.row < tests.count) {
+      text = tests[indexPath.row]
+    }
+    cell.txtTest.text = text
     
     return cell
+  }
+  
+  
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    let cell = cell as! TestTableViewCell
+    
+    if (cell.txtTest.text == "Loading...") {
+      viewModel.paginator.loadMore()
+    }
   }
 }
 

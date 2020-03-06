@@ -30,6 +30,7 @@ actual class DataSource<T> actual constructor(
     private val _items = ConflatedBroadcastChannel<List<T>>(listOf())
     val items = _items.asFlow()
 
+    private var isLoading = false
 
     actual class Factory<T> actual constructor(
         clientScope: CoroutineScope,
@@ -42,28 +43,37 @@ actual class DataSource<T> actual constructor(
     }
 
     fun loadMore(size: Int = 10) {
-        clientScope.launch(CoroutineExceptionHandler { _, exception ->
-            _getState.offer(PaginatorState.Error(exception))
-        }) {
-            val items = getBlock(_itemsList.size, size)
-            _itemsList.addAll(items)
-            _items.offer(_itemsList)
-            _getState.offer(PaginatorState.Complete)
+        if (!isLoading) {
+            clientScope.launch(CoroutineExceptionHandler { _, exception ->
+                _getState.offer(PaginatorState.Error(exception))
+            }) {
+                isLoading = true
+                val items = getBlock(_itemsList.size, size)
+                _itemsList.addAll(items)
+                _items.offer(_itemsList)
+                _totalCount.offer(getCount())
+                _getState.offer(PaginatorState.Complete)
+                isLoading = false
+            }
         }
     }
 
     fun loadInitial(size: Int = 10) {
-        clientScope.launch(CoroutineExceptionHandler { _, exception ->
-            _getState.offer(PaginatorState.Error(exception))
-        }) {
-            _getState.offer(PaginatorState.Loading)
-            val items = getBlock(0, size)
-            _totalCount.offer(getCount())
-            _itemsList.addAll(items)
-            _items.offer(_itemsList)
-            _getState.offer(PaginatorState.Complete)
-            if (items.isEmpty()) {
-                _getState.offer(PaginatorState.Empty)
+        if (!isLoading) {
+            clientScope.launch(CoroutineExceptionHandler { _, exception ->
+                _getState.offer(PaginatorState.Error(exception))
+            }) {
+                isLoading = true
+                _getState.offer(PaginatorState.Loading)
+                val items = getBlock(0, size)
+                _totalCount.offer(getCount())
+                _itemsList.addAll(items)
+                _items.offer(_itemsList)
+                _getState.offer(PaginatorState.Complete)
+                if (items.isEmpty()) {
+                    _getState.offer(PaginatorState.Empty)
+                }
+                isLoading = false
             }
         }
     }
