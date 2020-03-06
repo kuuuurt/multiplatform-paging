@@ -16,7 +16,7 @@ import androidx.paging.DataSource as AndroidXDataSource
 @ExperimentalCoroutinesApi
 @FlowPreview
 actual class PositionalDataSource<T> actual constructor(
-    override val clientScope: CoroutineScope,
+    private val clientScope: CoroutineScope,
     private val getCount: suspend () -> Int,
     private val getBlock: suspend (Int, Int) -> List<T>
 ) : AndroidXPositionalDataSource<T>(), DataSource<T> {
@@ -61,12 +61,11 @@ actual class PositionalDataSource<T> actual constructor(
         private val getBlock: suspend (Int, Int) -> List<T>
     ) : AndroidXDataSource.Factory<Int, T>() {
 
-        private val _dataSource = ConflatedBroadcastChannel<com.kuuurt.paging.multiplatform.PositionalDataSource<T>>()
+        private val _dataSource = ConflatedBroadcastChannel<PositionalDataSource<T>>()
         actual val dataSource = _dataSource.asFlow()
 
         override fun create(): AndroidXDataSource<Int, T> {
-            val source =
-                PositionalDataSource(clientScope, getCount, getBlock)
+            val source = PositionalDataSource(clientScope, getCount, getBlock)
             _dataSource.offer(source)
             return source
         }
