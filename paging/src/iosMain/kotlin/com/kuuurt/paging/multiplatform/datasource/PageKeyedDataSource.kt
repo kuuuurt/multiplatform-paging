@@ -1,11 +1,9 @@
 package com.kuuurt.paging.multiplatform.datasource
 
 import com.kuuurt.paging.multiplatform.paginator.PaginatorState
-import androidx.paging.PageKeyedDataSource as AndroidXPageKeyedDataSource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.*
-import androidx.paging.DataSource as AndroidXDataSource
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
@@ -33,7 +31,7 @@ actual class PageKeyedDataSource<T> actual constructor(
 
     private var page = 1
 
-    actual class Factory<T> actual constructor(
+    internal actual class Factory<T> actual constructor(
         clientScope: CoroutineScope,
         getCount: suspend () -> Int,
         getBlock: suspend (Int, Int) -> List<T>

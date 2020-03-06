@@ -24,8 +24,13 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 actual class PageKeyedPaginator<T> actual constructor(
     private val clientScope: CoroutineScope,
-    private val dataSourceFactory: PageKeyedDataSource.Factory<T>
+    private val getCount: suspend () -> Int,
+    private val getBlock: suspend (Int, Int) -> List<T>
 ) : PaginatorDetails {
+    internal actual val dataSourceFactory = PageKeyedDataSource.Factory(
+        clientScope, getCount, getBlock
+    )
+
     val pagedList = LivePagedListBuilder(
         dataSourceFactory, PagedList.Config.Builder()
             .setPageSize(10)

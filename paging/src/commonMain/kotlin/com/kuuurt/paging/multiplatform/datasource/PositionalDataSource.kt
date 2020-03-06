@@ -19,7 +19,7 @@ expect class PositionalDataSource<T>(
     getCount: suspend () -> Int,
     getBlock: suspend (Int, Int) -> List<T>
 ) : DataSource<T> {
-    class Factory<T>(
+    internal class Factory<T>(
         clientScope: CoroutineScope,
         getCount: suspend () -> Int,
         getBlock: suspend (Int, Int) -> List<T>

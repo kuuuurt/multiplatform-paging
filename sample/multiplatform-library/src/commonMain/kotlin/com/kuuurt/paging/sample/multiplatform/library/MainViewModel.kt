@@ -14,15 +14,11 @@ import kotlinx.coroutines.flow.flatMapConcat
 
 class MainViewModel : BaseViewModel() {
     private val fakeData = FakeData()
-    private val testDataSourceFactory = PositionalDataSource.Factory(
-        clientScope,
-        { fakeData.getCount() },
-        { a, b -> fakeData.getData(a, b) }
-    )
 
     val paginator = PositionalPaginator(
         clientScope,
-        testDataSourceFactory
+        { fakeData.getCount() },
+        { a, b -> fakeData.getData(a, b) }
     )
 
     class FakeData {

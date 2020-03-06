@@ -17,6 +17,9 @@ import kotlinx.coroutines.FlowPreview
 @ExperimentalCoroutinesApi
 expect class PageKeyedPaginator<T>(
     clientScope: CoroutineScope,
-    dataSourceFactory: PageKeyedDataSource.Factory<T>
-) : PaginatorDetails
+    getCount: suspend () -> Int,
+    getBlock: suspend (Int, Int) -> List<T>
+) : PaginatorDetails {
+    internal val dataSourceFactory: PageKeyedDataSource.Factory<T>
+}
 

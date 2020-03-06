@@ -33,7 +33,7 @@ actual class PositionalDataSource<T> actual constructor(
 
     private var isLoading = false
 
-    actual class Factory<T> actual constructor(
+    internal actual class Factory<T> actual constructor(
         clientScope: CoroutineScope,
         getCount: suspend () -> Int,
         getBlock: suspend (Int, Int) -> List<T>

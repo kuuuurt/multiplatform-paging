@@ -56,7 +56,7 @@ actual class PositionalDataSource<T> actual constructor(
         invalidate()
     }
 
-    actual class Factory<T> actual constructor(
+    internal actual class Factory<T> actual constructor(
         private val clientScope: CoroutineScope,
         private val getCount: suspend () -> Int,
         private val getBlock: suspend (Int, Int) -> List<T>
