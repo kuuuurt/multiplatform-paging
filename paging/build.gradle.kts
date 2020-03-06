@@ -1,3 +1,5 @@
+import java.util.Date
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.multiplatform")
@@ -11,40 +13,82 @@ val COROUTINES_VERSION = "1.3.3"
 
 val frameworkName = "MultiplatformPaging"
 
-val GROUP_ID = "com.kuuurt"
-val ARTIFACT_ID = "multiplatform-paging"
+val artifactName = "multiplatform-paging"
+val artifactGroup = "com.kuuuurt"
+val artifactVersion = "0.1.2"
 
-val BINTRAY_REPOSITORY = "multiplatform-paging"
-val BINTRAY_ORGINIZATION= "kuuuurt"
+val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
+val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging"
+val pomIssueUrl = "https://github.com/kuuuurt/multiplatform-paging/issues"
+val pomDesc = "https://github.com/kuuuurt/multiplatform-paging"
 
-val ISSUE_URL = "https://github.com/kuuuurt/multiplatform-paging/issues"
-val SITE_URL = "https://github.com/kuuuurt/multiplatform-paging"
-val VCS_URL= "https://github.com/kuuuurt/multiplatform-paging.git"
-val LIBRARY_VERSION_NAME= "0.1.0"
+val githubRepo = "kuuuurt/multiplatform-paging"
+val githubReadme = "README.md"
+
+val pomLicenseName = "MIT"
+val pomLicenseUrl = "https://opensource.org/licenses/mit-license.php"
+val pomLicenseDist = "repo"
+
+val pomDeveloperId = "kuuuurt"
+val pomDeveloperName = "Kurt Renzo Acosta"
+
+group = artifactGroup
+version = artifactVersion
+
+
+publishing {
+    publications {
+        create<MavenPublication>("multiplatform-paging") {
+            groupId = artifactGroup
+            artifactId = artifactName
+            version = artifactVersion
+            from(components["kotlin"])
+
+            pom.withXml {
+                asNode().apply {
+                    appendNode("description", pomDesc)
+                    appendNode("name", rootProject.name)
+                    appendNode("url", pomUrl)
+                    appendNode("licenses").appendNode("license").apply {
+                        appendNode("name", pomLicenseName)
+                        appendNode("url", pomLicenseUrl)
+                        appendNode("distribution", pomLicenseDist)
+                    }
+                    appendNode("developers").appendNode("developer").apply {
+                        appendNode("id", pomDeveloperId)
+                        appendNode("name", pomDeveloperName)
+                    }
+                    appendNode("scm").apply {
+                        appendNode("url", pomScmUrl)
+                    }
+                }
+            }
+        }
+    }
+}
 
 bintray {
-    user = "kuuuurt"
-    key = "asdf"
+    user = "kurt-acosta"
+    key = "4ecdabdae780588772252a973727ca5109060d54"
     publish = true
-    setPublications(frameworkName)
-    pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
-        repo = "MultiplatformPaging"
-        name = "kuuuurt"
-        userOrg = "kuuuurt"
-        websiteUrl = SITE_URL
+    setPublications("multiplatform-paging")
+    pkg.apply {
+        repo = "libraries"
+        name = "multiplatform-paging"
+        userOrg = "kuuurt"
+        websiteUrl = pomUrl
         githubRepo = "kuuuurt/multiplatform-paging"
-        vcsUrl = VCS_URL
+        vcsUrl = pomUrl
         description = ""
         setLabels("kotlin")
         setLicenses("MIT")
         desc = description
-    })
-}
+        issueTrackerUrl = pomIssueUrl
 
-publishing {
-    repositories {
-        maven {
-            url = uri("test")
+        version.apply {
+            name = artifactVersion
+            vcsTag = artifactVersion
+            released = Date().toString()
         }
     }
 }
