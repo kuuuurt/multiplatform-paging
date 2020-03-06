@@ -47,4 +47,22 @@ actual class PageKeyedPaginator<T> actual constructor(
             dataSourceFactory.dataSource.first().refresh()
         }
     }
+
+    fun loadAfter() {
+        clientScope.launch {
+            dataSourceFactory.dataSource.first().loadAfter()
+        }
+    }
+
+    fun loadBefore() {
+        clientScope.launch {
+            dataSourceFactory.dataSource.first().loadBefore()
+        }
+    }
+
+    init {
+        clientScope.launch {
+            dataSourceFactory.dataSource.first().loadInitial()
+        }
+    }
 }

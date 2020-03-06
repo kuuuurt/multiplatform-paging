@@ -74,7 +74,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let cell = cell as! TestTableViewCell
     
     if (cell.txtTest.text == "Loading...") {
-      viewModel.paginator.loadMore()
+      viewModel.paginator.loadAfter()
     }
   }
 }
