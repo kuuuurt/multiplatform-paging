@@ -14,7 +14,7 @@ import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-expect class Paginator<T>(
+expect class PositionalPaginator<T>(
     clientScope: CoroutineScope,
     dataSourceFactory: PositionalDataSource.Factory<T>
 ) : PaginatorDetails

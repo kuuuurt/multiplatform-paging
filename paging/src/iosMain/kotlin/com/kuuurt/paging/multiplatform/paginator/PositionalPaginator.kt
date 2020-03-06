@@ -1,6 +1,7 @@
 package com.kuuurt.paging.multiplatform.paginator
 
 import com.kuuurt.paging.multiplatform.datasource.PositionalDataSource
+import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -17,16 +18,29 @@ import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-actual class Paginator<T> actual constructor(
+actual class PositionalPaginator<T> actual constructor(
     private val clientScope: CoroutineScope,
     private val dataSourceFactory: PositionalDataSource.Factory<T>
-) : PaginatorDetails by PaginatorDetailsImpl<T>(
-    clientScope,
-    dataSourceFactory
-) {
+) : PaginatorDetails {
     val pagedList = dataSourceFactory.dataSource
         .flatMapLatest { it.items }
         .asCommonFlow()
+
+    override val totalCount = dataSourceFactory
+        .dataSource
+        .flatMapLatest { it.totalCount }
+        .asCommonFlow()
+
+    override val getState = dataSourceFactory
+        .dataSource
+        .flatMapLatest { it.getState }
+        .asCommonFlow()
+
+    override fun refresh() {
+        clientScope.launch {
+            dataSourceFactory.dataSource.first().refresh()
+        }
+    }
 
     fun loadMore() {
         clientScope.launch {

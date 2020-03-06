@@ -1,6 +1,6 @@
 package com.kuuurt.paging.multiplatform.paginator
 
-import com.kuuurt.paging.multiplatform.datasource.PositionalDataSource
+import com.kuuurt.paging.multiplatform.datasource.PageKeyedDataSource
 import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,12 +16,17 @@ import kotlinx.coroutines.launch
  * @since 01/10/2020
  */
 
-@ExperimentalCoroutinesApi
 @FlowPreview
-class PaginatorDetailsImpl<T>(
+@ExperimentalCoroutinesApi
+actual class PageKeyedPaginator<T> actual constructor(
     private val clientScope: CoroutineScope,
-    private val dataSourceFactory: PositionalDataSource.Factory<T>
+    private val dataSourceFactory: PageKeyedDataSource.Factory<T>
 ) : PaginatorDetails {
+    val pagedList = dataSourceFactory
+        .dataSource
+        .flatMapLatest { it.items }
+        .asCommonFlow()
+
     override val totalCount = dataSourceFactory
         .dataSource
         .flatMapLatest { it.totalCount }

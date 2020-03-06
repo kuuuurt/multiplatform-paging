@@ -1,8 +1,9 @@
 package com.kuuurt.paging.sample.multiplatform.library
 
 import com.kuuurt.paging.multiplatform.datasource.PositionalDataSource
-import com.kuuurt.paging.multiplatform.paginator.Paginator
+import com.kuuurt.paging.multiplatform.paginator.PositionalPaginator
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
+import kotlinx.coroutines.flow.flatMapConcat
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
@@ -18,7 +19,8 @@ class MainViewModel : BaseViewModel() {
         { fakeData.getCount() },
         { a, b -> fakeData.getData(a, b) }
     )
-    val paginator = Paginator(
+
+    val paginator = PositionalPaginator(
         clientScope,
         testDataSourceFactory
     )
