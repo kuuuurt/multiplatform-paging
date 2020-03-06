@@ -14,8 +14,10 @@ import kotlinx.coroutines.flow.Flow
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-interface DataSource<T> {
-    val getState: Flow<PaginatorState>
-    val totalCount: Flow<Int>
-    fun refresh()
+class Factory<T>(
+    clientScope: CoroutineScope,
+    getCount: suspend () -> Int,
+    getBlock: suspend (Int, Int) -> List<T>
+) {
+    val dataSource: Flow<PositionalDataSource<T>>
 }

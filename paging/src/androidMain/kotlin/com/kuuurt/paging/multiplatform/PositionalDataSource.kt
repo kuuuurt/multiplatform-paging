@@ -1,6 +1,6 @@
 package com.kuuurt.paging.multiplatform
 
-import androidx.paging.PositionalDataSource
+import androidx.paging.PositionalDataSource as AndroidXPositionalDataSource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.asFlow
@@ -15,16 +15,16 @@ import androidx.paging.DataSource as AndroidXDataSource
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-actual class DataSource<T> actual constructor(
-    private val clientScope: CoroutineScope,
+actual class PositionalDataSource<T> actual constructor(
+    override val clientScope: CoroutineScope,
     private val getCount: suspend () -> Int,
     private val getBlock: suspend (Int, Int) -> List<T>
-) : PositionalDataSource<T>() {
+) : AndroidXPositionalDataSource<T>(), DataSource<T> {
     private val _getState = ConflatedBroadcastChannel<PaginatorState>()
-    actual val getState = _getState.asFlow()
+    override val getState = _getState.asFlow()
 
     private val _totalCount = ConflatedBroadcastChannel(0)
-    actual val totalCount = _totalCount.asFlow()
+    override val totalCount = _totalCount.asFlow()
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<T>) {
         clientScope.launch(CoroutineExceptionHandler { _, exception ->
@@ -51,23 +51,24 @@ actual class DataSource<T> actual constructor(
         }
     }
 
+    override fun refresh() {
+        invalidate()
+    }
+
     actual class Factory<T> actual constructor(
         private val clientScope: CoroutineScope,
         private val getCount: suspend () -> Int,
         private val getBlock: suspend (Int, Int) -> List<T>
     ) : AndroidXDataSource.Factory<Int, T>() {
 
-        private val _dataSource = ConflatedBroadcastChannel<DataSource<T>>()
+        private val _dataSource = ConflatedBroadcastChannel<com.kuuurt.paging.multiplatform.PositionalDataSource<T>>()
         actual val dataSource = _dataSource.asFlow()
 
         override fun create(): AndroidXDataSource<Int, T> {
-            val source = DataSource(clientScope, getCount, getBlock)
+            val source =
+                PositionalDataSource(clientScope, getCount, getBlock)
             _dataSource.offer(source)
             return source
         }
-    }
-
-    actual fun refresh() {
-        invalidate()
     }
 }

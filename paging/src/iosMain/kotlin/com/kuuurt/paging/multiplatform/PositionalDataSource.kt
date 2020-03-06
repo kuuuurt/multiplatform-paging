@@ -15,16 +15,16 @@ import kotlinx.coroutines.flow.flowOf
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-actual class DataSource<T> actual constructor(
+actual class PositionalDataSource<T> actual constructor(
     private val clientScope: CoroutineScope,
     private val getCount: suspend () -> Int,
     private val getBlock: suspend (Int, Int) -> List<T>
-) {
+) : DataSource<T> {
     private val _getState = ConflatedBroadcastChannel<PaginatorState>()
-    actual val getState = _getState.asFlow()
+    override val getState = _getState.asFlow()
 
     private val _totalCount = ConflatedBroadcastChannel(0)
-    actual val totalCount = _totalCount.asFlow()
+    override val totalCount = _totalCount.asFlow()
 
     private val _itemsList = mutableListOf<T>()
     private val _items = ConflatedBroadcastChannel<List<T>>(listOf())
@@ -37,8 +37,8 @@ actual class DataSource<T> actual constructor(
         getCount: suspend () -> Int,
         getBlock: suspend (Int, Int) -> List<T>
     ) {
-        actual val dataSource: Flow<DataSource<T>> = flowOf(
-            DataSource(clientScope, getCount, getBlock)
+        actual val dataSource: Flow<PositionalDataSource<T>> = flowOf(
+            PositionalDataSource(clientScope, getCount, getBlock)
         )
     }
 
@@ -78,7 +78,7 @@ actual class DataSource<T> actual constructor(
         }
     }
 
-    actual fun refresh() {
+    override fun refresh() {
         _itemsList.clear()
         _items.offer(_itemsList)
         loadInitial()

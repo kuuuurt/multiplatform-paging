@@ -19,7 +19,7 @@ import kotlinx.coroutines.FlowPreview
 @ExperimentalCoroutinesApi
 actual class Paginator<T> actual constructor(
     private val clientScope: CoroutineScope,
-    private val dataSourceFactory: DataSource.Factory<T>
+    private val dataSourceFactory: PositionalDataSource.Factory<T>
 ) : PaginatorDetails by PaginatorDetailsImpl<T>(clientScope, dataSourceFactory) {
     val pagedList = LivePagedListBuilder(
         dataSourceFactory, PagedList.Config.Builder()

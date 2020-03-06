@@ -1,9 +1,8 @@
 package com.kuuurt.paging.sample.multiplatform.library
 
-import com.kuuurt.paging.multiplatform.DataSource
+import com.kuuurt.paging.multiplatform.PositionalDataSource
 import com.kuuurt.paging.multiplatform.Paginator
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
-import kotlinx.coroutines.delay
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
@@ -14,7 +13,7 @@ import kotlinx.coroutines.delay
 
 class MainViewModel : BaseViewModel() {
     private val fakeData = FakeData()
-    private val testDataSourceFactory = DataSource.Factory(
+    private val testDataSourceFactory = PositionalDataSource.Factory(
         clientScope,
         { fakeData.getCount() },
         { a, b -> fakeData.getData(a, b) }

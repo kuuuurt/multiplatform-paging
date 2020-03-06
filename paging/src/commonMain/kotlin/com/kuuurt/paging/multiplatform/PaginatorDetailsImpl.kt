@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 @FlowPreview
 class PaginatorDetailsImpl<T>(
     private val clientScope: CoroutineScope,
-    private val dataSourceFactory: DataSource.Factory<T>
+    private val dataSourceFactory: PositionalDataSource.Factory<T>
 ) : PaginatorDetails {
     override val totalCount = dataSourceFactory
         .dataSource

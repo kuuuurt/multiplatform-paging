@@ -4,7 +4,6 @@ import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
@@ -20,7 +19,7 @@ import kotlinx.coroutines.launch
 @FlowPreview
 actual class Paginator<T> actual constructor(
     private val clientScope: CoroutineScope,
-    private val dataSourceFactory: DataSource.Factory<T>
+    private val dataSourceFactory: PositionalDataSource.Factory<T>
 ) : PaginatorDetails by PaginatorDetailsImpl<T>(clientScope, dataSourceFactory) {
     val pagedList = dataSourceFactory.dataSource
         .flatMapLatest { it.items }
