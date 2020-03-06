@@ -1,8 +1,6 @@
-package com.kuuurt.paging.sample.multiplatform.library.helpers
+package com.kuuurt.paging.multiplatform.helpers
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -11,10 +9,10 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.io.core.Closeable
 
 /**
- * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
+ * Copyright 2019, White Cloak Technologies, Inc., All rights reserved.
  *
  * @author Kurt Renzo Acosta
- * @since 03/05/2020
+ * @since 12/11/2019
  */
 
 @UseExperimental(ExperimentalCoroutinesApi::class)

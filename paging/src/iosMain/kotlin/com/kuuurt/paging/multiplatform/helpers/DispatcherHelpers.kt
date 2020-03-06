@@ -1,4 +1,4 @@
-package com.kuuurt.paging.sample.multiplatform.library.helpers
+package com.kuuurt.paging.multiplatform.helpers
 
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext

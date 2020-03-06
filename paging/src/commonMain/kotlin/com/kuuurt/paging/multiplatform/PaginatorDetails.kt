@@ -1,5 +1,6 @@
 package com.kuuurt.paging.multiplatform
 
+import com.kuuurt.paging.multiplatform.helpers.CommonFlow
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -10,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface PaginatorDetails {
-    val getState: Flow<PaginatorState>
-    val totalCount: Flow<Int>
+    val getState: CommonFlow<PaginatorState>
+    val totalCount: CommonFlow<Int>
     fun refresh()
 }

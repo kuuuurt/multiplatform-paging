@@ -35,7 +35,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("androidx.paging:paging-runtime:2.1.1")
     implementation("com.google.android.material:material:1.2.0-alpha04")
-    implementation(project(":sample:multiplatform-library"))
+    implementation(project(":sample:MultiplatformPagingLibrary"))
 
     testImplementation("junit:junit:4.12")
 

@@ -1,0 +1,16 @@
+PODS:
+  - MultiplatformPagingLibrary (1.0.0)
+
+DEPENDENCIES:
+  - MultiplatformPagingLibrary (from `../multiplatform-library`)
+
+EXTERNAL SOURCES:
+  MultiplatformPagingLibrary:
+    :path: "../multiplatform-library"
+
+SPEC CHECKSUMS:
+  MultiplatformPagingLibrary: 0c331c7d46a3748ea3658dadea27f02a68afc3b0
+
+PODFILE CHECKSUM: c5f6599014b55d7b66ed4c34abcd4e790335e753
+
+COCOAPODS: 1.8.4

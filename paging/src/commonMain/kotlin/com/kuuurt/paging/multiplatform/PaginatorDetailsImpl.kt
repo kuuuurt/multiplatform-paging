@@ -1,5 +1,6 @@
 package com.kuuurt.paging.multiplatform
 
+import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -20,8 +21,16 @@ class PaginatorDetailsImpl<T>(
     private val clientScope: CoroutineScope,
     private val dataSourceFactory: DataSource.Factory<T>
 ) : PaginatorDetails {
-    override val totalCount = dataSourceFactory.dataSource.flatMapLatest { it.totalCount }
-    override val getState = dataSourceFactory.dataSource.flatMapLatest { it.getState }
+    override val totalCount = dataSourceFactory
+        .dataSource
+        .flatMapLatest { it.totalCount }
+        .asCommonFlow()
+
+    override val getState = dataSourceFactory
+        .dataSource
+        .flatMapLatest { it.getState }
+        .asCommonFlow()
+
     override fun refresh() {
         clientScope.launch {
             dataSourceFactory.dataSource.first().refresh()

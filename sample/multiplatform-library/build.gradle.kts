@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.native.cocoapods")
 }
 
-val KOTLIN_VERSION = "1.3.70"
+val KOTLIN_VERSION = "1.3.61"
 val COROUTINES_VERSION = "1.3.3"
 
 val iosFrameworkName = "MultiplatformPaging"
@@ -47,14 +47,23 @@ android {
     }
 }
 
+version = "1.0.0"
+
 kotlin {
     cocoapods {
         summary = "Shared module for Android and iOS"
         homepage = "Link to a Kotlin/Native module homepage"
-        frameworkName = iosFrameworkName
+//        For 1.3.70
+//        frameworkName = iosFrameworkName
     }
 
-    ios()
+    ios {
+        compilations {
+            val main by getting {
+                kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
+            }
+        }
+    }
     android()
 
 //    val iosArm64 = targets.getByName<KotlinNativeTarget>("iosArm64")

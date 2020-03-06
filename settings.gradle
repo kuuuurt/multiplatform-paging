@@ -2,4 +2,5 @@ rootProject.name='Multiplatform Paging'
 enableFeaturePreview("GRADLE_METADATA")
 include ':paging'
 include ':sample:android'
-include ':sample:multiplatform-library'
+include ':sample:MultiplatformPagingLibrary'
+project(":sample:MultiplatformPagingLibrary").projectDir = file("sample/multiplatform-library")

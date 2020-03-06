@@ -3,7 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.multiplatform")
 }
 
-val KOTLIN_VERSION = "1.3.70"
+val KOTLIN_VERSION = "1.3.61"
+val KOTLINX_IO_VERSION = "0.1.16"
 val COROUTINES_VERSION = "1.3.3"
 
 val frameworkName = "MultiplatformPaging"
@@ -47,17 +48,25 @@ android {
 }
 
 kotlin {
-    ios()
+    ios {
+        compilations {
+            val main by getting {
+                kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
+            }
+        }
+    }
     android()
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${COROUTINES_VERSION}")
+        implementation("org.jetbrains.kotlinx:kotlinx-io:$KOTLINX_IO_VERSION")
     }
 
     sourceSets["iosMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${COROUTINES_VERSION}")
+        implementation("org.jetbrains.kotlinx:kotlinx-io-native:$KOTLINX_IO_VERSION")
     }
 }
 
@@ -66,5 +75,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION")
     implementation("androidx.paging:paging-runtime:2.1.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:$KOTLINX_IO_VERSION")
 
 }
