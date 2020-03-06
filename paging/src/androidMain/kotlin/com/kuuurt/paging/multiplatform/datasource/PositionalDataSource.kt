@@ -1,5 +1,6 @@
-package com.kuuurt.paging.multiplatform
+package com.kuuurt.paging.multiplatform.datasource
 
+import com.kuuurt.paging.multiplatform.paginator.PaginatorState
 import androidx.paging.PositionalDataSource as AndroidXPositionalDataSource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
@@ -19,7 +20,8 @@ actual class PositionalDataSource<T> actual constructor(
     private val clientScope: CoroutineScope,
     private val getCount: suspend () -> Int,
     private val getBlock: suspend (Int, Int) -> List<T>
-) : AndroidXPositionalDataSource<T>(), DataSource<T> {
+) : AndroidXPositionalDataSource<T>(),
+    DataSource<T> {
     private val _getState = ConflatedBroadcastChannel<PaginatorState>()
     override val getState = _getState.asFlow()
 
@@ -65,7 +67,12 @@ actual class PositionalDataSource<T> actual constructor(
         actual val dataSource = _dataSource.asFlow()
 
         override fun create(): AndroidXDataSource<Int, T> {
-            val source = PositionalDataSource(clientScope, getCount, getBlock)
+            val source =
+                PositionalDataSource(
+                    clientScope,
+                    getCount,
+                    getBlock
+                )
             _dataSource.offer(source)
             return source
         }

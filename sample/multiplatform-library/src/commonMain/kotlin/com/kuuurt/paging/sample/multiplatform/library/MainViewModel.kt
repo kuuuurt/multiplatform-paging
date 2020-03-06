@@ -1,7 +1,7 @@
 package com.kuuurt.paging.sample.multiplatform.library
 
-import com.kuuurt.paging.multiplatform.PositionalDataSource
-import com.kuuurt.paging.multiplatform.Paginator
+import com.kuuurt.paging.multiplatform.datasource.PositionalDataSource
+import com.kuuurt.paging.multiplatform.paginator.Paginator
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
 
 /**
@@ -18,7 +18,10 @@ class MainViewModel : BaseViewModel() {
         { fakeData.getCount() },
         { a, b -> fakeData.getData(a, b) }
     )
-    val paginator = Paginator(clientScope, testDataSourceFactory)
+    val paginator = Paginator(
+        clientScope,
+        testDataSourceFactory
+    )
 
     class FakeData {
         private val count = 100

@@ -1,5 +1,6 @@
-package com.kuuurt.paging.multiplatform
+package com.kuuurt.paging.multiplatform.datasource
 
+import com.kuuurt.paging.multiplatform.paginator.PaginatorState
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
@@ -38,7 +39,11 @@ actual class PositionalDataSource<T> actual constructor(
         getBlock: suspend (Int, Int) -> List<T>
     ) {
         actual val dataSource: Flow<PositionalDataSource<T>> = flowOf(
-            PositionalDataSource(clientScope, getCount, getBlock)
+            PositionalDataSource(
+                clientScope,
+                getCount,
+                getBlock
+            )
         )
     }
 

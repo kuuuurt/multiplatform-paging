@@ -1,8 +1,9 @@
-package com.kuuurt.paging.multiplatform
+package com.kuuurt.paging.multiplatform.paginator
 
 import androidx.lifecycle.asFlow
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.kuuurt.paging.multiplatform.datasource.PositionalDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -20,7 +21,10 @@ import kotlinx.coroutines.FlowPreview
 actual class Paginator<T> actual constructor(
     private val clientScope: CoroutineScope,
     private val dataSourceFactory: PositionalDataSource.Factory<T>
-) : PaginatorDetails by PaginatorDetailsImpl<T>(clientScope, dataSourceFactory) {
+) : PaginatorDetails by PaginatorDetailsImpl<T>(
+    clientScope,
+    dataSourceFactory
+) {
     val pagedList = LivePagedListBuilder(
         dataSourceFactory, PagedList.Config.Builder()
             .setPageSize(10)

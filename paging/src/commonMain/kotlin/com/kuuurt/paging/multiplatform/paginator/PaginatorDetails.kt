@@ -1,7 +1,6 @@
-package com.kuuurt.paging.multiplatform
+package com.kuuurt.paging.multiplatform.paginator
 
 import com.kuuurt.paging.multiplatform.helpers.CommonFlow
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.

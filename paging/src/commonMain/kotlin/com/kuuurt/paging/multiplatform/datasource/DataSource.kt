@@ -1,5 +1,6 @@
-package com.kuuurt.paging.multiplatform
+package com.kuuurt.paging.multiplatform.datasource
 
+import com.kuuurt.paging.multiplatform.paginator.PaginatorState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow

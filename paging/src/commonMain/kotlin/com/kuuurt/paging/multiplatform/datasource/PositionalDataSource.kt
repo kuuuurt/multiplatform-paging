@@ -1,4 +1,4 @@
-package com.kuuurt.paging.multiplatform
+package com.kuuurt.paging.multiplatform.datasource
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
