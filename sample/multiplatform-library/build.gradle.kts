@@ -66,26 +66,11 @@ kotlin {
     }
     android()
 
-//    val iosArm64 = targets.getByName<KotlinNativeTarget>("iosArm64")
-//    val iosX64 = targets.getByName<KotlinNativeTarget>("iosX64")
-//
-//    tasks.create("releaseFatFramework", FatFrameworkTask::class) {
-//        baseName = frameworkName
-//
-//        destinationDir = buildDir.resolve("fat-framework/release")
-//
-//        from(
-//            iosX64.binaries.getFramework("DEBUG"),
-//            iosArm64.binaries.getFramework("DEBUG")
-//        )
-//    }
-
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${COROUTINES_VERSION}")
         implementation("org.jetbrains.kotlinx:kotlinx-io:0.1.16")
-//        api("com.kuuuurt:multiplatform-paging:0.1.0")
-        api(project(":paging"))
+        api("com.kuuuurt:multiplatform-paging:0.1.2")
     }
 
     sourceSets["iosMain"].dependencies {

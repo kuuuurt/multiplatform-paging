@@ -1,4 +1,6 @@
 import java.util.Date
+import java.util.Properties
+import java.io.FileInputStream
 
 plugins {
     id("com.android.library")
@@ -6,93 +8,6 @@ plugins {
     id("maven-publish")
     id("com.jfrog.bintray")
 }
-
-val KOTLIN_VERSION = "1.3.61"
-val KOTLINX_IO_VERSION = "0.1.16"
-val COROUTINES_VERSION = "1.3.3"
-
-val frameworkName = "MultiplatformPaging"
-
-val artifactName = "multiplatform-paging"
-val artifactGroup = "com.kuuuurt"
-val artifactVersion = "0.1.2"
-
-val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
-val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging"
-val pomIssueUrl = "https://github.com/kuuuurt/multiplatform-paging/issues"
-val pomDesc = "https://github.com/kuuuurt/multiplatform-paging"
-
-val githubRepo = "kuuuurt/multiplatform-paging"
-val githubReadme = "README.md"
-
-val pomLicenseName = "MIT"
-val pomLicenseUrl = "https://opensource.org/licenses/mit-license.php"
-val pomLicenseDist = "repo"
-
-val pomDeveloperId = "kuuuurt"
-val pomDeveloperName = "Kurt Renzo Acosta"
-
-group = artifactGroup
-version = artifactVersion
-
-
-publishing {
-    publications {
-        create<MavenPublication>("multiplatform-paging") {
-            groupId = artifactGroup
-            artifactId = artifactName
-            version = artifactVersion
-            from(components["kotlin"])
-
-            pom.withXml {
-                asNode().apply {
-                    appendNode("description", pomDesc)
-                    appendNode("name", rootProject.name)
-                    appendNode("url", pomUrl)
-                    appendNode("licenses").appendNode("license").apply {
-                        appendNode("name", pomLicenseName)
-                        appendNode("url", pomLicenseUrl)
-                        appendNode("distribution", pomLicenseDist)
-                    }
-                    appendNode("developers").appendNode("developer").apply {
-                        appendNode("id", pomDeveloperId)
-                        appendNode("name", pomDeveloperName)
-                    }
-                    appendNode("scm").apply {
-                        appendNode("url", pomScmUrl)
-                    }
-                }
-            }
-        }
-    }
-}
-
-bintray {
-    user = "kurt-acosta"
-    key = "4ecdabdae780588772252a973727ca5109060d54"
-    publish = true
-    setPublications("multiplatform-paging")
-    pkg.apply {
-        repo = "libraries"
-        name = "multiplatform-paging"
-        userOrg = "kuuurt"
-        websiteUrl = pomUrl
-        githubRepo = "kuuuurt/multiplatform-paging"
-        vcsUrl = pomUrl
-        description = ""
-        setLabels("kotlin")
-        setLicenses("MIT")
-        desc = description
-        issueTrackerUrl = pomIssueUrl
-
-        version.apply {
-            name = artifactVersion
-            vcsTag = artifactVersion
-            released = Date().toString()
-        }
-    }
-}
-
 android {
     compileSdkVersion(29)
     defaultConfig {
@@ -131,6 +46,10 @@ android {
     }
 }
 
+val KOTLIN_VERSION = "1.3.61"
+val KOTLINX_IO_VERSION = "0.1.16"
+val COROUTINES_VERSION = "1.3.3"
+
 kotlin {
     ios {
         compilations {
@@ -162,5 +81,87 @@ dependencies {
     implementation("androidx.paging:paging-runtime:2.1.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:$KOTLINX_IO_VERSION")
+}
 
+val frameworkName = "MultiplatformPaging"
+
+val artifactName = "multiplatform-paging"
+val artifactGroup = "com.kuuuurt"
+val artifactVersion = "0.1.0"
+
+val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
+val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging.git"
+val pomIssueUrl = "https://github.com/kuuuurt/multiplatform-paging/issues"
+val pomDesc = "https://github.com/kuuuurt/multiplatform-paging"
+
+val githubRepo = "kuuuurt/multiplatform-paging"
+val githubReadme = "README.md"
+
+val pomLicenseName = "MIT"
+val pomLicenseUrl = "https://opensource.org/licenses/mit-license.php"
+val pomLicenseDist = "repo"
+
+val pomDeveloperId = "kuuuurt"
+val pomDeveloperName = "Kurt Renzo Acosta"
+
+group = artifactGroup
+version = artifactVersion
+
+
+publishing {
+    publications.withType<MavenPublication>().forEach {
+        it.pom.withXml {
+            asNode().apply {
+                appendNode("description", pomDesc)
+                appendNode("name", rootProject.name)
+                appendNode("url", pomUrl)
+                appendNode("licenses").appendNode("license").apply {
+                    appendNode("name", pomLicenseName)
+                    appendNode("url", pomLicenseUrl)
+                    appendNode("distribution", pomLicenseDist)
+                }
+                appendNode("developers").appendNode("developer").apply {
+                    appendNode("id", pomDeveloperId)
+                    appendNode("name", pomDeveloperName)
+                }
+                appendNode("scm").apply {
+                    appendNode("url", pomScmUrl)
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    val bintrayPropertiesFile = project.rootProject.file("bintray.properties")
+    val bintrayProperties = Properties()
+
+    bintrayProperties.load(FileInputStream(bintrayPropertiesFile))
+    user = bintrayProperties.getProperty("bintray.user")
+    key = bintrayProperties.getProperty("bintray.key")
+    publish = true
+    val pubs = publishing.publications
+        .map { it.name }
+        .filter { it != "kotlinMultiplatform" }
+        .toTypedArray()
+    setPublications(*pubs)
+    pkg.apply {
+        repo = "libraries"
+        name = "multiplatform-paging"
+        userOrg = "kuuurt"
+        websiteUrl = pomUrl
+        githubRepo = "kuuuurt/multiplatform-paging"
+        vcsUrl = pomScmUrl
+        description = ""
+        setLabels("kotlin")
+        setLicenses("MIT")
+        desc = description
+        issueTrackerUrl = pomIssueUrl
+
+        version.apply {
+            name = artifactVersion
+            vcsTag = artifactVersion
+            released = Date().toString()
+        }
+    }
 }

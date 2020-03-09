@@ -1,0 +1,124 @@
+{
+  "formatVersion": "1.0",
+  "component": {
+    "group": "com.kuuurt",
+    "module": "paging",
+    "version": "0.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "5.6.4",
+      "buildId": "huymwt5l6rc6reig7km2rrh5ke"
+    }
+  },
+  "variants": [
+    {
+      "name": "android-debugApiElements",
+      "attributes": {
+        "com.android.build.api.attributes.BuildTypeAttr": "debug",
+        "com.android.build.api.attributes.VariantAttr": "debug",
+        "com.android.build.gradle.internal.dependency.AndroidTypeAttr": "Aar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "androidJvm"
+      },
+      "available-at": {
+        "url": "../../paging-android-debug/0.1.0/paging-android-debug-0.1.0.module",
+        "group": "com.kuuurt",
+        "module": "paging-android-debug",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "android-debugRuntimeElements",
+      "attributes": {
+        "com.android.build.api.attributes.BuildTypeAttr": "debug",
+        "com.android.build.api.attributes.VariantAttr": "debug",
+        "com.android.build.gradle.internal.dependency.AndroidTypeAttr": "Aar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "androidJvm"
+      },
+      "available-at": {
+        "url": "../../paging-android-debug/0.1.0/paging-android-debug-0.1.0.module",
+        "group": "com.kuuurt",
+        "module": "paging-android-debug",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "android-releaseApiElements",
+      "attributes": {
+        "com.android.build.api.attributes.BuildTypeAttr": "release",
+        "com.android.build.api.attributes.VariantAttr": "release",
+        "com.android.build.gradle.internal.dependency.AndroidTypeAttr": "Aar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "androidJvm"
+      },
+      "available-at": {
+        "url": "../../paging-android/0.1.0/paging-android-0.1.0.module",
+        "group": "com.kuuurt",
+        "module": "paging-android",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "android-releaseRuntimeElements",
+      "attributes": {
+        "com.android.build.api.attributes.BuildTypeAttr": "release",
+        "com.android.build.api.attributes.VariantAttr": "release",
+        "com.android.build.gradle.internal.dependency.AndroidTypeAttr": "Aar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "androidJvm"
+      },
+      "available-at": {
+        "url": "../../paging-android/0.1.0/paging-android-0.1.0.module",
+        "group": "com.kuuurt",
+        "module": "paging-android",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "iosArm64-api",
+      "attributes": {
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../paging-iosarm64/0.1.0/paging-iosarm64-0.1.0.module",
+        "group": "com.kuuurt",
+        "module": "paging-iosarm64",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "iosX64-api",
+      "attributes": {
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../paging-iosx64/0.1.0/paging-iosx64-0.1.0.module",
+        "group": "com.kuuurt",
+        "module": "paging-iosx64",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "metadata-api",
+      "attributes": {
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "available-at": {
+        "url": "../../paging-metadata/0.1.0/paging-metadata-0.1.0.module",
+        "group": "com.kuuurt",
+        "module": "paging-metadata",
+        "version": "0.1.0"
+      }
+    }
+  ]
+}
