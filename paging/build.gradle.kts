@@ -1,3 +1,4 @@
+import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
 import java.util.Date
 import java.util.Properties
 import java.io.FileInputStream
@@ -92,7 +93,7 @@ val artifactVersion = "0.1.0"
 val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
 val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging.git"
 val pomIssueUrl = "https://github.com/kuuuurt/multiplatform-paging/issues"
-val pomDesc = "https://github.com/kuuuurt/multiplatform-paging"
+val pomDesc = "A Kotlin Multtplatform library for pagination on Android and iOS"
 
 val githubRepo = "kuuuurt/multiplatform-paging"
 val githubReadme = "README.md"
@@ -132,6 +133,17 @@ publishing {
     }
 }
 
+afterEvaluate {
+    project.publishing.publications.withType<MavenPublication>().all {
+        groupId = artifactGroup
+        artifactId = if (name.contains("metadata")) {
+            artifactName
+        } else {
+            "$artifactName-$name"
+        }
+    }
+}
+
 bintray {
     val bintrayPropertiesFile = project.rootProject.file("bintray.properties")
     val bintrayProperties = Properties()
@@ -139,17 +151,16 @@ bintray {
     bintrayProperties.load(FileInputStream(bintrayPropertiesFile))
     user = bintrayProperties.getProperty("bintray.user")
     key = bintrayProperties.getProperty("bintray.key")
-    publish = true
+    publish = false
 
     val pubs = publishing.publications
         .map { it.name }
-        .filter { it != "kotlinMultiplatform" }
         .toTypedArray()
     setPublications(*pubs)
 
     pkg.apply {
         repo = "libraries"
-        name = "multiplatform-paging"
+        name = artifactName
         userOrg = "kuuurt"
         websiteUrl = pomUrl
         githubRepo = "kuuuurt/multiplatform-paging"

@@ -106,7 +106,7 @@ Module-level
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        implementation("com.kuuuurt:multiplatform-paging:0.1.2")
+        implementation("com.kuuuurt:multiplatform-paging:0.1.0")
     }
 }
 ```
