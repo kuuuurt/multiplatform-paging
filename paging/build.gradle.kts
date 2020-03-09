@@ -155,8 +155,8 @@ bintray {
         githubRepo = "kuuuurt/multiplatform-paging"
         vcsUrl = pomScmUrl
         description = ""
-        setLabels("kotlin")
-        setLicenses("MIT")
+        setLabels("kotlin", "multiplatform", "android", "ios")
+        setLicenses("Apache-2.0")
         desc = description
         issueTrackerUrl = pomIssueUrl
 
