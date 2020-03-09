@@ -70,7 +70,7 @@ kotlin {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${COROUTINES_VERSION}")
         implementation("org.jetbrains.kotlinx:kotlinx-io:0.1.16")
-        api("com.kuuuurt:multiplatform-paging-kotlinMultiplatform:0.1.0")
+        api("com.kuuuurt:multiplatform-paging:0.1.0")
     }
 
     sourceSets["iosMain"].dependencies {

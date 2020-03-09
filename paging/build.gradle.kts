@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
 import java.util.Date
 import java.util.Properties
@@ -178,3 +179,5 @@ bintray {
         }
     }
 }
+
+tasks.named<BintrayUploadTask>("bintrayUpload").dependsOn("publishToMavenLocal")

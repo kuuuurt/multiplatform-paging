@@ -24,6 +24,8 @@ class MyMultiplatformController {
 }
 ```
 
+The library uses experimental APIs so you have to use `@UseExperimental` annotations.
+
 ### Android
 
 On Android, multiplatform paging uses [Android Architecture Component's Paging library](https://developer.android.com/topic/libraries/architecture/paging) and exposes `pagedList` as a `Flow<androidx.paging.PagedList<T>>` which can be observed and submitted onto the `PagedListAdapter`.
