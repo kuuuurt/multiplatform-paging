@@ -94,7 +94,7 @@ val artifactVersion = "0.1.0"
 val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
 val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging.git"
 val pomIssueUrl = "https://github.com/kuuuurt/multiplatform-paging/issues"
-val pomDesc = "A Kotlin Multtplatform library for pagination on Android and iOS"
+val pomDesc = "A Kotlin Multiplatform library for pagination on Android and iOS"
 
 val githubRepo = "kuuuurt/multiplatform-paging"
 val githubReadme = "README.md"
@@ -163,7 +163,6 @@ bintray {
     pkg.apply {
         repo = "libraries"
         name = artifactName
-        userOrg = "kuuurt"
         websiteUrl = pomUrl
         githubRepo = "kuuuurt/multiplatform-paging"
         vcsUrl = pomScmUrl
