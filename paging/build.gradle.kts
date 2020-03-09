@@ -156,6 +156,7 @@ bintray {
 
     val pubs = publishing.publications
         .map { it.name }
+        .filter { it != "kotlinMultiplatform" }
         .toTypedArray()
     setPublications(*pubs)
 
