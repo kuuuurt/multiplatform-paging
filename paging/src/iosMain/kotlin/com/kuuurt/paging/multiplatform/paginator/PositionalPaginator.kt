@@ -21,9 +21,9 @@ import kotlinx.coroutines.launch
 actual class PositionalPaginator<T> actual constructor(
     private val clientScope: CoroutineScope,
     getCount: suspend () -> Int,
-    getBlock: suspend (Int, Int) -> List<T>
+    getItems: suspend (Int, Int) -> List<T>
 ) : PaginatorDetails {
-    internal actual val dataSourceFactory = PositionalDataSource.Factory(clientScope, getCount, getBlock)
+    internal actual val dataSourceFactory = PositionalDataSource.Factory(clientScope, getCount, getItems)
 
     val pagedList = dataSourceFactory.dataSource
         .flatMapLatest { it.items }

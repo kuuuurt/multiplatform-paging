@@ -17,7 +17,7 @@ import kotlinx.coroutines.FlowPreview
 expect class PositionalPaginator<T>(
     clientScope: CoroutineScope,
     getCount: suspend () -> Int,
-    getBlock: suspend (Int, Int) -> List<T>
+    getItems: suspend (Int, Int) -> List<T>
 ) : PaginatorDetails {
     internal val dataSourceFactory: PositionalDataSource.Factory<T>
 }

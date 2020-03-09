@@ -14,8 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   
   private let viewModel = MainViewModel.init()
   
-  private var tests: [String] = []
-  private var count: Int = 0
+
   
   override func viewDidLoad() {
     super.viewDidLoad()

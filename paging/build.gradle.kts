@@ -97,8 +97,8 @@ val pomDesc = "https://github.com/kuuuurt/multiplatform-paging"
 val githubRepo = "kuuuurt/multiplatform-paging"
 val githubReadme = "README.md"
 
-val pomLicenseName = "MIT"
-val pomLicenseUrl = "https://opensource.org/licenses/mit-license.php"
+val pomLicenseName = "Apache-2.0"
+val pomLicenseUrl = "https://www.apache.org/licenses/LICENSE-2.0"
 val pomLicenseDist = "repo"
 
 val pomDeveloperId = "kuuuurt"
@@ -140,11 +140,13 @@ bintray {
     user = bintrayProperties.getProperty("bintray.user")
     key = bintrayProperties.getProperty("bintray.key")
     publish = true
+
     val pubs = publishing.publications
         .map { it.name }
         .filter { it != "kotlinMultiplatform" }
         .toTypedArray()
     setPublications(*pubs)
+
     pkg.apply {
         repo = "libraries"
         name = "multiplatform-paging"
