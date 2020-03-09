@@ -98,7 +98,7 @@ Project-level
 ```kotlin
 allprojects {
     repositories {
-        maven { url = "https://kuuurt.bintray.com/libraries" }
+        maven { url = "https://dl.bintray.com/kuuuurt/libraries" }
     }
 }
 ```
