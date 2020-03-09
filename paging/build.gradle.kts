@@ -152,7 +152,7 @@ bintray {
     bintrayProperties.load(FileInputStream(bintrayPropertiesFile))
     user = bintrayProperties.getProperty("bintray.user")
     key = bintrayProperties.getProperty("bintray.key")
-    publish = false
+    publish = true
 
     val pubs = publishing.publications
         .map { it.name }
