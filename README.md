@@ -2,6 +2,55 @@
 
 A Kotlin Multiplatform library for pagination.
 
+## Setup
+
+This library is used on Kotlin Multiplatform that targets Android and iOS. Make sure you have the following setup for your multiplatform library
+
+```kotlin
+plugins {
+    id("com.android.library")
+    id("org.jetbrains.kotlin.multiplatform")
+    id("org.jetbrains.kotlin.native.cocoapods")
+}
+
+android {
+    // Android configurations
+}
+
+version = "1.0.0"
+
+kotlin {
+    cocoapods {
+        summary = "Shared module for Android and iOS"
+        homepage = "Link to a Kotlin/Native module homepage"
+    }
+
+    ios {
+        compilations {
+            val main by getting {
+                kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
+            }
+        }
+    }
+    android()
+
+    sourceSets["commonMain"].dependencies {
+        // Common dependencies
+    }
+
+    sourceSets["iosMain"].dependencies {
+        // iOS dependencies
+    }
+}
+
+dependencies {
+    // Android dependencies
+}
+
+```
+
+Then use Multiplatform Paging on Kotlin Multiplatform code for your Android and iOS targets.
+
 ## Usage
 
 ### Common
