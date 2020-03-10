@@ -94,11 +94,12 @@ class MyViewController UIViewController, UITableViewDelegate, UITableViewDataSou
 
 Add this in your gradle scripts
 
-Project-level
+Make sure you're using the jcenter repository on your Project-level gradle
 ```kotlin
 allprojects {
     repositories {
-        maven { url = "https://dl.bintray.com/kuuuurt/libraries" }
+        ...
+        jcenter()
     }
 }
 ```
