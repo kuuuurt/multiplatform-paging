@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
 import java.util.Date
 import java.util.Properties
@@ -10,6 +9,7 @@ plugins {
     id("maven-publish")
     id("com.jfrog.bintray")
 }
+
 android {
     compileSdkVersion(29)
     defaultConfig {
@@ -53,15 +53,16 @@ val KOTLINX_IO_VERSION = "0.1.16"
 val COROUTINES_VERSION = "1.3.3"
 
 kotlin {
+    android {
+        publishAllLibraryVariants()
+    }
+
     ios {
         compilations {
             val main by getting {
                 kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
             }
         }
-    }
-    android {
-        publishLibraryVariants("release")
     }
 
     sourceSets["commonMain"].dependencies {
@@ -89,7 +90,7 @@ val frameworkName = "MultiplatformPaging"
 
 val artifactName = "multiplatform-paging"
 val artifactGroup = "com.kuuuurt"
-val artifactVersion = "0.1.0"
+val artifactVersion = "0.1.1"
 
 val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
 val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging.git"
@@ -108,7 +109,6 @@ val pomDeveloperName = "Kurt Renzo Acosta"
 
 group = artifactGroup
 version = artifactVersion
-
 
 publishing {
     publications.withType<MavenPublication>().forEach {
@@ -134,17 +134,6 @@ publishing {
     }
 }
 
-afterEvaluate {
-    project.publishing.publications.withType<MavenPublication>().all {
-        groupId = artifactGroup
-        artifactId = if (name.contains("metadata")) {
-            artifactName
-        } else {
-            "$artifactName-$name"
-        }
-    }
-}
-
 bintray {
     val bintrayPropertiesFile = project.rootProject.file("bintray.properties")
     val bintrayProperties = Properties()
@@ -153,12 +142,6 @@ bintray {
     user = bintrayProperties.getProperty("bintray.user")
     key = bintrayProperties.getProperty("bintray.key")
     publish = true
-
-    val pubs = publishing.publications
-        .map { it.name }
-        .filter { it != "kotlinMultiplatform" }
-        .toTypedArray()
-    setPublications(*pubs)
 
     pkg.apply {
         repo = "libraries"
@@ -180,4 +163,24 @@ bintray {
     }
 }
 
-tasks.named<BintrayUploadTask>("bintrayUpload").dependsOn("publishToMavenLocal")
+tasks.withType<BintrayUploadTask>().configureEach {
+    dependsOn("publishToMavenLocal")
+}
+
+afterEvaluate {
+    project.publishing.publications.withType<MavenPublication>().all {
+        groupId = artifactGroup
+        artifactId = if (name.contains("metadata")) {
+            artifactName
+        } else {
+            "$artifactName-$name"
+        }
+    }
+    bintray {
+        setPublications(*publishing.publications
+            .map { it.name }
+            .filter { it != "kotlinMultiplatform" }
+            .toTypedArray()
+        )
+    }
+}
