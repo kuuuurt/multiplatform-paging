@@ -1,5 +1,6 @@
 package com.kuuurt.paging.sample.multiplatform.library.utils
 
+import com.kuuurt.paging.multiplatform.paginator.PositionalPaginator
 import com.kuuurt.paging.sample.multiplatform.library.helpers.dispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -20,5 +21,10 @@ actual open class BaseViewModel actual constructor() {
 
     protected actual open fun onCleared() {
         viewModelJob.cancelChildren()
+        PositionalPaginator<String>(
+            clientScope,
+            { 10 },
+            { a, b-> listOf("asdf") }
+        )
     }
 }

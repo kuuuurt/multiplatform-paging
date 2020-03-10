@@ -158,8 +158,15 @@ On the module-level, add the library as an `api` dependency so it can get propag
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("com.kuuuurt:multiplatform-paging:0.1.1")
+        implementation("com.kuuuurt:multiplatform-paging:0.1.1")
     }
+    sourceSets["iosMain"].dependencies {
+        implementation("com.kuuuurt:multiplatform-paging-native:0.1.1")
+    }
+}
+
+dependencies {
+    implementation("com.kuuuurt:multiplatform-paging-android:0.1.1")
 }
 ```
 

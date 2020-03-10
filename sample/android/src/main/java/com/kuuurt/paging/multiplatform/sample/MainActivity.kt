@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.kuuurt.paging.sample.multiplatform.library.MainViewModel
+import kotlinx.coroutines.FlowPreview
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
@@ -19,7 +20,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val viewModel = MainViewModel()
     private val testAdapter by lazy { SamplePagedListAdapter() }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val recSample = findViewById<RecyclerView>(R.id.rec_sample)
@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         viewModel.paginator.pagedList.asLiveData().observe(this, Observer {
             testAdapter.submitList(it)
+        })
+
+        viewModel.paginator.getState.asLiveData().observe(this, Observer {
+
         })
     }
 
