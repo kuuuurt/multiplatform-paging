@@ -153,12 +153,12 @@ allprojects {
 }
 ```
 
-Module-level
+On the module-level, add the library as an `api` dependency so it can get propagated to the consumers.
 ```kotlin
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        implementation("com.kuuuurt:multiplatform-paging:0.1.0")
+        api("com.kuuuurt:multiplatform-paging:0.1.0")
     }
 }
 ```
