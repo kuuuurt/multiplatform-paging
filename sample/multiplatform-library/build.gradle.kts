@@ -71,21 +71,21 @@ kotlin {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${COROUTINES_VERSION}")
         implementation("org.jetbrains.kotlinx:kotlinx-io:0.1.16")
-        implementation("com.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
+        api("com.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
     }
 
     sourceSets["iosMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${COROUTINES_VERSION}")
         implementation("org.jetbrains.kotlinx:kotlinx-io-native:0.1.16")
-        implementation("com.kuuuurt:multiplatform-paging-native:$MP_PAGING_VERSION")
+//        implementation("com.kuuuurt:multiplatform-paging-native:$MP_PAGING_VERSION")
     }
-    sourceSets["iosX64Main"].dependencies {
-        implementation("com.kuuuurt:multiplatform-paging-iosX64:$MP_PAGING_VERSION")
-    }
-    sourceSets["iosArm64Main"].dependencies {
-        implementation("com.kuuuurt:multiplatform-paging-iosArm64:$MP_PAGING_VERSION")
-    }
+//    sourceSets["iosX64Main"].dependencies {
+//        implementation("com.kuuuurt:multiplatform-paging-iosX64:$MP_PAGING_VERSION")
+//    }
+//    sourceSets["iosArm64Main"].dependencies {
+//        implementation("com.kuuuurt:multiplatform-paging-iosArm64:$MP_PAGING_VERSION")
+//    }
 }
 
 dependencies {
@@ -94,5 +94,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.16")
-    api("com.kuuuurt:multiplatform-paging-android:$MP_PAGING_VERSION")
+//    api("com.kuuuurt:multiplatform-paging-android:$MP_PAGING_VERSION")
 }

@@ -1,18 +1,13 @@
 import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
-import org.jetbrains.kotlin.gradle.internal.kapt.incremental.metadataDescriptor
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
-import org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask
-import org.jetbrains.kotlin.library.KotlinLibrary
-import java.util.Date
-import java.util.Properties
+import org.gradle.api.publish.maven.internal.artifact.FileBasedMavenArtifact
 import java.io.FileInputStream
+import java.util.*
 
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.multiplatform")
     id("maven-publish")
-    id("com.jfrog.bintray")
+    id("com.jfrog.bintray") version "1.8.4"
 }
 
 val artifactName = "multiplatform-paging"
@@ -82,7 +77,7 @@ val COROUTINES_VERSION = "1.3.3"
 
 kotlin {
     android {
-        publishLibraryVariants("release")
+        publishAllLibraryVariants()
     }
 
     ios {
@@ -90,9 +85,6 @@ kotlin {
             val main by getting {
                 kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
             }
-        }
-        binaries {
-            framework()
         }
     }
 
@@ -171,26 +163,30 @@ bintray {
     }
 }
 
-tasks.withType<BintrayUploadTask>().configureEach {
+tasks.named<BintrayUploadTask>("bintrayUpload") {
     dependsOn("publishToMavenLocal")
+    doFirst {
+        project.publishing.publications.withType<MavenPublication>().all {
+            val moduleFile = buildDir.resolve("publications/$name/module.json")
+            if (moduleFile.exists()) {
+                artifact(object : FileBasedMavenArtifact(moduleFile) {
+                    override fun getDefaultExtension() = "module"
+                })
+            }
+        }
+    }
 }
 
 afterEvaluate {
-    val sourcesJar by tasks.creating(Jar::class) {
-        archiveClassifier.set("sources")
-        from(kotlin.sourceSets.commonMain.get().kotlin)
-    }
-
     project.publishing.publications.withType<MavenPublication>().all {
         groupId = artifactGroup
 
         artifactId = if (name.contains("metadata")) {
-            artifactName
+            "$artifactName-common"
         } else if (name.contains("androidRelease")) {
             "$artifactName-android"
         } else if (name.contains("kotlinMultiplatform")) {
-            artifact(sourcesJar)
-            "$artifactName-native"
+            artifactName
         } else {
             "$artifactName-$name"
         }
@@ -199,11 +195,5 @@ afterEvaluate {
         setPublications(*publishing.publications
             .map { it.name }
             .toTypedArray())
-    }
-}
-
-configurations {
-    val compileClasspath by creating {
-
     }
 }

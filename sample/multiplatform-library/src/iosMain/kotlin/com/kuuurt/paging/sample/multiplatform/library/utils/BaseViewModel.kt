@@ -21,10 +21,5 @@ actual open class BaseViewModel actual constructor() {
 
     protected actual open fun onCleared() {
         viewModelJob.cancelChildren()
-        PositionalPaginator<String>(
-            clientScope,
-            { 10 },
-            { a, b-> listOf("asdf") }
-        )
     }
 }

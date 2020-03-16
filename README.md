@@ -139,11 +139,9 @@ class MyViewController UIViewController, UITableViewDelegate, UITableViewDataSou
 
 *Disclaimer: I'm not an iOS developer and this is what I was able to make of. If someone has a better example, contributions are welcome!*
 
-## Install
+## Installation
 
-Add this in your gradle scripts
-
-Make sure you're using the jcenter repository on your Project-level gradle
+Add the jcenter repository on your Project-level gradle
 ```kotlin
 allprojects {
     repositories {
@@ -158,16 +156,14 @@ On the module-level, add the library as an `api` dependency so it can get propag
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        implementation("com.kuuuurt:multiplatform-paging:0.1.0")
-    }
-    sourceSets["iosMain"].dependencies {
-        implementation("com.kuuuurt:multiplatform-paging-native:0.1.0")
+        api("com.kuuuurt:multiplatform-paging:0.1.0")
     }
 }
+```
 
-dependencies {
-    implementation("com.kuuuurt:multiplatform-paging-android:0.1.0")
-}
+This uses Gradle Module Metadata so you don't have to put the dependencies on each target. To take advantage of this, enable it in your `settings.gradle` file
+```kotlin
+enableFeaturePreview("GRADLE_METADATA")
 ```
 
 ## Maintainers

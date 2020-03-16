@@ -1,13 +1,11 @@
 package com.kuuurt.paging.multiplatform.sample
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.kuuurt.paging.sample.multiplatform.library.MainViewModel
-import kotlinx.coroutines.FlowPreview
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
