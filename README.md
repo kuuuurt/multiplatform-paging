@@ -1,5 +1,7 @@
 # Multiplatform Paging
 
+[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.1.0) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.1.0/link)
+
 A Kotlin Multiplatform library for pagination.
 
 ## Setup
@@ -140,6 +142,8 @@ class MyViewController UIViewController, UITableViewDelegate, UITableViewDataSou
 *Disclaimer: I'm not an iOS developer and this is what I was able to make of. If someone has a better example, contributions are welcome!*
 
 ## Installation
+
+This library is compatible with Kotlin `1.3.61` and above.
 
 Add the jcenter repository on your Project-level gradle
 ```kotlin
