@@ -6,7 +6,7 @@ plugins {
 
 val KOTLIN_VERSION = "1.3.61"
 val COROUTINES_VERSION = "1.3.3"
-val MP_PAGING_VERSION = "0.1.1-test06"
+val MP_PAGING_VERSION = "0.1.0"
 
 val iosFrameworkName = "MultiplatformPaging"
 
@@ -79,6 +79,12 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${COROUTINES_VERSION}")
         implementation("org.jetbrains.kotlinx:kotlinx-io-native:0.1.16")
         implementation("com.kuuuurt:multiplatform-paging-native:$MP_PAGING_VERSION")
+    }
+    sourceSets["iosX64Main"].dependencies {
+        implementation("com.kuuuurt:multiplatform-paging-iosX64:$MP_PAGING_VERSION")
+    }
+    sourceSets["iosArm64Main"].dependencies {
+        implementation("com.kuuuurt:multiplatform-paging-iosArm64:$MP_PAGING_VERSION")
     }
 }
 

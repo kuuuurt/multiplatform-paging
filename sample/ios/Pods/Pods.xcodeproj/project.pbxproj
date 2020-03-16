@@ -41,13 +41,14 @@
 		263F636A90023C0554140F643B1652CB /* Pods-Sample-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Sample-dummy.m"; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		46D66FBB724693B89247CC78286D13F4 /* Pods_Sample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Sample.framework; path = "Pods-Sample.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5319B16301B94E5013DCB1B2594226CC /* MultiplatformPagingLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultiplatformPagingLibrary.framework; path = build/cocoapods/framework/MultiplatformPagingLibrary.framework; sourceTree = "<group>"; };
 		5E4939B66C2961454B908E70C8E93EBA /* Pods-Sample-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Sample-acknowledgements.plist"; sourceTree = "<group>"; };
-		60598F8AAAF269B202E425974B64C50C /* MultiplatformPagingLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultiplatformPagingLibrary.framework; path = build/cocoapods/framework/MultiplatformPagingLibrary.framework; sourceTree = "<group>"; };
-		60C8100955A23E4056C7964366AD3F79 /* MultiplatformPagingLibrary.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MultiplatformPagingLibrary.xcconfig; sourceTree = "<group>"; };
+		5F38EE2C15217ED86C9E8A51B1D7D898 /* MultiplatformPagingLibrary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MultiplatformPagingLibrary.debug.xcconfig; sourceTree = "<group>"; };
 		96FD6CB20059258AFDDB96FEDEA5E11B /* Pods-Sample-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Sample-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DAA22687EEEBA48705E0C43CE1AA803 /* Pods-Sample-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Sample-Info.plist"; sourceTree = "<group>"; };
-		DA801C323C402C955C4451B7F27C9F12 /* MultiplatformPagingLibrary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = MultiplatformPagingLibrary.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A339739096216E70786CBFD30CCFE7B6 /* MultiplatformPagingLibrary.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = MultiplatformPagingLibrary.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		E229C0E2705B00AD53386AE40E936426 /* MultiplatformPagingLibrary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MultiplatformPagingLibrary.release.xcconfig; sourceTree = "<group>"; };
 		E3C99BA0EA248BDE375BEEBD9308205B /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
 		E4BBA659291F306DB3D658630B5B9579 /* Pods-Sample.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Sample.modulemap"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,18 +65,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4BDFCA4730D6FEA25458992DF62C57E8 /* Frameworks */ = {
+		3F8FD42371A119D0A114C9123DBB5073 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				60598F8AAAF269B202E425974B64C50C /* MultiplatformPagingLibrary.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4F35CA79C8DF6D2AC6E55418E2771D49 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				DA801C323C402C955C4451B7F27C9F12 /* MultiplatformPagingLibrary.podspec */,
+				A339739096216E70786CBFD30CCFE7B6 /* MultiplatformPagingLibrary.podspec */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
@@ -86,6 +79,24 @@
 				AB13E8A84068A61F2BD32D502DE84546 /* Pods-Sample */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		7349BF139CB2840CC0B875CC6EFA61D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5319B16301B94E5013DCB1B2594226CC /* MultiplatformPagingLibrary.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		906EE5FA360B60C842DF9F3B6F5DC353 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5F38EE2C15217ED86C9E8A51B1D7D898 /* MultiplatformPagingLibrary.debug.xcconfig */,
+				E229C0E2705B00AD53386AE40E936426 /* MultiplatformPagingLibrary.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../ios/Pods/Target Support Files/MultiplatformPagingLibrary";
 			sourceTree = "<group>";
 		};
 		AB13E8A84068A61F2BD32D502DE84546 /* Pods-Sample */ = {
@@ -120,12 +131,12 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		CEC4780D1F87BB078276323DF68B87B8 /* MultiplatformPagingLibrary */ = {
+		C8F24899F945B8D068C40B24A01B4DCD /* MultiplatformPagingLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				4BDFCA4730D6FEA25458992DF62C57E8 /* Frameworks */,
-				4F35CA79C8DF6D2AC6E55418E2771D49 /* Pod */,
-				EAA81B56243425E49BC00CE1A2D925E3 /* Support Files */,
+				7349BF139CB2840CC0B875CC6EFA61D6 /* Frameworks */,
+				3F8FD42371A119D0A114C9123DBB5073 /* Pod */,
+				906EE5FA360B60C842DF9F3B6F5DC353 /* Support Files */,
 			);
 			name = MultiplatformPagingLibrary;
 			path = "../../multiplatform-library";
@@ -150,19 +161,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		EAA81B56243425E49BC00CE1A2D925E3 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				60C8100955A23E4056C7964366AD3F79 /* MultiplatformPagingLibrary.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../ios/Pods/Target Support Files/MultiplatformPagingLibrary";
-			sourceTree = "<group>";
-		};
 		EB306351BE38A466B5515E7F550B167C /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CEC4780D1F87BB078276323DF68B87B8 /* MultiplatformPagingLibrary */,
+				C8F24899F945B8D068C40B24A01B4DCD /* MultiplatformPagingLibrary */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
@@ -311,6 +313,22 @@
 			};
 			name = Release;
 		};
+		7480A31AB08A3102491E074EB3DA6963 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F38EE2C15217ED86C9E8A51B1D7D898 /* MultiplatformPagingLibrary.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		939F1A8F6BCEB7F9F64D9EEE50CAE014 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -413,39 +431,6 @@
 			};
 			name = Debug;
 		};
-		96030E106B111A8FE6719E9A28D2742B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60C8100955A23E4056C7964366AD3F79 /* MultiplatformPagingLibrary.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		BED3E707A37522E3496F3C99BE4904C6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60C8100955A23E4056C7964366AD3F79 /* MultiplatformPagingLibrary.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		ECB437504DF805BD96CAABF97400B526 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -506,6 +491,23 @@
 			};
 			name = Release;
 		};
+		EE1CAB7B562F487F75F07B027EC630D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E229C0E2705B00AD53386AE40E936426 /* MultiplatformPagingLibrary.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -530,8 +532,8 @@
 		D3735D8228CAF5E800C9D756A9B155DD /* Build configuration list for PBXAggregateTarget "MultiplatformPagingLibrary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				96030E106B111A8FE6719E9A28D2742B /* Debug */,
-				BED3E707A37522E3496F3C99BE4904C6 /* Release */,
+				7480A31AB08A3102491E074EB3DA6963 /* Debug */,
+				EE1CAB7B562F487F75F07B027EC630D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

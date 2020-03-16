@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.internal.kapt.incremental.metadataDescriptor
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 import org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask
+import org.jetbrains.kotlin.library.KotlinLibrary
 import java.util.Date
 import java.util.Properties
 import java.io.FileInputStream
@@ -16,7 +17,7 @@ plugins {
 
 val artifactName = "multiplatform-paging"
 val artifactGroup = "com.kuuuurt"
-val artifactVersion = "0.1.1-test09"
+val artifactVersion = "0.1.0"
 
 val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
 val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging.git"
@@ -91,9 +92,7 @@ kotlin {
             }
         }
         binaries {
-            framework(frameworkName) {
-                baseName = frameworkName
-            }
+            framework()
         }
     }
 
@@ -108,31 +107,6 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${COROUTINES_VERSION}")
         implementation("org.jetbrains.kotlinx:kotlinx-io-native:$KOTLINX_IO_VERSION")
     }
-
-
-//    val iosArm64 = targets.named<KotlinNativeTarget>("iosArm64").get()
-//    val iosX64 = targets.named<KotlinNativeTarget>("iosX64").get()
-//
-//    val releaseFatFramework by tasks.creating(FatFrameworkTask::class) {
-//        baseName = frameworkName
-//        from(
-//            iosArm64.binaries.getFramework(NativeBuildType.RELEASE),
-//            iosX64.binaries.getFramework(NativeBuildType.RELEASE)
-//        )
-//        destinationDir = buildDir.resolve("fat-framework/release")
-//        group = "Universal framework"
-//        description = "Builds a release universal (fat) framework"
-//    }
-//
-//    val zipReleaseFatFramework by tasks.creating(Zip::class) {
-//        dependsOn(releaseFatFramework)
-//        from(releaseFatFramework)
-//        from("LICENSE.md")
-//    }
-//
-//    publishing.publications.create<MavenPublication>("ios") {
-//        artifact(zipReleaseFatFramework)
-//    }
 }
 
 dependencies {
@@ -175,6 +149,7 @@ bintray {
     user = bintrayProperties.getProperty("bintray.user")
     key = bintrayProperties.getProperty("bintray.key")
     publish = true
+    override = true
 
     pkg.apply {
         repo = "libraries"
@@ -204,8 +179,8 @@ afterEvaluate {
     val sourcesJar by tasks.creating(Jar::class) {
         archiveClassifier.set("sources")
         from(kotlin.sourceSets.commonMain.get().kotlin)
-        from(kotlin.sourceSets.named("iosMain").get().kotlin)
     }
+
     project.publishing.publications.withType<MavenPublication>().all {
         groupId = artifactGroup
 
@@ -224,5 +199,11 @@ afterEvaluate {
         setPublications(*publishing.publications
             .map { it.name }
             .toTypedArray())
+    }
+}
+
+configurations {
+    val compileClasspath by creating {
+
     }
 }
