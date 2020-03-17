@@ -36,6 +36,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       self.testTableView.reloadData()
     }
     
+    viewModel.paginator.getState.watch { [unowned self] nullable in
+      guard let state = nullable else {
+        return
+      }
+      
+      switch(state) {
+      case is PaginatorState.Complete: break
+      case is PaginatorState.Loading: break
+      case is PaginatorState.Empty: break
+      case let errorState as PaginatorState.Error: break
+      default: break
+      }
+    }
+    
     viewModel.paginator.totalCount.watch { [unowned self] nullable in
       guard let testCount = nullable as? Int else {
         return

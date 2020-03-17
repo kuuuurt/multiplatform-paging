@@ -92,10 +92,30 @@ class MyFragment : Fragment() {
         myMultiplatformController.positionalPaginator.pagedList
             .onEach { myPagedListAdapter.submitList(it) }
             .launchIn(viewLifecyleOwner.lifecyclerScope)
+
+        myMultiplatformController.positionalPaginator.getState
+            .onEach {
+                when(it) {
+                    PaginatorState.Complete -> ...
+                    PaginatorState.Loading -> ...
+                    PaginatorState.Empty -> ...
+                    is PaginatorState.Error -> ...
+                }
+            }
+            .launchIn(viewLifecyleOwner.lifecyclerScope)
             
         // Or if you're using LiveData KTX
         myMultiplatformController.positionalPaginator.pagedList.asLiveData().observe(viewLifecycleOwner) {
             myPagedListAdapter.submitList(it)
+        }
+
+        myMultiplatformController.positionalPaginator.getState.asLiveData().observe(viewLifecycleOwner) {
+            when(it) {
+                PaginatorState.Complete -> ...
+                PaginatorState.Loading -> ...
+                PaginatorState.Empty -> ...
+                is PaginatorState.Error -> ...
+            }
         }
     }
 }
@@ -127,6 +147,21 @@ class MyViewController UIViewController, UITableViewDelegate, UITableViewDataSou
             self.data = list
             self.tableView.reloadData()
         }
+
+        myMultiplatformController.paginator.getState.watch { [unowned self] nullable in
+            guard let state = nullable else {
+                return
+            }
+
+            switch(state) {
+            case is PaginatorState.Complete: break
+            case is PaginatorState.Loading: break
+            case is PaginatorState.Empty: break
+            case let errorState as PaginatorState.Error: break
+            default: break
+            }
+        }
+
     
         myMultiplatformController.paginator.totalCount.watch { [unowned self] nullable in
             guard let totalCount = nullable as? Int else {
@@ -155,10 +190,26 @@ allprojects {
 }
 ```
 
-On the module-level, add the library as an `api` dependency so it can get propagated to the consumers.
+On the module-level, add the library as an `api` dependency. The library needs to be propagated to the platforms.
+
+On Android, it's automatically handled by Gradle.
+On iOS, you have to export it on your targets
 ```kotlin
 kotlin {
     ...
+
+    targets.named<KotlinNativeTarget>("iosX64") {
+        binaries.withType<Framework>().configureEach {
+            export("com.kuuuurt:multiplatform-paging-iosX64:0.1.0")
+        }
+    }
+
+    targets.named<KotlinNativeTarget>("iosArm64") {
+        binaries.withType<Framework>().configureEach {
+            export("com.kuuuurt:multiplatform-paging-iosArm64:0.1.0")
+        }
+    }
+
     sourceSets["commonMain"].dependencies {
         api("com.kuuuurt:multiplatform-paging:0.1.0")
     }
@@ -166,6 +217,7 @@ kotlin {
 ```
 
 This uses Gradle Module Metadata so you don't have to put the dependencies on each target. To take advantage of this, enable it in your `settings.gradle` file
+
 ```kotlin
 enableFeaturePreview("GRADLE_METADATA")
 ```
