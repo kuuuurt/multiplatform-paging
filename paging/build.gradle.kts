@@ -73,7 +73,7 @@ android {
 
 val KOTLIN_VERSION = "1.3.70"
 val KOTLINX_IO_VERSION = "0.1.16"
-val COROUTINES_VERSION = "1.3.3"
+val COROUTINES_VERSION = "1.3.4"
 
 kotlin {
     android {
