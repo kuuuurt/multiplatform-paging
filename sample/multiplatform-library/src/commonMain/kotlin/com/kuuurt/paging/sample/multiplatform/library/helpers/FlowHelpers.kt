@@ -1,5 +1,6 @@
 package com.kuuurt.paging.sample.multiplatform.library.helpers
 
+import com.soywiz.korio.lang.Closeable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -8,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.io.core.Closeable
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.

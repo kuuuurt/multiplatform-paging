@@ -10,10 +10,6 @@ plugins {
     id("com.jfrog.bintray") version "1.8.4"
 }
 
-repositories {
-    maven(url ="https://dl.bintray.com/korlibs/korlibs/")
-}
-
 val artifactName = "multiplatform-paging"
 val artifactGroup = "com.kuuuurt"
 val artifactVersion = "0.1.1"
