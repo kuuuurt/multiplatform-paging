@@ -178,7 +178,12 @@ class MyViewController UIViewController, UITableViewDelegate, UITableViewDataSou
 
 ## Installation
 
-This library is compatible with Kotlin `1.3.61` and above.
+Check the table below for the compatibilty across Kotlin versions
+
+| Library    | Kotlin  |
+| ---------- | ------- |
+| 0.1.1      | 1.3.70  |
+| 0.1.0      | 1.3.61  |
 
 Add the jcenter repository on your Project-level gradle
 ```kotlin
@@ -200,18 +205,18 @@ kotlin {
 
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosX64:0.1.0")
+            export("com.kuuuurt:multiplatform-paging-iosX64:0.1.1")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosArm64:0.1.0")
+            export("com.kuuuurt:multiplatform-paging-iosArm64:0.1.1")
         }
     }
 
     sourceSets["commonMain"].dependencies {
-        api("com.kuuuurt:multiplatform-paging:0.1.0")
+        api("com.kuuuurt:multiplatform-paging:0.1.1")
     }
 }
 ```
