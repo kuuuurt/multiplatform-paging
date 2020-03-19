@@ -14,7 +14,7 @@ import platform.darwin.dispatch_get_main_queue
  * @since 03/05/2020
  */
 
-@UseExperimental(InternalCoroutinesApi::class)
+@OptIn(InternalCoroutinesApi::class)
 actual fun dispatcher(): CoroutineDispatcher = object : CoroutineDispatcher(), Delay {
     override fun dispatch(context: CoroutineContext, block: Runnable) {
         dispatch_async(dispatch_get_main_queue()) { block.run() }

@@ -75,7 +75,7 @@ class MyMultiplatformController {
 }
 ```
 
-The library uses experimental APIs so you have to use `@UseExperimental` annotations.
+The library uses experimental APIs so you have to use `@OptIn` annotations.
 
 ### Android
 

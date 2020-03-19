@@ -10,9 +10,13 @@ plugins {
     id("com.jfrog.bintray") version "1.8.4"
 }
 
+repositories {
+    maven(url ="https://dl.bintray.com/korlibs/korlibs/")
+}
+
 val artifactName = "multiplatform-paging"
 val artifactGroup = "com.kuuuurt"
-val artifactVersion = "0.1.0"
+val artifactVersion = "0.1.1"
 
 val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
 val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging.git"
@@ -72,7 +76,6 @@ android {
 }
 
 val KOTLIN_VERSION = "1.3.70"
-val KOTLINX_IO_VERSION = "0.1.16"
 val COROUTINES_VERSION = "1.3.4"
 
 kotlin {
@@ -91,13 +94,12 @@ kotlin {
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${COROUTINES_VERSION}")
-        implementation("org.jetbrains.kotlinx:kotlinx-io:$KOTLINX_IO_VERSION")
+        implementation("com.soywiz.korlibs.korio:korio:1.10.0")
     }
 
     sourceSets["iosMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${COROUTINES_VERSION}")
-        implementation("org.jetbrains.kotlinx:kotlinx-io-native:$KOTLINX_IO_VERSION")
     }
 }
 
@@ -106,7 +108,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION")
     implementation("androidx.paging:paging-runtime:2.1.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:$KOTLINX_IO_VERSION")
 }
 
 publishing {

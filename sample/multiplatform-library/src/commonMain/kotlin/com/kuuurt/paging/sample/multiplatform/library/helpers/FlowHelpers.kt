@@ -17,7 +17,7 @@ import kotlinx.io.core.Closeable
  * @since 03/05/2020
  */
 
-@UseExperimental(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 fun <T> ConflatedBroadcastChannel<T>.asCommonFlow(): CommonFlow<T> = CommonFlow(asFlow())
 
 fun <T> Flow<T>.asCommonFlow(): CommonFlow<T> = CommonFlow(this)

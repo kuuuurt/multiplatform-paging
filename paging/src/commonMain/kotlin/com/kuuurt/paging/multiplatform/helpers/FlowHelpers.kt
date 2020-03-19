@@ -1,12 +1,12 @@
 package com.kuuurt.paging.multiplatform.helpers
 
+import com.soywiz.korio.lang.Closeable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.io.core.Closeable
 
 /**
  * Copyright 2019, Kurt Renzo Acosta, All rights reserved.
@@ -15,7 +15,7 @@ import kotlinx.io.core.Closeable
  * @since 12/11/2019
  */
 
-@UseExperimental(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 fun <T> ConflatedBroadcastChannel<T>.asCommonFlow(): CommonFlow<T> = CommonFlow(asFlow())
 
 fun <T> Flow<T>.asCommonFlow(): CommonFlow<T> = CommonFlow(this)
