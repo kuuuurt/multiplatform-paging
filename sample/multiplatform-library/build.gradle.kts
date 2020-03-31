@@ -82,6 +82,30 @@ kotlin {
         }
     }
 
+    //    If not using target shortcut
+//
+//    val isDevice = System.getenv("SDK_NAME")?.startsWith("iphoneos") == true
+//    val pagingIos: String
+//    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
+//    if (isDevice) {
+//        iosTarget = ::iosArm64
+//        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:$MP_PAGING_VERSION"
+//    } else {
+//        iosTarget = ::iosX64
+//        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:$MP_PAGING_VERSION"
+//    }
+//
+//    iosTarget("ios") {
+//        compilations {
+//            val main by getting {
+//                kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
+//            }
+//        }
+//        binaries.withType<Framework>().configureEach {
+//            sun.management.ConnectorAddressLink.export(pagingIos)
+//        }
+//    }
+
     android()
 
     sourceSets["commonMain"].dependencies {
