@@ -1,6 +1,6 @@
 # Multiplatform Paging
 
-[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.1.1) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.1.1/link)
+[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.1.2) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.1.2/link)
 
 A Kotlin Multiplatform library for pagination.
 
@@ -63,12 +63,16 @@ Multiplatform paging exposes paginators which you can use in your multiplatform 
 class MyMultiplatformController {
     val positionalPaginator = PositionalPaginator(
         clientScope = coroutineScope,
+        pageSize = 10,
+        androidEnablePlaceHolders = false,
         getCount = { ... },
         getItems = { startAt, size -> ... }
     )
     
     val pageKeyedPaginator = PageKeyedPaginator(
         clientScope = coroutineScope,
+        pageSize = 10,
+        androidEnablePlaceholders = false,
         getCount = { ... },
         getItems = { page, size -> ... }
     )
@@ -182,7 +186,7 @@ Check the table below for the compatibilty across Kotlin versions
 
 | Library    | Kotlin  |
 | ---------- | ------- |
-| 0.1.1      | 1.3.70  |
+| 0.1.+      | 1.3.70  |
 | 0.1.0      | 1.3.61  |
 
 Add the jcenter repository on your Project-level gradle
@@ -198,25 +202,56 @@ allprojects {
 On the module-level, add the library as an `api` dependency. The library needs to be propagated to the platforms.
 
 On Android, it's automatically handled by Gradle.
-On iOS, you have to export it on your targets
+
 ```kotlin
 kotlin {
     ...
+    sourceSets["commonMain"].dependencies {
+        api("com.kuuuurt:multiplatform-paging:0.1.2")
+    }
+}
+```
 
+On iOS, you have to export it on your targets
+
+If you're using the target shortcut for iOS:
+```kotlin
+kotlin {
+    ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosX64:0.1.1")
+            export("com.kuuuurt:multiplatform-paging-iosX64:0.1.2")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosArm64:0.1.1")
+            export("com.kuuuurt:multiplatform-paging-iosArm64:0.1.2")
         }
     }
+}
+```
 
-    sourceSets["commonMain"].dependencies {
-        api("com.kuuuurt:multiplatform-paging:0.1.1")
+If you're using a switching mechanism:
+```kotlin
+kotlin {
+    ...
+    val isDevice = System.getenv("SDK_NAME")?.startsWith("iphoneos") == true
+    val pagingIos: String
+    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
+    if (isDevice) {
+        iosTarget = ::iosArm64
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.1.2"
+    } else {
+        iosTarget = ::iosX64
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.1.2"
+    }
+
+    iosTarget("ios") {
+        ...
+        binaries.withType<Framework>().configureEach {
+            export(pagingIos)
+        }
     }
 }
 ```
