@@ -20,11 +20,13 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 actual class PageKeyedPaginator<T> actual constructor(
     private val clientScope: CoroutineScope,
+    pageSize: Int,
+    androidEnablePlaceHolders: Boolean,
     getCount: suspend () -> Int,
-    getBlock: suspend (Int, Int) -> List<T>
+    getItems: suspend (Int, Int) -> List<T>
 ) : PaginatorDetails {
     internal actual val dataSourceFactory = PageKeyedDataSource.Factory(
-        clientScope, getCount, getBlock
+        clientScope, getCount, getItems
     )
 
     val pagedList = dataSourceFactory
@@ -62,7 +64,10 @@ actual class PageKeyedPaginator<T> actual constructor(
 
     init {
         clientScope.launch {
-            dataSourceFactory.dataSource.first().loadInitial()
+            dataSourceFactory.dataSource.first().apply {
+                this.pageSize = pageSize
+                loadInitial()
+            }
         }
     }
 }

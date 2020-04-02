@@ -24,8 +24,10 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 actual class PositionalPaginator<T> actual constructor(
     private val clientScope: CoroutineScope,
-    private val getCount: suspend () -> Int,
-    private val getItems: suspend (Int, Int) -> List<T>
+    pageSize: Int,
+    androidEnablePlaceHolders: Boolean,
+    getCount: suspend () -> Int,
+    getItems: suspend (Int, Int) -> List<T>
 ) : PaginatorDetails {
     internal actual val dataSourceFactory = PositionalDataSource.Factory(
         clientScope,
@@ -35,8 +37,8 @@ actual class PositionalPaginator<T> actual constructor(
 
     val pagedList = LivePagedListBuilder(
         dataSourceFactory, PagedList.Config.Builder()
-            .setPageSize(10)
-            .setEnablePlaceholders(false)
+            .setPageSize(pageSize)
+            .setEnablePlaceholders(androidEnablePlaceHolders)
             .build()
     ).build().asFlow()
 

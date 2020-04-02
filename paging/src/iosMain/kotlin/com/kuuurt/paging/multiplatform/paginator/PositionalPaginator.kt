@@ -20,6 +20,8 @@ import kotlinx.coroutines.launch
 @FlowPreview
 actual class PositionalPaginator<T> actual constructor(
     private val clientScope: CoroutineScope,
+    pageSize: Int,
+    androidEnablePlaceHolders: Boolean,
     getCount: suspend () -> Int,
     getItems: suspend (Int, Int) -> List<T>
 ) : PaginatorDetails {
@@ -53,7 +55,10 @@ actual class PositionalPaginator<T> actual constructor(
 
     init {
         clientScope.launch {
-            dataSourceFactory.dataSource.first().loadInitial()
+            dataSourceFactory.dataSource.first().apply {
+                this.pageSize = pageSize
+                loadInitial()
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ actual class PositionalDataSource<T> actual constructor(
     val items = _items.asFlow()
 
     private var isLoading = false
+    var pageSize = 10
 
     internal actual class Factory<T> actual constructor(
         clientScope: CoroutineScope,
@@ -47,13 +48,13 @@ actual class PositionalDataSource<T> actual constructor(
         )
     }
 
-    fun loadMore(size: Int = 10) {
+    fun loadMore() {
         if (!isLoading) {
             clientScope.launch(CoroutineExceptionHandler { _, exception ->
                 _getState.offer(PaginatorState.Error(exception))
             }) {
                 isLoading = true
-                val items = getBlock(_itemsList.size, size)
+                val items = getBlock(_itemsList.size, pageSize)
                 _itemsList.addAll(items)
                 _items.offer(_itemsList)
                 _totalCount.offer(getCount())
@@ -63,14 +64,14 @@ actual class PositionalDataSource<T> actual constructor(
         }
     }
 
-    fun loadInitial(size: Int = 10) {
+    fun loadInitial() {
         if (!isLoading) {
             clientScope.launch(CoroutineExceptionHandler { _, exception ->
                 _getState.offer(PaginatorState.Error(exception))
             }) {
                 isLoading = true
                 _getState.offer(PaginatorState.Loading)
-                val items = getBlock(0, size)
+                val items = getBlock(0, pageSize)
                 _totalCount.offer(getCount())
                 _itemsList.addAll(items)
                 _items.offer(_itemsList)

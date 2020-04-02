@@ -4,7 +4,6 @@ import androidx.lifecycle.asFlow
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.kuuurt.paging.multiplatform.datasource.PageKeyedDataSource
-import com.kuuurt.paging.multiplatform.datasource.PositionalDataSource
 import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,17 +23,19 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 actual class PageKeyedPaginator<T> actual constructor(
     private val clientScope: CoroutineScope,
-    private val getCount: suspend () -> Int,
-    private val getBlock: suspend (Int, Int) -> List<T>
+    pageSize: Int,
+    androidEnablePlaceHolders: Boolean,
+    getCount: suspend () -> Int,
+    getItems: suspend (Int, Int) -> List<T>
 ) : PaginatorDetails {
     internal actual val dataSourceFactory = PageKeyedDataSource.Factory(
-        clientScope, getCount, getBlock
+        clientScope, getCount, getItems
     )
 
     val pagedList = LivePagedListBuilder(
         dataSourceFactory, PagedList.Config.Builder()
-            .setPageSize(10)
-            .setEnablePlaceholders(false)
+            .setPageSize(pageSize)
+            .setEnablePlaceholders(androidEnablePlaceHolders)
             .build()
     ).build().asFlow()
 

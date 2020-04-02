@@ -16,6 +16,8 @@ import kotlinx.coroutines.FlowPreview
 @ExperimentalCoroutinesApi
 expect class PositionalPaginator<T>(
     clientScope: CoroutineScope,
+    pageSize: Int = 10,
+    androidEnablePlaceHolders: Boolean = false,
     getCount: suspend () -> Int,
     getItems: suspend (Int, Int) -> List<T>
 ) : PaginatorDetails {

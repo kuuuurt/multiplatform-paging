@@ -30,6 +30,7 @@ actual class PageKeyedDataSource<T> actual constructor(
     val items = _items.asFlow()
 
     private var page = 1
+    var pageSize = 10
 
     internal actual class Factory<T> actual constructor(
         clientScope: CoroutineScope,
@@ -45,12 +46,12 @@ actual class PageKeyedDataSource<T> actual constructor(
         )
     }
 
-    fun loadInitial(size: Int = 10) {
+    fun loadInitial() {
         clientScope.launch(CoroutineExceptionHandler { _, exception ->
             _getState.offer(PaginatorState.Error(exception))
         }) {
             _getState.offer(PaginatorState.Loading)
-            val items = getBlock(page, size)
+            val items = getBlock(page, pageSize)
             val count = getCount()
             _totalCount.offer(count)
             _itemsList.addAll(items)
@@ -63,24 +64,24 @@ actual class PageKeyedDataSource<T> actual constructor(
         }
     }
 
-    fun loadBefore(size: Int = 10) {
+    fun loadBefore() {
         val currentPage = page--
         clientScope.launch(CoroutineExceptionHandler { _, exception ->
             _getState.offer(PaginatorState.Error(exception))
         }) {
-            val items = getBlock(currentPage, size)
+            val items = getBlock(currentPage, pageSize)
             _itemsList.addAll(items)
             _items.offer(_itemsList)
             _getState.offer(PaginatorState.Complete)
         }
     }
 
-    fun loadAfter(size: Int = 10) {
+    fun loadAfter() {
         val currentPage = page++
         clientScope.launch(CoroutineExceptionHandler { _, exception ->
             _getState.offer(PaginatorState.Error(exception))
         }) {
-            val items = getBlock(currentPage, size)
+            val items = getBlock(currentPage, pageSize)
             _itemsList.addAll(items)
             _items.offer(_itemsList)
             _getState.offer(PaginatorState.Complete)

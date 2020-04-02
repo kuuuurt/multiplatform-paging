@@ -15,8 +15,10 @@ class MainViewModel : BaseViewModel() {
 
     val paginator = PageKeyedPaginator(
         clientScope,
-        { fakeData.getCount() },
-        { a, b -> fakeData.getData(a, b) }
+        pageSize = 15,
+        androidEnablePlaceHolders = false,
+        getCount = { fakeData.getCount() },
+        getItems = { a, b -> fakeData.getData(a, b) }
     )
 
     class FakePositionalData {
@@ -41,27 +43,22 @@ class MainViewModel : BaseViewModel() {
     }
 
     class FakePagedData {
-        private val totalPages = 10
         private val count = 95
         private val items = mutableListOf<String>()
 
         fun getCount() = count
         fun getData(page: Int, size: Int): List<String> {
-            println(page)
-            println(size)
             val list = mutableListOf<String>()
-            if (page in 1..totalPages) {
-                var startSize = (page-1) * size
-                var endSize = startSize + size
-                if (endSize > count) {
-                    endSize = count
+            var startSize = (page - 1) * size
+            var endSize = startSize + size
+            if (endSize > count) {
+                endSize = count
+            }
+            if (startSize < endSize) {
+                for (i in startSize until endSize) {
+                    list.add("Paged Test $i")
                 }
-                if (startSize < endSize) {
-                    for (i in startSize until endSize) {
-                        list.add("Paged Test $i")
-                    }
-                    items.addAll(list)
-                }
+                items.addAll(list)
             }
             return list
         }

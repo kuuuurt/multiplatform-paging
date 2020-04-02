@@ -17,8 +17,10 @@ import kotlinx.coroutines.FlowPreview
 @ExperimentalCoroutinesApi
 expect class PageKeyedPaginator<T>(
     clientScope: CoroutineScope,
+    pageSize: Int = 10,
+    androidEnablePlaceHolders: Boolean = false,
     getCount: suspend () -> Int,
-    getBlock: suspend (Int, Int) -> List<T>
+    getItems: suspend (Int, Int) -> List<T>
 ) : PaginatorDetails {
     internal val dataSourceFactory: PageKeyedDataSource.Factory<T>
 }
