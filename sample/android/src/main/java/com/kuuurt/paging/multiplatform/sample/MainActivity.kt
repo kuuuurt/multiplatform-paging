@@ -1,6 +1,7 @@
 package com.kuuurt.paging.multiplatform.sample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         })
 
         viewModel.paginator.getState.asLiveData().observe(this, Observer {
-
+            Log.d("State", it.toString())
         })
     }
 

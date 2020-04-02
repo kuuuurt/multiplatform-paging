@@ -38,7 +38,7 @@ actual class PageKeyedDataSource<T> actual constructor(
             val items = getBlock(1, params.requestedLoadSize)
             val count = getCount()
             _totalCount.offer(count)
-            callback.onResult(items, items.size, count, null, 2)
+            callback.onResult(items, 0, count, null, 4)
             _getState.offer(PaginatorState.Complete)
             if (items.isEmpty()) {
                 _getState.offer(PaginatorState.Empty)

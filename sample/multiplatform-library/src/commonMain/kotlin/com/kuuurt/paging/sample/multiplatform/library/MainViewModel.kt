@@ -1,7 +1,6 @@
 package com.kuuurt.paging.sample.multiplatform.library
 
 import com.kuuurt.paging.multiplatform.paginator.PageKeyedPaginator
-import com.kuuurt.paging.multiplatform.paginator.PositionalPaginator
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
 
 /**
@@ -42,22 +41,27 @@ class MainViewModel : BaseViewModel() {
     }
 
     class FakePagedData {
-        private val count = 100
+        private val totalPages = 10
+        private val count = 95
         private val items = mutableListOf<String>()
 
         fun getCount() = count
         fun getData(page: Int, size: Int): List<String> {
+            println(page)
+            println(size)
             val list = mutableListOf<String>()
-            var startSize = items.size
-            var endSize = startSize + size
-            if (endSize > count) {
-                endSize = count
-            }
-            if (startSize < endSize) {
-                for (i in startSize..endSize) {
-                    list.add("Paged Test $i")
+            if (page in 1..totalPages) {
+                var startSize = (page-1) * size
+                var endSize = startSize + size
+                if (endSize > count) {
+                    endSize = count
                 }
-                items.addAll(list)
+                if (startSize < endSize) {
+                    for (i in startSize until endSize) {
+                        list.add("Paged Test $i")
+                    }
+                    items.addAll(list)
+                }
             }
             return list
         }
