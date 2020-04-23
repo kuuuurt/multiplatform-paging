@@ -91,6 +91,7 @@ actual class PageKeyedDataSource<T> actual constructor(
     override fun refresh() {
         _itemsList.clear()
         _items.offer(_itemsList)
+        page = 1
         loadInitial()
     }
 }

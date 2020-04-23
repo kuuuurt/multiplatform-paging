@@ -1,4 +1,3 @@
-## [0.1.2] - 2020-04-02
+## [0.1.3] - 2020-04-23
 ### What's new
-- Fixes bug on Android PageKeyedDataSource
-- Adds parameters to configure pagination size and enabling placeholders on Android
+- Fixes bug on refreshing PageKeyedPaginator in iOS
