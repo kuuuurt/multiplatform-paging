@@ -111,7 +111,7 @@ class MyMultiplatformController {
 
     val pagingData: CommonFlow<PagingData<String>>
         get() = pager.pagingData
-            .cachedIn(clientScope)
+            .cachedIn(clientScope) // cachedIn from AndroidX Paging. on iOS, this is a no-op
             .asCommonFlow() // So that iOS can consume the Flow 
 }
 ```
