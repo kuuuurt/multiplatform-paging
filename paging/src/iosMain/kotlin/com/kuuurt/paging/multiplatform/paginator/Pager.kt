@@ -3,6 +3,7 @@ package com.kuuurt.paging.multiplatform.paginator
 import com.kuuurt.paging.multiplatform.helpers.CommonFlow
 import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.launch
 
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
  * @since 06/11/2020
  */
 
+@OptIn(ExperimentalCoroutinesApi::class)
 actual class Pager<K : Any, V : Any> actual constructor(
     private val clientScope: CoroutineScope,
     private val config: PagingConfig,
@@ -48,16 +50,10 @@ actual class Pager<K : Any, V : Any> actual constructor(
         val key = currentKey
         if (key != null) {
             clientScope.launch {
-                print("Loading items at $key\n")
-                print("Items count: ${items.size}\n")
                 val newItems = getItems(key, config.pageSize)
-                print("New items count: ${newItems.size}\n")
                 items.addAll(getItems(key, config.pageSize))
-                print("Items after count: ${newItems.size}\n")
-                print("Items offered\n")
                 _pagingData.offer(items)
                 currentKey = newKey(newItems, key)
-                print("New Key: ${currentKey}\n")
             }
         }
     }
