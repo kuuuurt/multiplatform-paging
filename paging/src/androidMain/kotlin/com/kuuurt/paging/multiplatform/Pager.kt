@@ -19,8 +19,8 @@ actual class Pager<K : Any, V : Any> actual constructor(
     clientScope: CoroutineScope,
     config: PagingConfig,
     initialKey: K,
-    prevKey: (List<V>, K) -> K,
-    nextKey: (List<V>, K) -> K,
+    prevKey: (List<V>, K) -> K?,
+    nextKey: (List<V>, K) -> K?,
     getItems: suspend (K, Int) -> List<V>
 ) {
     actual val pagingData = AndroidXPager(
@@ -36,18 +36,18 @@ actual class Pager<K : Any, V : Any> actual constructor(
     ).flow.asCommonFlow()
 
     class PagingSource<K : Any, V : Any>(
-        private val startKey: K,
-        private val prevKey: (List<V>, K) -> K,
-        private val nextKey: (List<V>, K) -> K,
+        private val initialKey: K,
+        private val prevKey: (List<V>, K) -> K?,
+        private val nextKey: (List<V>, K) -> K?,
         private val getItems: suspend (K, Int) -> List<V>
     ) : androidx.paging.PagingSource<K, V>() {
         override suspend fun load(params: LoadParams<K>): LoadResult<K, V> {
-            val currentKey = params.key ?: startKey
+            val currentKey = params.key ?: initialKey
             return try {
                 val items = getItems(currentKey, params.loadSize)
                 LoadResult.Page(
                     data = items,
-                    prevKey = if (currentKey == startKey) null else prevKey(items, currentKey),
+                    prevKey = if (currentKey == initialKey) null else prevKey(items, currentKey),
                     nextKey = if (items.isEmpty()) null else nextKey(items, currentKey)
                 )
             } catch (exception: Exception) {

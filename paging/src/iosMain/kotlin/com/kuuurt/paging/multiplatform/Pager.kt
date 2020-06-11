@@ -19,11 +19,11 @@ actual class Pager<K : Any, V : Any> actual constructor(
     private val clientScope: CoroutineScope,
     private val config: PagingConfig,
     private val initialKey: K,
-    private val prevKey: (List<V>, K) -> K,
-    private val nextKey: (List<V>, K) -> K,
+    private val prevKey: (List<V>, K) -> K?,
+    private val nextKey: (List<V>, K) -> K?,
     private val getItems: suspend (K, Int) -> List<V>
 ) {
-    private val items = com.kuuurt.paging.multiplatform.PagingData<V>()
+    private val items = PagingData<V>()
 
     private val _pagingData = ConflatedBroadcastChannel<PagingData<V>>()
     actual val pagingData: CommonFlow<PagingData<V>> get() = _pagingData.asCommonFlow()
