@@ -1,8 +1,7 @@
 package com.kuuurt.paging.sample.multiplatform.library
 
-import com.kuuurt.paging.multiplatform.paginator.Pager
-import com.kuuurt.paging.multiplatform.paginator.PagingConfig
-import com.kuuurt.paging.sample.multiplatform.library.helpers.asCommonFlow
+import com.kuuurt.paging.multiplatform.Pager
+import com.kuuurt.paging.multiplatform.PagingConfig
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
 
 /**
