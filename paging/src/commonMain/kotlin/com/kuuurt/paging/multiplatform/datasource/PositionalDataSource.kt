@@ -14,12 +14,19 @@ import kotlinx.coroutines.flow.Flow
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-expect class PositionalDataSource<T>(
+@Deprecated(
+    message = "Deprecated in Paging 3.0.0-alpha01",
+    replaceWith = ReplaceWith(
+        "Pager<K, V>",
+        "com.kuuurt.paging.multiplatform.paginator"
+    )
+)
+expect class PositionalDataSource<T: Any>(
     clientScope: CoroutineScope,
     getCount: suspend () -> Int,
     getBlock: suspend (Int, Int) -> List<T>
 ) : DataSource<T> {
-    internal class Factory<T>(
+    internal class Factory<T: Any>(
         clientScope: CoroutineScope,
         getCount: suspend () -> Int,
         getBlock: suspend (Int, Int) -> List<T>

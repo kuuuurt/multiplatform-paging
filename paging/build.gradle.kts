@@ -12,7 +12,7 @@ plugins {
 
 val artifactName = "multiplatform-paging"
 val artifactGroup = "com.kuuuurt"
-val artifactVersion = "0.1.4"
+val artifactVersion = "0.2.0"
 
 val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
 val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging.git"
@@ -102,7 +102,7 @@ kotlin {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION")
-    implementation("androidx.paging:paging-runtime:2.1.1")
+    api("androidx.paging:paging-runtime:3.0.0-alpha01")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
 }
 

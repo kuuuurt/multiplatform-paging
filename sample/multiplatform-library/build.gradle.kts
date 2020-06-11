@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import sun.management.ConnectorAddressLink.export
 
 plugins {
     id("com.android.library")
@@ -9,8 +8,8 @@ plugins {
 }
 
 val KOTLIN_VERSION = "1.3.70"
-val COROUTINES_VERSION = "1.3.4"
-val MP_PAGING_VERSION = "0.1.4"
+val COROUTINES_VERSION = "1.3.6"
+val MP_PAGING_VERSION = "0.2.0"
 
 val iosFrameworkName = "MultiplatformPaging"
 

@@ -16,7 +16,14 @@ import androidx.paging.DataSource as AndroidXDataSource
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-actual class PositionalDataSource<T> actual constructor(
+@Deprecated(
+    message = "Deprecated in Paging 3.0.0-alpha01",
+    replaceWith = ReplaceWith(
+        "Pager<K, V>",
+        "com.kuuurt.paging.multiplatform.paginator"
+    )
+)
+actual class PositionalDataSource<T: Any> actual constructor(
     private val clientScope: CoroutineScope,
     private val getCount: suspend () -> Int,
     private val getBlock: suspend (Int, Int) -> List<T>
@@ -56,7 +63,7 @@ actual class PositionalDataSource<T> actual constructor(
         invalidate()
     }
 
-    internal actual class Factory<T> actual constructor(
+    internal actual class Factory<T: Any> actual constructor(
         private val clientScope: CoroutineScope,
         private val getCount: suspend () -> Int,
         private val getBlock: suspend (Int, Int) -> List<T>

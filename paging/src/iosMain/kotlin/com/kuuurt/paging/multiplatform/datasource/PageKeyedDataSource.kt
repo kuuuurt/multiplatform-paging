@@ -14,7 +14,14 @@ import kotlinx.coroutines.flow.*
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-actual class PageKeyedDataSource<T> actual constructor(
+@Deprecated(
+    message = "Deprecated in Paging 3.0.0-alpha01",
+    replaceWith = ReplaceWith(
+        "Pager<K, V>",
+        "com.kuuurt.paging.multiplatform.paginator"
+    )
+)
+actual class PageKeyedDataSource<T: Any> actual constructor(
     private val clientScope: CoroutineScope,
     private val getCount: suspend () -> Int,
     private val getBlock: suspend (Int, Int) -> List<T>
@@ -32,7 +39,7 @@ actual class PageKeyedDataSource<T> actual constructor(
     private var page = 1
     var pageSize = 10
 
-    internal actual class Factory<T> actual constructor(
+    internal actual class Factory<T: Any> actual constructor(
         clientScope: CoroutineScope,
         getCount: suspend () -> Int,
         getBlock: suspend (Int, Int) -> List<T>

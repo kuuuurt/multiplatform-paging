@@ -14,7 +14,14 @@ import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-expect class PositionalPaginator<T>(
+@Deprecated(
+    message = "Deprecated in Paging 3.0.0-alpha01",
+    replaceWith = ReplaceWith(
+        "Pager<K, V>",
+        "com.kuuurt.paging.multiplatform.paginator"
+    )
+)
+expect class PositionalPaginator<T: Any>(
     clientScope: CoroutineScope,
     pageSize: Int = 10,
     androidEnablePlaceHolders: Boolean = false,

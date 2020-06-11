@@ -14,6 +14,13 @@ import kotlinx.coroutines.flow.Flow
 
 @FlowPreview
 @ExperimentalCoroutinesApi
+@Deprecated(
+    message = "Deprecated in Paging 3.0.0-alpha01",
+    replaceWith = ReplaceWith(
+        "Pager<K, V>",
+        "com.kuuurt.paging.multiplatform.paginator"
+    )
+)
 interface DataSource<T> {
     val getState: Flow<PaginatorState>
     val totalCount: Flow<Int>

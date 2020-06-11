@@ -26,37 +26,39 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       UINib.init(nibName: "TestTableViewCell", bundle: nil),
       forCellReuseIdentifier: "Test"
     )
+  
+    viewModel.pager.pagingData.watch { [unowned self] nullablePagingData in
     
-    viewModel.paginator.pagedList.watch { [unowned self] nullableArray in
-      guard let list = nullableArray?.compactMap({ $0 as? String }) else {
+      guard let list = nullablePagingData?.compactMap({ $0 as? String }) else {
         return
       }
       
       self.tests = list
+      self.count = list.count
       self.testTableView.reloadData()
     }
     
-    viewModel.paginator.getState.watch { [unowned self] nullable in
-      guard let state = nullable else {
-        return
-      }
-      
-      switch(state) {
-      case is PaginatorState.Complete: break
-      case is PaginatorState.Loading: break
-      case is PaginatorState.Empty: break
-      case let errorState as PaginatorState.Error: break
-      default: break
-      }
-    }
-    
-    viewModel.paginator.totalCount.watch { [unowned self] nullable in
-      guard let testCount = nullable as? Int else {
-        return
-      }
-      self.count = testCount
-      self.testTableView.reloadData()
-    }
+//    viewModel.paginator.getState.watch { [unowned self] nullable in
+//      guard let state = nullable else {
+//        return
+//      }
+//
+//      switch(state) {
+//      case is PaginatorState.Complete: break
+//      case is PaginatorState.Loading: break
+//      case is PaginatorState.Empty: break
+//      case let errorState as PaginatorState.Error: break
+//      default: break
+//      }
+//    }
+//
+//    viewModel.paginator.totalCount.watch { [unowned self] nullable in
+//      guard let testCount = nullable as? Int else {
+//        return
+//      }
+//      self.count = testCount
+//      self.testTableView.reloadData()
+//    }
   }
 
 
@@ -74,22 +76,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       for: indexPath
     ) as! TestTableViewCell
     
-    var text = "Loading..."
-    if (indexPath.row < tests.count) {
-      text = tests[indexPath.row]
+    
+    cell.txtTest.text = tests[indexPath.row]
+    if (indexPath.row == count - 1) {
+      viewModel.pager.loadNext()
     }
-    cell.txtTest.text = text
     
     return cell
   }
   
   
-  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    let cell = cell as! TestTableViewCell
-    
-    if (cell.txtTest.text == "Loading...") {
-      viewModel.paginator.loadAfter()
-    }
-  }
+//  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//    let cell = cell as! TestTableViewCell
+//
+//    if (indexPath.row - 1 == count) {
+//      viewModel.pager.loadNext()
+//    }
+//  }
 }
 
