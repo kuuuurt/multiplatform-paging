@@ -14,12 +14,12 @@ import kotlinx.coroutines.flow.Flow
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-expect class PositionalDataSource<T>(
+expect class PositionalDataSource<T: Any>(
     clientScope: CoroutineScope,
     getCount: suspend () -> Int,
     getBlock: suspend (Int, Int) -> List<T>
 ) : DataSource<T> {
-    internal class Factory<T>(
+    internal class Factory<T: Any>(
         clientScope: CoroutineScope,
         getCount: suspend () -> Int,
         getBlock: suspend (Int, Int) -> List<T>

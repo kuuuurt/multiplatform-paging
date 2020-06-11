@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-actual class PageKeyedPaginator<T> actual constructor(
+actual class PageKeyedPaginator<T: Any> actual constructor(
     private val clientScope: CoroutineScope,
     pageSize: Int,
     androidEnablePlaceHolders: Boolean,

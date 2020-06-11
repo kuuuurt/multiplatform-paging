@@ -7,7 +7,11 @@ package com.kuuurt.paging.multiplatform.paginator
  * @since 06/11/2020
  */
 
-actual class PagingConfig(
-    actual val pageSize: Int,
-    actual val enablePlaceholders: Boolean
+actual class PagingConfig actual constructor(
+    val pageSize: Int,
+    val prefetchDistance: Int,
+    val enablePlaceholders: Boolean,
+    val initialLoadSize: Int,
+    val maxSize: Int,
+    val jumpThreshold: Int
 )

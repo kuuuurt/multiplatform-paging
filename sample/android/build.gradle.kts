@@ -33,7 +33,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-    implementation("androidx.paging:paging-runtime:2.1.1")
+    implementation("androidx.paging:paging-runtime:3.0.0-alpha01")
     implementation("com.google.android.material:material:1.2.0-alpha04")
     implementation(project(":sample:MultiplatformPagingLibrary"))
 

@@ -1,6 +1,8 @@
 package com.kuuurt.paging.sample.multiplatform.library
 
 import com.kuuurt.paging.multiplatform.paginator.PageKeyedPaginator
+import com.kuuurt.paging.multiplatform.paginator.Pager
+import com.kuuurt.paging.multiplatform.paginator.PagingConfig
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
 
 /**
@@ -13,11 +15,15 @@ import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
 class MainViewModel : BaseViewModel() {
     private val fakeData = FakePagedData()
 
-    val paginator = PageKeyedPaginator(
+    val paginator = Pager(
         clientScope,
-        pageSize = 15,
-        androidEnablePlaceHolders = false,
-        getCount = { fakeData.getCount() },
+        config = PagingConfig(
+            pageSize = 15,
+            enablePlaceholders = false
+        ),
+        initialKey = 0,
+        prevKey = { _, currentKey -> currentKey - 1 },
+        nextKey = { _, currentKey -> currentKey + 1 },
         getItems = { a, b -> fakeData.getData(a, b) }
     )
 

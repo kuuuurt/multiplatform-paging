@@ -1,5 +1,6 @@
 package com.kuuurt.paging.multiplatform.paginator
 
+
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
  *
@@ -7,7 +8,11 @@ package com.kuuurt.paging.multiplatform.paginator
  * @since 06/11/2020
  */
 
-expect class PagingConfig {
-    val pageSize: Int
-    val enablePlaceholders: Boolean
-}
+expect class PagingConfig(
+    pageSize: Int,
+    prefetchDistance: Int = pageSize,
+    enablePlaceholders: Boolean = false,
+    initialLoadSize: Int = pageSize * 3,
+    maxSize: Int = Int.MAX_VALUE,
+    jumpThreshold: Int = Int.MIN_VALUE
+)

@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-actual class PositionalPaginator<T> actual constructor(
+actual class PositionalPaginator<T: Any> actual constructor(
     private val clientScope: CoroutineScope,
     pageSize: Int,
     androidEnablePlaceHolders: Boolean,

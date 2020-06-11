@@ -3,6 +3,7 @@ package com.kuuurt.paging.multiplatform.sample
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
@@ -14,7 +15,7 @@ import com.google.android.material.textview.MaterialTextView
  * @since 03/05/2020
  */
 
-class SamplePagedListAdapter : PagedListAdapter<String, RecyclerView.ViewHolder>(
+class SamplePagedListAdapter : PagingDataAdapter<String, RecyclerView.ViewHolder>(
     object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String) = oldItem == newItem
         override fun areContentsTheSame(oldItem: String, newItem: String) = oldItem == newItem

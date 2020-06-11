@@ -14,12 +14,12 @@ import kotlinx.coroutines.flow.Flow
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-expect class PageKeyedDataSource<T>(
+expect class PageKeyedDataSource<T: Any>(
     clientScope: CoroutineScope,
     getCount: suspend () -> Int,
     getBlock: suspend (Int, Int) -> List<T>
 ) : DataSource<T> {
-    internal class Factory<T>(
+    internal class Factory<T: Any>(
         clientScope: CoroutineScope,
         getCount: suspend () -> Int,
         getBlock: suspend (Int, Int) -> List<T>
