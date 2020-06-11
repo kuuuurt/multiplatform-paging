@@ -1,11 +1,9 @@
-package com.kuuurt.paging.multiplatform.paginator
+package com.kuuurt.paging.multiplatform
 
 import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import androidx.paging.Pager as AndroidXPager
 
 /**
@@ -28,7 +26,12 @@ actual class Pager<K : Any, V : Any> actual constructor(
     actual val pagingData = AndroidXPager(
         config = config,
         pagingSourceFactory = {
-            PagingSource(initialKey, prevKey, nextKey, getItems)
+            PagingSource(
+                initialKey,
+                prevKey,
+                nextKey,
+                getItems
+            )
         }
     ).flow.asCommonFlow()
 

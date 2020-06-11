@@ -1,4 +1,4 @@
-package com.kuuurt.paging.multiplatform.paginator
+package com.kuuurt.paging.multiplatform
 
 
 /**

@@ -16,6 +16,13 @@ import kotlinx.coroutines.flow.flowOf
 
 @FlowPreview
 @ExperimentalCoroutinesApi
+@Deprecated(
+    message = "Deprecated in Paging 3.0.0-alpha01",
+    replaceWith = ReplaceWith(
+        "Pager<K, V>",
+        "com.kuuurt.paging.multiplatform.paginator"
+    )
+)
 actual class PositionalDataSource<T: Any> actual constructor(
     private val clientScope: CoroutineScope,
     private val getCount: suspend () -> Int,

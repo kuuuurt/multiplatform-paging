@@ -1,4 +1,4 @@
-package com.kuuurt.paging.multiplatform.paginator
+package com.kuuurt.paging.multiplatform
 
 import com.kuuurt.paging.multiplatform.helpers.CommonFlow
 import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
@@ -23,7 +23,7 @@ actual class Pager<K : Any, V : Any> actual constructor(
     private val nextKey: (List<V>, K) -> K,
     private val getItems: suspend (K, Int) -> List<V>
 ) {
-    private val items = PagingData<V>()
+    private val items = com.kuuurt.paging.multiplatform.PagingData<V>()
 
     private val _pagingData = ConflatedBroadcastChannel<PagingData<V>>()
     actual val pagingData: CommonFlow<PagingData<V>> get() = _pagingData.asCommonFlow()

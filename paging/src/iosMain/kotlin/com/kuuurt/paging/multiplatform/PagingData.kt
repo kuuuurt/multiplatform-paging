@@ -1,4 +1,4 @@
-package com.kuuurt.paging.multiplatform.paginator
+package com.kuuurt.paging.multiplatform
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.

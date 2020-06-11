@@ -18,6 +18,13 @@ import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 @FlowPreview
+@Deprecated(
+    message = "Deprecated in Paging 3.0.0-alpha01",
+    replaceWith = ReplaceWith(
+        "Pager<K, V>",
+        "com.kuuurt.paging.multiplatform.paginator"
+    )
+)
 actual class PositionalPaginator<T: Any> actual constructor(
     private val clientScope: CoroutineScope,
     pageSize: Int,
