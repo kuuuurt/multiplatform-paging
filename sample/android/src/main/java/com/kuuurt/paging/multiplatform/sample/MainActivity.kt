@@ -3,8 +3,6 @@ package com.kuuurt.paging.multiplatform.sample
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.kuuurt.paging.sample.multiplatform.library.MainViewModel
@@ -22,20 +20,28 @@ import kotlinx.coroutines.flow.onEach
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val viewModel = MainViewModel()
-    private val testAdapter by lazy { SamplePagedListAdapter() }
+    private val testAdapter by lazy {
+        SamplePagedListAdapter {
+            viewModel.removeItem(it)
+            refresh()
+        }
+    }
+
+    private fun refresh() {
+        testAdapter.refresh()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val recSample = findViewById<RecyclerView>(R.id.rec_sample)
         recSample.adapter = testAdapter
 
-        viewModel.pager.pagingData
-            .onEach { testAdapter.submitData(it) }
+        testAdapter.loadStateFlow
+            .onEach { Log.d("State", it.toString()) }
             .launchIn(lifecycleScope)
 
-//        viewModel.paginator.getState.asLiveData().observe(this, Observer {
-//            Log.d("State", it.toString())
-//        })
+        viewModel.pagingData
+            .onEach { testAdapter.submitData(it) }
+            .launchIn(lifecycleScope)
     }
-
 }

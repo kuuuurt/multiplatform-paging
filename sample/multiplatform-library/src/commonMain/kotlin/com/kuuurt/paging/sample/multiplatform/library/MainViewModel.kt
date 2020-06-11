@@ -2,7 +2,15 @@ package com.kuuurt.paging.sample.multiplatform.library
 
 import com.kuuurt.paging.multiplatform.Pager
 import com.kuuurt.paging.multiplatform.PagingConfig
+import com.kuuurt.paging.multiplatform.helpers.cachedIn
+import com.kuuurt.paging.sample.multiplatform.library.helpers.asCommonFlow
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.combine
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
@@ -27,6 +35,24 @@ class MainViewModel : BaseViewModel() {
         nextKey = { _, currentKey -> currentKey + pageSize + 1 },
         getItems = { a, b -> fakeData.getData(a, b) }
     )
+
+    private var _removedItemsFlow = MutableStateFlow(mutableListOf<String>())
+    private val removedItemsFlow: Flow<MutableList<String>> get() = _removedItemsFlow
+
+    val pagingData
+        get() = pager.pagingData
+            .combine(removedItemsFlow) { pagingData, removed ->
+                pagingData.filter { it !in removed }
+            }
+            .cachedIn(clientScope)
+            .asCommonFlow()
+
+    fun removeItem(item: String) {
+        var removedItems = _removedItemsFlow.value
+        removedItems.add(item)
+        removedItems = removedItems.distinctBy { it }.toMutableList()
+        _removedItemsFlow.value = removedItems
+    }
 
     class FakePositionalData {
         private val count = 100

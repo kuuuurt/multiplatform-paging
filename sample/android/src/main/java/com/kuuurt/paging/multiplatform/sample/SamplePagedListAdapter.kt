@@ -15,7 +15,9 @@ import com.google.android.material.textview.MaterialTextView
  * @since 03/05/2020
  */
 
-class SamplePagedListAdapter : PagingDataAdapter<String, RecyclerView.ViewHolder>(
+class SamplePagedListAdapter(
+    private val onClick: (String) -> Unit
+) : PagingDataAdapter<String, RecyclerView.ViewHolder>(
     object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String) = oldItem == newItem
         override fun areContentsTheSame(oldItem: String, newItem: String) = oldItem == newItem
@@ -29,7 +31,11 @@ class SamplePagedListAdapter : PagingDataAdapter<String, RecyclerView.ViewHolder
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val text = getItem(position)
-        holder.itemView.findViewById<MaterialTextView>(R.id.txt_sample).text = text
+        getItem(position)?.let { text ->
+            holder.itemView.findViewById<MaterialTextView>(R.id.txt_sample).text = text
+            holder.itemView.setOnClickListener {
+                onClick(text)
+            }
+        }
     }
 }
