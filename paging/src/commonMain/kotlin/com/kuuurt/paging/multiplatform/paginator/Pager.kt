@@ -1,9 +1,9 @@
 package com.kuuurt.paging.multiplatform.paginator
 
+import com.kuuurt.paging.multiplatform.helpers.CommonFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
@@ -22,5 +22,5 @@ expect class Pager<K: Any, V: Any>(
     nextKey: (List<V>, K) -> K,
     getItems: suspend (K, Int) -> List<V>
 ) {
-    val pagingData: Flow<PagingData<V>>
+    val pagingData: CommonFlow<PagingData<V>>
 }

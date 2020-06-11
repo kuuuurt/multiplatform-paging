@@ -16,7 +16,7 @@ class MainViewModel : BaseViewModel() {
     private val fakeData = FakePositionalData()
     private val pageSize = 15
 
-    val pagingData = Pager(
+    val pager = Pager(
         clientScope,
         config = PagingConfig(
             pageSize = pageSize,
@@ -24,10 +24,10 @@ class MainViewModel : BaseViewModel() {
             initialLoadSize = pageSize
         ),
         initialKey = 1,
-        prevKey = { _, currentKey -> currentKey - pageSize },
-        nextKey = { _, currentKey -> currentKey + pageSize },
+        prevKey = { _, currentKey -> currentKey - pageSize - 1 },
+        nextKey = { _, currentKey -> currentKey + pageSize + 1 },
         getItems = { a, b -> fakeData.getData(a, b) }
-    ).pagingData.asCommonFlow()
+    )
 
     class FakePositionalData {
         private val count = 100

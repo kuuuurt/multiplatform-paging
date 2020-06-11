@@ -29,9 +29,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val recSample = findViewById<RecyclerView>(R.id.rec_sample)
         recSample.adapter = testAdapter
 
-        viewModel.pagingData
+        viewModel.pager.pagingData
             .onEach { testAdapter.submitData(it) }
             .launchIn(lifecycleScope)
+
 //        viewModel.paginator.getState.asLiveData().observe(this, Observer {
 //            Log.d("State", it.toString())
 //        })

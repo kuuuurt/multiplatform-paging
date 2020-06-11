@@ -7,7 +7,7 @@ package com.kuuurt.paging.multiplatform.paginator
  * @since 06/11/2020
  */
 
-actual class PagingData<T: Any> {
+actual class PagingData<T: Any> : MutableList<T> by mutableListOf() {
     actual fun <R : Any> map(transform: (T) -> R): PagingData<R> {
         TODO("Not yet implemented")
     }
