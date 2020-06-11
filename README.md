@@ -1,57 +1,93 @@
 # Multiplatform Paging
 
-[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.1.4) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.1.4/link)
+[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.2.0) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.2.0/link)
 
 A Kotlin Multiplatform library for pagination.
 
 ## Setup
 
-This library is used on Kotlin Multiplatform that targets Android and iOS. Make sure you have the following setup for your multiplatform library
+This library is used on Kotlin Multiplatform that targets Android and iOS.
 
+Check the table below for the compatibilty across versions
+
+| Library    | Kotlin  | Paging        |
+| ---------- | ------- | ------------- | 
+| 0.2.0      | 1.3.70  | 3.0.0-alpha01 |
+| 0.1.+      | 1.3.70  | 2.1.1         |
+| 0.1.0      | 1.3.61  | 2.1.1         |
+
+Add the jcenter repository on your Project-level gradle
 ```kotlin
-plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.multiplatform")
-    id("org.jetbrains.kotlin.native.cocoapods")
-}
-
-android {
-    // Android configurations
-}
-
-version = "1.0.0"
-
-kotlin {
-    cocoapods {
-        summary = "Shared module for Android and iOS"
-        homepage = "Link to a Kotlin/Native module homepage"
-    }
-
-    ios {
-        compilations {
-            val main by getting {
-                kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
-            }
-        }
-    }
-    android()
-
-    sourceSets["commonMain"].dependencies {
-        // Common dependencies
-    }
-
-    sourceSets["iosMain"].dependencies {
-        // iOS dependencies
+allprojects {
+    repositories {
+        ...
+        jcenter()
     }
 }
-
-dependencies {
-    // Android dependencies
-}
-
 ```
 
-Then use Multiplatform Paging on Kotlin Multiplatform code for your Android and iOS targets.
+On the module-level, add the library as an `api` dependency. The library needs to be propagated to the platforms.
+
+On Android, it's automatically handled by Gradle. It will also add `androidx.paging:paging-runtime:3.0.0-alpha01` as a transitive depenency
+
+```kotlin
+kotlin {
+    ...
+    sourceSets["commonMain"].dependencies {
+        api("com.kuuuurt:multiplatform-paging:0.2.0")
+    }
+}
+```
+
+On iOS, you have to export it on your targets
+
+If you're using the target shortcut for iOS:
+```kotlin
+kotlin {
+    ...
+    targets.named<KotlinNativeTarget>("iosX64") {
+        binaries.withType<Framework>().configureEach {
+            export("com.kuuuurt:multiplatform-paging-iosX64:0.2.0")
+        }
+    }
+
+    targets.named<KotlinNativeTarget>("iosArm64") {
+        binaries.withType<Framework>().configureEach {
+            export("com.kuuuurt:multiplatform-paging-iosArm64:0.2.0")
+        }
+    }
+}
+```
+
+If you're using a switching mechanism:
+```kotlin
+kotlin {
+    ...
+    val isDevice = System.getenv("SDK_NAME")?.startsWith("iphoneos") == true
+    val pagingIos: String
+    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
+    if (isDevice) {
+        iosTarget = ::iosArm64
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.2.0"
+    } else {
+        iosTarget = ::iosX64
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.2.0"
+    }
+
+    iosTarget("ios") {
+        ...
+        binaries.withType<Framework>().configureEach {
+            export(pagingIos)
+        }
+    }
+}
+```
+
+Also, this uses Gradle Module Metadata so you don't have to put the dependencies on each target. To take advantage of this, enable it in your `settings.gradle` or `settings.gradle.kts` file
+
+```kotlin
+enableFeaturePreview("GRADLE_METADATA")
+```
 
 ## Usage
 
@@ -61,25 +97,24 @@ Multiplatform paging exposes paginators which you can use in your multiplatform 
 
 ```kotlin
 class MyMultiplatformController {
-    val positionalPaginator = PositionalPaginator(
+    val pager = Pager<Int, String>(
         clientScope = coroutineScope,
-        pageSize = 10,
-        androidEnablePlaceHolders = false,
-        getCount = { ... },
-        getItems = { startAt, size -> ... }
+        config = PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = false // Ignored on iOS
+        ),
+        initialKey = 1, // Key to use when initialized
+        prevKey = { _, _ -> null }, // Key for previous page, null means don't load previous pages
+        nextKey = { items, currentKey -> currentKey + 1 } // Key for next page. Use `items` or `currentKey` to get it depending on the pagination strategy 
+        getItems = { startAt, size -> ... } // How you will get the items (API Call or Local DB)
     )
-    
-    val pageKeyedPaginator = PageKeyedPaginator(
-        clientScope = coroutineScope,
-        pageSize = 10,
-        androidEnablePlaceholders = false,
-        getCount = { ... },
-        getItems = { page, size -> ... }
-    )
+
+    val pagingData: CommonFlow<PagingData<String>>
+        get() = pager.pagingData
+            .cachedIn(clientScope)
+            .asCommonFlow() // So that iOS can consume the Flow 
 }
 ```
-
-The library uses experimental APIs so you have to use `@OptIn` annotations.
 
 ### Android
 
@@ -88,39 +123,14 @@ On Android, multiplatform paging uses [Android Architecture Component's Paging l
 ```kotlin
 class MyFragment : Fragment() {
     val myMultiplatformController = MyMultiplatformController()
-    val myPagedListAdapter = MyPagedListAdapter()
+    val myPagingDataAdapter = MyPagingDataAdapter()
     
     override fun onViewCreated(...) {
         super.onViewCreated(...)
-        
-        myMultiplatformController.positionalPaginator.pagedList
-            .onEach { myPagedListAdapter.submitList(it) }
-            .launchIn(viewLifecyleOwner.lifecyclerScope)
-
-        myMultiplatformController.positionalPaginator.getState
-            .onEach {
-                when(it) {
-                    PaginatorState.Complete -> ...
-                    PaginatorState.Loading -> ...
-                    PaginatorState.Empty -> ...
-                    is PaginatorState.Error -> ...
-                }
-            }
-            .launchIn(viewLifecyleOwner.lifecyclerScope)
-            
-        // Or if you're using LiveData KTX
-        myMultiplatformController.positionalPaginator.pagedList.asLiveData().observe(viewLifecycleOwner) {
-            myPagedListAdapter.submitList(it)
-        }
-
-        myMultiplatformController.positionalPaginator.getState.asLiveData().observe(viewLifecycleOwner) {
-            when(it) {
-                PaginatorState.Complete -> ...
-                PaginatorState.Loading -> ...
-                PaginatorState.Empty -> ...
-                is PaginatorState.Error -> ...
-            }
-        }
+      
+        myMultiplatformController.pager.pagingData
+            .onEach { myPagingDataAdapter.submitData(it) }
+            .launchIn(viewLifecyleOwner.lifecyclerScope)     
     }
 }
 ```
@@ -149,29 +159,7 @@ class MyViewController UIViewController, UITableViewDelegate, UITableViewDataSou
             }
       
             self.data = list
-            self.tableView.reloadData()
-        }
-
-        myMultiplatformController.paginator.getState.watch { [unowned self] nullable in
-            guard let state = nullable else {
-                return
-            }
-
-            switch(state) {
-            case is PaginatorState.Complete: break
-            case is PaginatorState.Loading: break
-            case is PaginatorState.Empty: break
-            case let errorState as PaginatorState.Error: break
-            default: break
-            }
-        }
-
-    
-        myMultiplatformController.paginator.totalCount.watch { [unowned self] nullable in
-            guard let totalCount = nullable as? Int else {
-                return
-            }
-            self.count = totalCount
+            self.count = list.count
             self.tableView.reloadData()
         }
     }
@@ -179,88 +167,6 @@ class MyViewController UIViewController, UITableViewDelegate, UITableViewDataSou
 ```
 
 *Disclaimer: I'm not an iOS developer and this is what I was able to make of. If someone has a better example, contributions are welcome!*
-
-## Installation
-
-Check the table below for the compatibilty across Kotlin versions
-
-| Library    | Kotlin  |
-| ---------- | ------- |
-| 0.1.+      | 1.3.70  |
-| 0.1.0      | 1.3.61  |
-
-Add the jcenter repository on your Project-level gradle
-```kotlin
-allprojects {
-    repositories {
-        ...
-        jcenter()
-    }
-}
-```
-
-On the module-level, add the library as an `api` dependency. The library needs to be propagated to the platforms.
-
-On Android, it's automatically handled by Gradle.
-
-```kotlin
-kotlin {
-    ...
-    sourceSets["commonMain"].dependencies {
-        api("com.kuuuurt:multiplatform-paging:0.1.2")
-    }
-}
-```
-
-On iOS, you have to export it on your targets
-
-If you're using the target shortcut for iOS:
-```kotlin
-kotlin {
-    ...
-    targets.named<KotlinNativeTarget>("iosX64") {
-        binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosX64:0.1.2")
-        }
-    }
-
-    targets.named<KotlinNativeTarget>("iosArm64") {
-        binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosArm64:0.1.2")
-        }
-    }
-}
-```
-
-If you're using a switching mechanism:
-```kotlin
-kotlin {
-    ...
-    val isDevice = System.getenv("SDK_NAME")?.startsWith("iphoneos") == true
-    val pagingIos: String
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
-    if (isDevice) {
-        iosTarget = ::iosArm64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.1.2"
-    } else {
-        iosTarget = ::iosX64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.1.2"
-    }
-
-    iosTarget("ios") {
-        ...
-        binaries.withType<Framework>().configureEach {
-            export(pagingIos)
-        }
-    }
-}
-```
-
-This uses Gradle Module Metadata so you don't have to put the dependencies on each target. To take advantage of this, enable it in your `settings.gradle` file
-
-```kotlin
-enableFeaturePreview("GRADLE_METADATA")
-```
 
 ## Maintainers
 
