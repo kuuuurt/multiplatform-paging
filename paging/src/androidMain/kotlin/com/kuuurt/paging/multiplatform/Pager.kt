@@ -1,5 +1,7 @@
 package com.kuuurt.paging.multiplatform
 
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingState
 import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -41,6 +43,24 @@ actual class Pager<K : Any, V : Any> actual constructor(
         private val nextKey: (List<V>, K) -> K?,
         private val getItems: suspend (K, Int) -> List<V>
     ) : androidx.paging.PagingSource<K, V>() {
+
+        override val jumpingSupported: Boolean
+            get() = true
+
+        override val keyReuseSupported: Boolean
+            get() = true
+
+        @OptIn(ExperimentalPagingApi::class)
+        override fun getRefreshKey(state: PagingState<K, V>): K? {
+            return state.anchorPosition?.let { position ->
+                state.closestPageToPosition(position)?.let { page ->
+                    page.prevKey?.let {
+                        nextKey(page.data, it)
+                    }
+                }
+            }
+        }
+
         override suspend fun load(params: LoadParams<K>): LoadResult<K, V> {
             val currentKey = params.key ?: initialKey
             return try {
