@@ -9,7 +9,7 @@ plugins {
 
 val KOTLIN_VERSION = "1.3.70"
 val COROUTINES_VERSION = "1.3.6"
-val MP_PAGING_VERSION = "0.2.0"
+val MP_PAGING_VERSION = "0.2.1"
 
 val iosFrameworkName = "MultiplatformPaging"
 
