@@ -7,9 +7,9 @@ plugins {
     id("org.jetbrains.kotlin.native.cocoapods")
 }
 
-val KOTLIN_VERSION = "1.3.70"
-val COROUTINES_VERSION = "1.3.6"
-val MP_PAGING_VERSION = "0.2.1"
+val KOTLIN_VERSION = "1.4.0"
+val COROUTINES_VERSION = "1.3.9"
+val MP_PAGING_VERSION = "0.2.0" // TODO: Switch back to 0.2.1
 
 val iosFrameworkName = "MultiplatformPaging"
 
@@ -37,16 +37,6 @@ android {
     sourceSets {
         getByName("main") {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
-            java.srcDirs("src/androidMain/kotlin")
-            res.srcDirs("src/androidMain/res")
-        }
-        getByName("test") {
-            java.srcDirs("src/androidTest/kotlin")
-            res.srcDirs("src/androidTest/res")
-        }
-        getByName("androidTest") {
-            java.srcDirs("src/androidInstrumentedTest/kotlin")
-            res.srcDirs("src/androidInstrumentedTest/res")
         }
     }
 }
@@ -57,17 +47,10 @@ kotlin {
     cocoapods {
         summary = "Shared module for Android and iOS"
         homepage = "Link to a Kotlin/Native module homepage"
-//        For 1.3.70
-//        frameworkName = iosFrameworkName
+        frameworkName = iosFrameworkName
     }
 
-    ios {
-        compilations {
-            val main by getting {
-                kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
-            }
-        }
-    }
+    ios()
     
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
@@ -108,21 +91,13 @@ kotlin {
     android()
 
     sourceSets["commonMain"].dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${COROUTINES_VERSION}")
-        implementation("com.soywiz.korlibs.korio:korio:1.10.0")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${COROUTINES_VERSION}")
+        implementation("com.soywiz.korlibs.korio:korio:1.11.13")
         api("com.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
     }
 
-    sourceSets["iosMain"].dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${COROUTINES_VERSION}")
+    sourceSets["androidMain"].dependencies {
+        implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     }
-}
-
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
 }

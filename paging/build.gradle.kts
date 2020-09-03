@@ -57,53 +57,29 @@ android {
     sourceSets {
         getByName("main") {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
-            java.srcDirs("src/androidMain/kotlin")
-            res.srcDirs("src/androidMain/res")
-        }
-        getByName("test") {
-            java.srcDirs("src/androidTest/kotlin")
-            res.srcDirs("src/androidTest/res")
-        }
-        getByName("androidTest") {
-            java.srcDirs("src/androidInstrumentedTest/kotlin")
-            res.srcDirs("src/androidInstrumentedTest/res")
         }
     }
 }
 
-val KOTLIN_VERSION = "1.3.70"
-val COROUTINES_VERSION = "1.3.4"
+val KOTLIN_VERSION = "1.4.0"
+val COROUTINES_VERSION = "1.3.9"
 
 kotlin {
     android {
         publishAllLibraryVariants()
     }
 
-    ios {
-        compilations {
-            val main by getting {
-                kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
-            }
-        }
-    }
+    ios()
 
     sourceSets["commonMain"].dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${COROUTINES_VERSION}")
-        implementation("com.soywiz.korlibs.korio:korio:1.10.0")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${COROUTINES_VERSION}")
+        implementation("com.soywiz.korlibs.korio:korio:1.11.13")
     }
 
-    sourceSets["iosMain"].dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${COROUTINES_VERSION}")
+    sourceSets["androidMain"].dependencies {
+        implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+        api("androidx.paging:paging-runtime:3.0.0-alpha01")
     }
-}
-
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION")
-    api("androidx.paging:paging-runtime:3.0.0-alpha01")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
 }
 
 publishing {
