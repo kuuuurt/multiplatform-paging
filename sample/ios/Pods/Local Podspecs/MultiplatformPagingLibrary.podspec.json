@@ -10,7 +10,7 @@
   "license": "",
   "summary": "Shared module for Android and iOS",
   "static_framework": true,
-  "vendored_frameworks": "build/cocoapods/framework/MultiplatformPagingLibrary.framework",
+  "vendored_frameworks": "build/cocoapods/framework/MultiplatformPaging.framework",
   "libraries": "c++",
   "module_name": "MultiplatformPagingLibrary_umbrella",
   "pod_target_xcconfig": {

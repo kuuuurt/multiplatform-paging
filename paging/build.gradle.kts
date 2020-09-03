@@ -10,9 +10,11 @@ plugins {
     id("com.jfrog.bintray") version "1.8.4"
 }
 
+val MP_PAGING_VERSION: String by rootProject.extra
+
 val artifactName = "multiplatform-paging"
 val artifactGroup = "com.kuuuurt"
-val artifactVersion = "0.2.0"
+val artifactVersion = MP_PAGING_VERSION
 
 val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
 val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging.git"
@@ -43,12 +45,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        getByName("debug") {
-            matchingFallbacks = listOf("release")
-        }
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -57,53 +53,29 @@ android {
     sourceSets {
         getByName("main") {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
-            java.srcDirs("src/androidMain/kotlin")
-            res.srcDirs("src/androidMain/res")
-        }
-        getByName("test") {
-            java.srcDirs("src/androidTest/kotlin")
-            res.srcDirs("src/androidTest/res")
-        }
-        getByName("androidTest") {
-            java.srcDirs("src/androidInstrumentedTest/kotlin")
-            res.srcDirs("src/androidInstrumentedTest/res")
         }
     }
 }
 
-val KOTLIN_VERSION = "1.3.70"
-val COROUTINES_VERSION = "1.3.4"
+val COROUTINES_VERSION: String by rootProject.extra
+val KTOR_VERSION: String by rootProject.extra
 
 kotlin {
     android {
         publishAllLibraryVariants()
     }
 
-    ios {
-        compilations {
-            val main by getting {
-                kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
-            }
-        }
-    }
+    ios()
 
     sourceSets["commonMain"].dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${COROUTINES_VERSION}")
-        implementation("com.soywiz.korlibs.korio:korio:1.10.0")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
+        implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
     }
 
-    sourceSets["iosMain"].dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${COROUTINES_VERSION}")
+    sourceSets["androidMain"].dependencies {
+        implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+        api("androidx.paging:paging-runtime:3.0.0-alpha06")
     }
-}
-
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION")
-    api("androidx.paging:paging-runtime:3.0.0-alpha01")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
 }
 
 publishing {
@@ -180,8 +152,6 @@ afterEvaluate {
 
         artifactId = if (name.contains("metadata")) {
             "$artifactName-common"
-        } else if (name.contains("androidRelease")) {
-            "$artifactName-android"
         } else if (name.contains("kotlinMultiplatform")) {
             artifactName
         } else {

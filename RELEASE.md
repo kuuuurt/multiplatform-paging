@@ -1,5 +1,4 @@
-## [0.2.0] - 2020-06-11
+## [0.3.0] - 2020-09-03
 ### What's new
-- Updates Android's Paging to 3.0.0-alpha01
-- Adds Pager, PagingConfig, and PagingData
-- Deprecates Paginators, Factories, and Data Sources
+- Updates Kotlin to 1.4
+- Uses native-mt for coroutines
