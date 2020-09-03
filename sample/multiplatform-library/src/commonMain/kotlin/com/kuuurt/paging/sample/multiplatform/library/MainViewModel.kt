@@ -5,11 +5,8 @@ import com.kuuurt.paging.multiplatform.PagingConfig
 import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import com.kuuurt.paging.multiplatform.helpers.cachedIn
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.combine
 
 /**
@@ -42,7 +39,7 @@ class MainViewModel : BaseViewModel() {
     val pagingData
         get() = pager.pagingData
             .combine(removedItemsFlow) { pagingData, removed ->
-                pagingData.filter { it !in removed }
+                pagingData.filterSync { it !in removed }
             }
             .cachedIn(clientScope)
             .asCommonFlow()
