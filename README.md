@@ -1,6 +1,6 @@
 # Multiplatform Paging
 
-[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.2.0) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.2.0/link)
+[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.3.0) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.3.0/link)
 
 A Kotlin Multiplatform library for pagination.
 
@@ -11,8 +11,9 @@ This library is used on Kotlin Multiplatform that targets Android and iOS.
 Check the table below for the compatibilty across versions
 
 | Library    | Kotlin  | Paging        |
-| ---------- | ------- | ------------- | 
-| 0.2.0      | 1.3.70  | 3.0.0-alpha01 |
+| ---------- | ------- | ------------- |
+| 0.3.0      | 1.4.0   | 3.0.0-alpha06 |
+| 0.3.0      | 1.3.70  | 3.0.0-alpha01 |
 | 0.1.+      | 1.3.70  | 2.1.1         |
 | 0.1.0      | 1.3.61  | 2.1.1         |
 
@@ -28,13 +29,13 @@ allprojects {
 
 On the module-level, add the library as an `api` dependency. The library needs to be propagated to the platforms.
 
-On Android, it's automatically handled by Gradle. It will also add `androidx.paging:paging-runtime:3.0.0-alpha01` as a transitive depenency
+On Android, it's automatically handled by Gradle. It will also add `androidx.paging:paging-runtime:3.0.0-alpha06` as a transitive depenency
 
 ```kotlin
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("com.kuuuurt:multiplatform-paging:0.2.0")
+        api("com.kuuuurt:multiplatform-paging:0.3.0")
     }
 }
 ```
@@ -47,13 +48,13 @@ kotlin {
     ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosX64:0.2.0")
+            export("com.kuuuurt:multiplatform-paging-iosX64:0.3.0")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosArm64:0.2.0")
+            export("com.kuuuurt:multiplatform-paging-iosArm64:0.3.0")
         }
     }
 }
@@ -68,10 +69,10 @@ kotlin {
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
     if (isDevice) {
         iosTarget = ::iosArm64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.2.0"
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.3.0"
     } else {
         iosTarget = ::iosX64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.2.0"
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.3.0"
     }
 
     iosTarget("ios") {
@@ -81,12 +82,6 @@ kotlin {
         }
     }
 }
-```
-
-Also, this uses Gradle Module Metadata so you don't have to put the dependencies on each target. To take advantage of this, enable it in your `settings.gradle` or `settings.gradle.kts` file
-
-```kotlin
-enableFeaturePreview("GRADLE_METADATA")
 ```
 
 ## Usage
