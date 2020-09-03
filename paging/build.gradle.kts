@@ -10,9 +10,11 @@ plugins {
     id("com.jfrog.bintray") version "1.8.4"
 }
 
+val MP_PAGING_VERSION: String by rootProject.extra
+
 val artifactName = "multiplatform-paging"
 val artifactGroup = "com.kuuuurt"
-val artifactVersion = "0.2.1"
+val artifactVersion = MP_PAGING_VERSION
 
 val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
 val pomScmUrl = "https://github.com/kuuuurt/multiplatform-paging.git"
@@ -55,8 +57,8 @@ android {
     }
 }
 
-val KOTLIN_VERSION = "1.4.0"
-val COROUTINES_VERSION = "1.3.9"
+val COROUTINES_VERSION: String by rootProject.extra
+val KTOR_VERSION: String by rootProject.extra
 
 kotlin {
     android {
@@ -66,8 +68,8 @@ kotlin {
     ios()
 
     sourceSets["commonMain"].dependencies {
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${COROUTINES_VERSION}")
-        implementation("com.soywiz.korlibs.korio:korio:1.11.13")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
+        implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
     }
 
     sourceSets["androidMain"].dependencies {
@@ -150,8 +152,6 @@ afterEvaluate {
 
         artifactId = if (name.contains("metadata")) {
             "$artifactName-common"
-        } else if (name.contains("androidRelease")) {
-            "$artifactName-android"
         } else if (name.contains("kotlinMultiplatform")) {
             artifactName
         } else {

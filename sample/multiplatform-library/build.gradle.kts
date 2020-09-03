@@ -7,9 +7,8 @@ plugins {
     id("org.jetbrains.kotlin.native.cocoapods")
 }
 
-val KOTLIN_VERSION = "1.4.0"
-val COROUTINES_VERSION = "1.3.9"
-val MP_PAGING_VERSION = "0.2.0" // TODO: Switch back to 0.2.1
+val COROUTINES_VERSION: String by rootProject.extra
+val MP_PAGING_VERSION: String by rootProject.extra
 
 val iosFrameworkName = "MultiplatformPaging"
 
@@ -91,8 +90,7 @@ kotlin {
     android()
 
     sourceSets["commonMain"].dependencies {
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${COROUTINES_VERSION}")
-        implementation("com.soywiz.korlibs.korio:korio:1.11.13")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
         api("com.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
     }
 

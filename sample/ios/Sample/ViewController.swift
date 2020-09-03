@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MultiplatformPagingLibrary
+import MultiplatformPaging
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   @IBOutlet weak var testTableView: UITableView!
@@ -28,7 +28,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     )
   
     viewModel.pager.pagingData.watch { [unowned self] nullablePagingData in
-    
       guard let list = nullablePagingData?.compactMap({ $0 as? String }) else {
         return
       }

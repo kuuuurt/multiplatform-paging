@@ -2,8 +2,8 @@ package com.kuuurt.paging.sample.multiplatform.library
 
 import com.kuuurt.paging.multiplatform.Pager
 import com.kuuurt.paging.multiplatform.PagingConfig
+import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import com.kuuurt.paging.multiplatform.helpers.cachedIn
-import com.kuuurt.paging.sample.multiplatform.library.helpers.asCommonFlow
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
