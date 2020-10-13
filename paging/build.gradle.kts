@@ -74,7 +74,7 @@ kotlin {
 
     sourceSets["androidMain"].dependencies {
         implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-        api("androidx.paging:paging-runtime:3.0.0-alpha06")
+        api("androidx.paging:paging-runtime:3.0.0-alpha07")
     }
 }
 
