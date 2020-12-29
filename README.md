@@ -1,6 +1,6 @@
 # Multiplatform Paging
 
-[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.3.0) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.3.0/link)
+[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.3.2) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.3.2/link)
 
 A Kotlin Multiplatform library for pagination.
 
@@ -12,6 +12,7 @@ Check the table below for the compatibilty across versions
 
 | Library    | Kotlin  | Paging        |
 | ---------- | ------- | ------------- |
+| 0.3.2      | 1.4.21  | 3.0.0-alpha11 |
 | 0.3.1      | 1.4.10  | 3.0.0-alpha07 |
 | 0.3.0      | 1.4.0   | 3.0.0-alpha06 |
 | 0.2.0      | 1.3.70  | 3.0.0-alpha01 |
@@ -36,7 +37,7 @@ On Android, it's automatically handled by Gradle. It will also add `androidx.pag
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("com.kuuuurt:multiplatform-paging:0.3.0")
+        api("com.kuuuurt:multiplatform-paging:0.3.2")
     }
 }
 ```
@@ -49,13 +50,13 @@ kotlin {
     ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosX64:0.3.0")
+            export("com.kuuuurt:multiplatform-paging-iosX64:0.3.2")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosArm64:0.3.0")
+            export("com.kuuuurt:multiplatform-paging-iosArm64:0.3.2")
         }
     }
 }
@@ -70,10 +71,10 @@ kotlin {
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
     if (isDevice) {
         iosTarget = ::iosArm64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.3.0"
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.3.2"
     } else {
         iosTarget = ::iosX64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.3.0"
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.3.2"
     }
 
     iosTarget("ios") {
