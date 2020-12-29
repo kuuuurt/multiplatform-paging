@@ -5,7 +5,7 @@ buildscript {
         KOTLIN_VERSION = "1.4.21"
         KTOR_VERSION = "1.4.1"
         COROUTINES_VERSION = "1.4.1-native-mt"
-        MP_PAGING_VERSION = "0.3.2"
+        MP_PAGING_VERSION = "0.3.3"
     }
     repositories {
         mavenLocal()
