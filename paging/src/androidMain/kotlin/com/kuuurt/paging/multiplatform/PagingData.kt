@@ -1,5 +1,6 @@
 package com.kuuurt.paging.multiplatform
 
+import androidx.paging.filter
 import androidx.paging.PagingData as AndroidXPagingData
 
 /**
@@ -10,3 +11,7 @@ import androidx.paging.PagingData as AndroidXPagingData
  */
 
 actual typealias PagingData<T> = AndroidXPagingData<T>
+
+actual suspend fun <T: Any> PagingData<T>.filter(predicate: suspend (T) -> Boolean): PagingData<T> {
+    return this.filter(predicate)
+}

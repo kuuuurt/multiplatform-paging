@@ -8,10 +8,6 @@ package com.kuuurt.paging.multiplatform
  * @since 06/11/2020
  */
 
-expect class PagingData<T : Any> {
-    fun <R : Any> mapSync(transform: (T) -> R): PagingData<R>
-    fun <R : Any> flatMapSync(transform: (T) -> Iterable<R>): PagingData<R>
-    fun filterSync(predicate: (T) -> Boolean): PagingData<T>
-    fun insertHeaderItem(item: T): PagingData<T>
-    fun insertFooterItem(item: T): PagingData<T>
-}
+expect class PagingData<T : Any>
+
+expect suspend fun <T: Any> PagingData<T>.filter(predicate: suspend (T) -> Boolean): PagingData<T>

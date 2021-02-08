@@ -45,9 +45,9 @@ class MainViewModel : BaseViewModel() {
 
     val pagingData
         get() = pager.pagingData
-            .combine(removedItemsFlow) { pagingData, removed ->
-                pagingData.filterSync { it !in removed }
-            }
+//            .combine(removedItemsFlow) { pagingData, removed ->
+//                pagingData.filter { it !in removed }
+//            }
             .cachedIn(clientScope)
             .asCommonFlow()
 
