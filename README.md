@@ -39,7 +39,7 @@ On Android, it's automatically handled by Gradle. It will also add `androidx.pag
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("com.kuuuurt:multiplatform-paging:0.3.4")
+        api("com.kuuuurt:multiplatform-paging:0.3.5")
     }
 }
 ```
@@ -52,13 +52,13 @@ kotlin {
     ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosX64:0.3.4")
+            export("com.kuuuurt:multiplatform-paging-iosX64:0.3.5")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosArm64:0.3.4")
+            export("com.kuuuurt:multiplatform-paging-iosArm64:0.3.5")
         }
     }
 }
@@ -73,10 +73,10 @@ kotlin {
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
     if (isDevice) {
         iosTarget = ::iosArm64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.3.4"
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.3.5"
     } else {
         iosTarget = ::iosX64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.3.4"
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.3.5"
     }
 
     iosTarget("ios") {
