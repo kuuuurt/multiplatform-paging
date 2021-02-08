@@ -2,6 +2,7 @@ package com.kuuurt.paging.sample.multiplatform.library
 
 import com.kuuurt.paging.multiplatform.Pager
 import com.kuuurt.paging.multiplatform.PagingConfig
+import com.kuuurt.paging.multiplatform.PagingResult
 import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import com.kuuurt.paging.multiplatform.helpers.cachedIn
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
@@ -28,9 +29,15 @@ class MainViewModel : BaseViewModel() {
             initialLoadSize = pageSize
         ),
         initialKey = 1,
-        prevKey = { _, currentKey -> currentKey - pageSize - 1 },
-        nextKey = { _, currentKey -> currentKey + pageSize + 1 },
-        getItems = { a, b -> fakeData.getData(a, b) }
+        getItems = { currentKey, size ->
+            val items = fakeData.getData(currentKey, size)
+            PagingResult(
+                items = items,
+                currentKey = currentKey,
+                prevKey = { currentKey - pageSize - 1 },
+                nextKey = { currentKey + pageSize + 1 }
+            )
+        }
     )
 
     private var _removedItemsFlow = MutableStateFlow(mutableListOf<String>())
@@ -58,6 +65,11 @@ class MainViewModel : BaseViewModel() {
         fun getCount() = count
         fun getData(startAt: Int, size: Int): List<String> {
             val list = mutableListOf<String>()
+            val correctedStartAt = if (startAt < 1) {
+                0
+            } else {
+                startAt
+            }
             var endSize = startAt + size
             if (endSize > count) {
                 endSize = count
