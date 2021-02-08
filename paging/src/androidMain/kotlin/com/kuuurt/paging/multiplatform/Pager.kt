@@ -44,15 +44,15 @@ actual class Pager<K : Any, V : Any> actual constructor(
         override val keyReuseSupported: Boolean
             get() = true
 
-        @OptIn(ExperimentalPagingApi::class)
         override fun getRefreshKey(state: PagingState<K, V>): K? {
-            return state.anchorPosition?.let { position ->
-                state.closestPageToPosition(position)?.let { page ->
-                    page.prevKey?.let {
-                        nextKey(page.data, it)
-                    }
-                }
-            }
+            return null
+//            return state.anchorPosition?.let { position ->
+//                state.closestPageToPosition(position)?.let { page ->
+//                    page.prevKey?.let {
+//                        nextKey(page.data, it)
+//                    }
+//                }
+//            }
         }
 
         override suspend fun load(params: LoadParams<K>): LoadResult<K, V> {
