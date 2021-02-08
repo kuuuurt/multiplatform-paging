@@ -1,6 +1,6 @@
 # Multiplatform Paging
 
-[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.3.0) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.3.0/link)
+[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.3.2) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.3.2/link)
 
 A Kotlin Multiplatform library for pagination.
 
@@ -12,8 +12,12 @@ Check the table below for the compatibilty across versions
 
 | Library    | Kotlin  | Paging        |
 | ---------- | ------- | ------------- |
+| 0.3.4      | 1.4.30  | 3.0.0-alpha13 |
+| 0.3.3      | 1.4.30  | 3.0.0-alpha11 |
+| 0.3.2      | 1.4.21  | 3.0.0-alpha11 |
+| 0.3.1      | 1.4.10  | 3.0.0-alpha07 |
 | 0.3.0      | 1.4.0   | 3.0.0-alpha06 |
-| 0.3.0      | 1.3.70  | 3.0.0-alpha01 |
+| 0.2.0      | 1.3.70  | 3.0.0-alpha01 |
 | 0.1.+      | 1.3.70  | 2.1.1         |
 | 0.1.0      | 1.3.61  | 2.1.1         |
 
@@ -35,7 +39,7 @@ On Android, it's automatically handled by Gradle. It will also add `androidx.pag
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("com.kuuuurt:multiplatform-paging:0.3.0")
+        api("com.kuuuurt:multiplatform-paging:0.3.4")
     }
 }
 ```
@@ -48,13 +52,13 @@ kotlin {
     ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosX64:0.3.0")
+            export("com.kuuuurt:multiplatform-paging-iosX64:0.3.4")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosArm64:0.3.0")
+            export("com.kuuuurt:multiplatform-paging-iosArm64:0.3.4")
         }
     }
 }
@@ -69,10 +73,10 @@ kotlin {
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
     if (isDevice) {
         iosTarget = ::iosArm64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.3.0"
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.3.4"
     } else {
         iosTarget = ::iosX64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.3.0"
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.3.4"
     }
 
     iosTarget("ios") {
@@ -99,9 +103,15 @@ class MyMultiplatformController {
             enablePlaceholders = false // Ignored on iOS
         ),
         initialKey = 1, // Key to use when initialized
-        prevKey = { _, _ -> null }, // Key for previous page, null means don't load previous pages
-        nextKey = { items, currentKey -> currentKey + 1 } // Key for next page. Use `items` or `currentKey` to get it depending on the pagination strategy 
-        getItems = { startAt, size -> ... } // How you will get the items (API Call or Local DB)
+        getItems = { currentKey, size ->
+            val items = ... // How you will get the items (API Call or Local DB)
+            PagingResult(
+                items = items,
+                currentKey = currentKey,
+                prevKey = { _, _ -> null }, // Key for previous page, null means don't load previous pages
+                nextKey = { items, currentKey -> currentKey + 1 } // Key for next page. Use `items` or `currentKey` to get it depending on the pagination strategy
+            )
+        }
     )
 
     val pagingData: CommonFlow<PagingData<String>>
