@@ -65,11 +65,6 @@ class MainViewModel : BaseViewModel() {
         fun getCount() = count
         fun getData(startAt: Int, size: Int): List<String> {
             val list = mutableListOf<String>()
-            val correctedStartAt = if (startAt < 1) {
-                0
-            } else {
-                startAt
-            }
             var endSize = startAt + size
             if (endSize > count) {
                 endSize = count
