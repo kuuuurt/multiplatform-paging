@@ -67,6 +67,8 @@ actual class Pager<K : Any, V : Any> actual constructor(
                 items.addAll(newPagingResult.items)
 
                 _hasNextPage.value = newPagingResult.items.size == config.pageSize
+
+                _pagingData.value = null // Need to trick MutableStateFlow
                 _pagingData.value = items
 
                 currentPagingResult = newPagingResult
