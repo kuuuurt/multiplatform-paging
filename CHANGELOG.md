@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.5] - 2021-02-10
+### What's new
+- Adds `hasNextPage` to `Pager` in iOS to determine if there are still more pages to be loaded
+
+## [0.3.4] - 2021-02-08
+### What's new
+- Adds `PagingResult` to configure previous and next keys based on the result when getting the items
+- Updates androidx.paging to 3.0.0-alpha13
+
 ## [0.3.3] - 2021-02-07
 ### What's new
 - Updates Kotlin to 1.4.30

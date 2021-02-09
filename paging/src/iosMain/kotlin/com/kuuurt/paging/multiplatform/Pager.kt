@@ -66,7 +66,7 @@ actual class Pager<K : Any, V : Any> actual constructor(
                 val newPagingResult = getItems(key, config.pageSize)
                 items.addAll(newPagingResult.items)
 
-                _hasNextPage.value = newPagingResult.items.size < config.pageSize
+                _hasNextPage.value = newPagingResult.items.size == config.pageSize
                 _pagingData.value = items
 
                 currentPagingResult = newPagingResult
