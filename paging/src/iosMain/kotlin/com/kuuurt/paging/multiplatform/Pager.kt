@@ -7,6 +7,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
@@ -53,23 +54,18 @@ actual class Pager<K : Any, V : Any> actual constructor(
             initialKey
         } else {
             when (loadDirection) {
-                LoadDirection.NEXT -> {
-                    pagingResult.nextKey()
-                }
-                LoadDirection.PREVIOUS -> {
-                    pagingResult.prevKey()
-                }
+                LoadDirection.NEXT -> pagingResult.nextKey()
+                LoadDirection.PREVIOUS -> pagingResult.prevKey()
             }
         }
-        if (key != null) {
+
+        if (key != null && _hasNextPage.value) {
             clientScope.launch {
                 val newPagingResult = getItems(key, config.pageSize)
                 items.addAll(newPagingResult.items)
 
-                _hasNextPage.value = newPagingResult.items.size == config.pageSize
-
-                _pagingData.value = null // Need to trick MutableStateFlow
-                _pagingData.value = items
+                _hasNextPage.value = newPagingResult.items.size >= config.pageSize
+                _pagingData.value = PagingData<V>().apply { addAll(items) }
 
                 currentPagingResult = newPagingResult
             }
