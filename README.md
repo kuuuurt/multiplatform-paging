@@ -1,6 +1,6 @@
 # Multiplatform Paging
 
-[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.3.8) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.3.8/link)
+[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging//link)
 
 A Kotlin Multiplatform library for pagination.
 
@@ -40,7 +40,7 @@ On Android, it's automatically handled by Gradle. It will also add `androidx.pag
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("com.kuuuurt:multiplatform-paging:0.3.8")
+        api("com.kuuuurt:multiplatform-paging:")
     }
 }
 ```
@@ -53,13 +53,13 @@ kotlin {
     ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosX64:0.3.8")
+            export("com.kuuuurt:multiplatform-paging-iosX64:")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosArm64:0.3.8")
+            export("com.kuuuurt:multiplatform-paging-iosArm64:")
         }
     }
 }
@@ -74,10 +74,10 @@ kotlin {
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
     if (isDevice) {
         iosTarget = ::iosArm64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.3.8"
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:"
     } else {
         iosTarget = ::iosX64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.3.8"
+        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:"
     }
 
     iosTarget("ios") {
