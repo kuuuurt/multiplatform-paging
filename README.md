@@ -1,6 +1,6 @@
 # Multiplatform Paging
 
-[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.3.2) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.3.2/link)
+[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.3.8) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.3.8/link)
 
 A Kotlin Multiplatform library for pagination.
 
