@@ -87,29 +87,6 @@ kotlin {
 }
 
 publishing {
-    publications.withType<MavenPublication>().forEach {
-        it.pom.withXml {
-            asNode().apply {
-                appendNode("description", pomDesc)
-                appendNode("name", rootProject.name)
-                appendNode("url", pomUrl)
-                appendNode("licenses").appendNode("license").apply {
-                    appendNode("name", pomLicenseName)
-                    appendNode("url", pomLicenseUrl)
-                    appendNode("distribution", pomLicenseDist)
-                }
-                appendNode("developers").appendNode("developer").apply {
-                    appendNode("id", pomDeveloperId)
-                    appendNode("name", pomDeveloperName)
-                    appendNode("email", pomDeveloperName)
-                }
-                appendNode("scm").apply {
-                    appendNode("url", pomScmUrl)
-                }
-            }
-        }
-    }
-
     repositories {
         maven {
             name = "mavenCentral"
@@ -136,6 +113,27 @@ afterEvaluate {
             artifactName
         } else {
             "$artifactName-$name"
+        }
+
+        pom.withXml {
+            asNode().apply {
+                appendNode("description", pomDesc)
+                appendNode("name", rootProject.name)
+                appendNode("url", pomUrl)
+                appendNode("licenses").appendNode("license").apply {
+                    appendNode("name", pomLicenseName)
+                    appendNode("url", pomLicenseUrl)
+                    appendNode("distribution", pomLicenseDist)
+                }
+                appendNode("developers").appendNode("developer").apply {
+                    appendNode("id", pomDeveloperId)
+                    appendNode("name", pomDeveloperName)
+                    appendNode("email", pomDeveloperName)
+                }
+                appendNode("scm").apply {
+                    appendNode("url", pomScmUrl)
+                }
+            }
         }
     }
 }
