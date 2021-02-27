@@ -100,4 +100,7 @@ true
 # xcodeproj since project is auto-generated
 .xcodeproj
 
+# Publishing
+2F043FD5.gpg
+sonatype.properties
 bintray.properties

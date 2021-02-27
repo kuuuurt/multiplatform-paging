@@ -1,19 +1,27 @@
-import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
 import org.gradle.api.publish.maven.internal.artifact.FileBasedMavenArtifact
+import java.net.URI
 import java.io.FileInputStream
-import java.util.*
+import java.util.Properties
 
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.multiplatform")
     id("maven-publish")
-    id("com.jfrog.bintray") version "1.8.4"
+    id("signing")
 }
 
 val MP_PAGING_VERSION: String by rootProject.extra
 
+val sonatypePropertiesFile = project.rootProject.file("sonatype.properties")
+val sonatypeProperties = Properties()
+sonatypeProperties.load(FileInputStream(sonatypePropertiesFile))
+
+rootProject.extra["signing.keyId"] = sonatypeProperties.getProperty("signing.key_id")
+rootProject.extra["signing.password"] = sonatypeProperties.getProperty("signing.password")
+rootProject.extra["signing.secretKeyRingFile"] = sonatypeProperties.getProperty("signing.secret_key_ring_file")
+
 val artifactName = "multiplatform-paging"
-val artifactGroup = "com.kuuuurt"
+val artifactGroup = "io.github.kuuuurt"
 val artifactVersion = MP_PAGING_VERSION
 
 val pomUrl = "https://github.com/kuuuurt/multiplatform-paging"
@@ -30,6 +38,7 @@ val pomLicenseDist = "repo"
 
 val pomDeveloperId = "kuuuurt"
 val pomDeveloperName = "Kurt Renzo Acosta"
+val pomDeveloperEmail = "kurt.r.acosta@gmail.com"
 
 val frameworkName = "MultiplatformPaging"
 
@@ -92,6 +101,7 @@ publishing {
                 appendNode("developers").appendNode("developer").apply {
                     appendNode("id", pomDeveloperId)
                     appendNode("name", pomDeveloperName)
+                    appendNode("email", pomDeveloperName)
                 }
                 appendNode("scm").apply {
                     appendNode("url", pomScmUrl)
@@ -99,50 +109,21 @@ publishing {
             }
         }
     }
-}
 
-bintray {
-    val bintrayPropertiesFile = project.rootProject.file("bintray.properties")
-    val bintrayProperties = Properties()
-
-    bintrayProperties.load(FileInputStream(bintrayPropertiesFile))
-    user = bintrayProperties.getProperty("bintray.user")
-    key = bintrayProperties.getProperty("bintray.key")
-    publish = true
-    override = true
-
-    pkg.apply {
-        repo = "libraries"
-        name = artifactName
-        websiteUrl = pomUrl
-        githubRepo = "kuuuurt/multiplatform-paging"
-        vcsUrl = pomScmUrl
-        description = ""
-        setLabels("kotlin", "multiplatform", "android", "ios")
-        setLicenses("Apache-2.0")
-        desc = description
-        issueTrackerUrl = pomIssueUrl
-
-        version.apply {
-            name = artifactVersion
-            vcsTag = artifactVersion
-            released = Date().toString()
-        }
-    }
-}
-
-tasks.named<BintrayUploadTask>("bintrayUpload") {
-    dependsOn("publishToMavenLocal")
-    doFirst {
-        project.publishing.publications.withType<MavenPublication>().all {
-            val moduleFile = buildDir.resolve("publications/$name/module.json")
-            if (moduleFile.exists()) {
-                artifact(object : FileBasedMavenArtifact(moduleFile) {
-                    override fun getDefaultExtension() = "module"
-                })
+    repositories {
+        maven {
+            name = "mavenCentral"
+            url = URI("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = sonatypeProperties.getProperty("ossrh.username")
+                password = sonatypeProperties.getProperty("ossrh.password")
             }
         }
     }
+}
+
+signing {
+    sign(publishing.publications)
 }
 
 afterEvaluate {
@@ -156,10 +137,5 @@ afterEvaluate {
         } else {
             "$artifactName-$name"
         }
-    }
-    bintray {
-        setPublications(*publishing.publications
-            .map { it.name }
-            .toTypedArray())
     }
 }
