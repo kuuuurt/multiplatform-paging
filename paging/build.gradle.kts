@@ -113,7 +113,7 @@ publishing {
     repositories {
         maven {
             name = "mavenCentral"
-            url = URI("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            url = URI("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
                 username = sonatypeProperties.getProperty("ossrh.username")
                 password = sonatypeProperties.getProperty("ossrh.password")
