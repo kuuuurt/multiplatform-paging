@@ -23,12 +23,12 @@ Check the table below for the compatibilty across versions
 | 0.1.+      | 1.3.70  | 2.1.1         |
 | 0.1.0      | 1.3.61  | 2.1.1         |
 
-Add the jcenter repository on your Project-level gradle
+Add the `mavenCentral` repository on your Project-level gradle
 ```kotlin
 allprojects {
     repositories {
         ...
-        jcenter()
+        mavenCentral()
     }
 }
 ```
