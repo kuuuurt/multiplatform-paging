@@ -111,6 +111,7 @@ val javadocJar by tasks.registering(Jar::class) {
 afterEvaluate {
     project.publishing.publications.withType<MavenPublication>().all {
         groupId = artifactGroup
+        artifactId = "$artifactName-$name"
 
         // Stub javadoc.jar artifact
         artifact(javadocJar.get())
