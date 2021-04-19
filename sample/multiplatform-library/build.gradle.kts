@@ -53,13 +53,13 @@ kotlin {
     
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosX64:$MP_PAGING_VERSION")
+            export("io.github.kuuuurt:multiplatform-paging-iosX64:$MP_PAGING_VERSION")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosArm64:$MP_PAGING_VERSION")
+            export("io.github.kuuuurt:multiplatform-paging-iosArm64:$MP_PAGING_VERSION")
         }
     }
 
@@ -91,10 +91,10 @@ kotlin {
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
-        api("com.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
+        api("io.github.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
     }
 
     sourceSets["androidMain"].dependencies {
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     }
 }

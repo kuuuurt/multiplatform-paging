@@ -72,6 +72,7 @@ val KTOR_VERSION: String by rootProject.extra
 kotlin {
     android {
         publishAllLibraryVariants()
+        publishLibraryVariantsGroupedByFlavor = true
     }
 
     ios()
@@ -82,7 +83,7 @@ kotlin {
     }
 
     sourceSets["androidMain"].dependencies {
-        api("androidx.paging:paging-runtime:3.0.0-beta01")
+        api("androidx.paging:paging-runtime:3.0.0-beta03")
     }
 }
 
@@ -103,17 +104,16 @@ signing {
     sign(publishing.publications)
 }
 
+val javadocJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("javadoc")
+}
+
 afterEvaluate {
     project.publishing.publications.withType<MavenPublication>().all {
         groupId = artifactGroup
 
-        artifactId = if (name.contains("metadata")) {
-            "$artifactName-common"
-        } else if (name.contains("kotlinMultiplatform")) {
-            artifactName
-        } else {
-            "$artifactName-$name"
-        }
+        // Stub javadoc.jar artifact
+        artifact(javadocJar.get())
 
         pom.withXml {
             asNode().apply {
