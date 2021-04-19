@@ -13,6 +13,7 @@ Check the table below for the compatibilty across versions
 | Library    | Kotlin  | Paging        |
 | ---------- | ------- | ------------- |
 | 0.3.11     | 1.4.32  | 3.0.0-beta03  |
+| 0.3.10     | 1.4.32  | 3.0.0-beta03  |
 | 0.3.9      | 1.4.31  | 3.0.0-beta01  |
 | 0.3.8      | 1.4.30  | 3.0.0-beta01  |
 | 0.3.4+     | 1.4.30  | 3.0.0-alpha13 |
