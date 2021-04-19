@@ -111,7 +111,11 @@ val javadocJar by tasks.registering(Jar::class) {
 afterEvaluate {
     project.publishing.publications.withType<MavenPublication>().all {
         groupId = artifactGroup
-        artifactId = "$artifactName-$name"
+        artifactId = if (name.contains("kotlinMultiplatform")) {
+            artifactName
+        } else {
+            "$artifactName-$name"
+        }
 
         // Stub javadoc.jar artifact
         artifact(javadocJar.get())
