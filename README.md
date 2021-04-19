@@ -1,6 +1,6 @@
 # Multiplatform Paging
 
-[ ![Download](https://api.bintray.com/packages/kuuuurt/libraries/multiplatform-paging/images/download.svg?version=0.3.9) ](https://bintray.com/kuuuurt/libraries/multiplatform-paging/0.3.9/link)
+[ ![Download](https://maven-badges.herokuapp.com/maven-central/io.github.kuuuurt/multiplatform-paging/badge.svg) ](https://search.maven.org/search?q=a:multiplatform-paging)
 
 A Kotlin Multiplatform library for pagination.
 
@@ -42,7 +42,7 @@ On Android, it's automatically handled by Gradle. It will also add `androidx.pag
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("com.kuuuurt:multiplatform-paging:0.3.10")
+        api("io.github.kuuurt:multiplatform-paging:0.3.10")
     }
 }
 ```
@@ -55,13 +55,13 @@ kotlin {
     ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosX64:0.3.10")
+            export("io.github.kuuuurt:multiplatform-paging-iosX64:0.3.10")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("com.kuuuurt:multiplatform-paging-iosArm64:0.3.10")
+            export("io.github.kuuuurt:multiplatform-paging-iosArm64:0.3.10")
         }
     }
 }
@@ -76,10 +76,10 @@ kotlin {
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
     if (isDevice) {
         iosTarget = ::iosArm64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:0.3.10"
+        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosArm64:0.3.10"
     } else {
         iosTarget = ::iosX64
-        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:0.3.10"
+        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosX64:0.3.10"
     }
 
     iosTarget("ios") {
