@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.10] - 2021-04-19
+### What's new
+- Library updates
+    - lifecycle-viewmodel-ktx to 2.3.1
+    - Kotlin to 1.4.32
+    - AGP to 4.1.3
+    - paging to 3.0.0-beta03
+
 ## [0.3.9] - 2021-02-27
 ### What's new
 - Updates kotlin to 1.4.31, ktor to 1.5.2
