@@ -26,7 +26,8 @@ actual class Pager<K : Any, V : Any> actual constructor(
     private val _pagingData = MutableStateFlow<PagingData<V>?>(null)
     actual val pagingData: Flow<PagingData<V>> get() = _pagingData.filterNotNull()
 
-    private var hasNextPage = true
+    var hasNextPage = true
+        private set
 
     private var currentPagingResult: PagingResult<K, V>? = null
 
