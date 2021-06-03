@@ -12,6 +12,7 @@ Check the table below for the compatibilty across versions
 
 | Library    | Kotlin  | Paging        |
 | ---------- | ------- | ------------- |
+| 0.4.0      | 1.5.10  | 3.0.0         |
 | 0.3.11     | 1.4.32  | 3.0.0-beta03  |
 | 0.3.10     | 1.4.32  | 3.0.0-beta03  |
 | 0.3.9      | 1.4.31  | 3.0.0-beta01  |
@@ -43,7 +44,8 @@ On Android, it's automatically handled by Gradle. It will also add `androidx.pag
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("io.github.kuuurt:multiplatform-paging:0.3.12")
+        api("io.github.kuuurt:multiplatform-paging:
+        ")
     }
 }
 ```
@@ -56,13 +58,13 @@ kotlin {
     ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosX64:0.3.12")
+            export("io.github.kuuuurt:multiplatform-paging-iosX64:0.4.0")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosArm64:0.3.12")
+            export("io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.0")
         }
     }
 }
@@ -77,10 +79,10 @@ kotlin {
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
     if (isDevice) {
         iosTarget = ::iosArm64
-        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosArm64:0.3.12"
+        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.0"
     } else {
         iosTarget = ::iosX64
-        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosX64:0.3.12"
+        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosX64:0.4.0"
     }
 
     iosTarget("ios") {
@@ -124,6 +126,9 @@ class MyMultiplatformController {
             .asCommonFlow() // So that iOS can consume the Flow 
 }
 ```
+
+*`CommonFlow` is a helper we can use to consume `Flow` on iOS. See [`FlowHelpers`](https://github.com/kuuuurt/multiplatform-paging/blob/develop/sample/multiplatform-library/src/commonMain/kotlin/com/kuuurt/paging/sample/multiplatform/library/helpers/FlowHelpers.kt)*
+
 
 ### Android
 
