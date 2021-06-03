@@ -3,12 +3,11 @@ package com.kuuurt.paging.sample.multiplatform.library
 import com.kuuurt.paging.multiplatform.Pager
 import com.kuuurt.paging.multiplatform.PagingConfig
 import com.kuuurt.paging.multiplatform.PagingResult
-import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import com.kuuurt.paging.multiplatform.helpers.cachedIn
+import com.kuuurt.paging.sample.multiplatform.library.helpers.asCommonFlow
 import com.kuuurt.paging.sample.multiplatform.library.utils.BaseViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.

@@ -1,6 +1,5 @@
 package com.kuuurt.paging.sample.multiplatform.library.utils
 
-import com.kuuurt.paging.multiplatform.paginator.PositionalPaginator
 import com.kuuurt.paging.sample.multiplatform.library.helpers.dispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob

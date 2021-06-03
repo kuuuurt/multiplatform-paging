@@ -1,11 +1,10 @@
 package com.kuuurt.paging.multiplatform
 
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingState
-import com.kuuurt.paging.multiplatform.helpers.asCommonFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.Flow
 import androidx.paging.Pager as AndroidXPager
 
 /**
@@ -23,7 +22,7 @@ actual class Pager<K : Any, V : Any> actual constructor(
     initialKey: K,
     getItems: suspend (K, Int) -> PagingResult<K, V>
 ) {
-    actual val pagingData = AndroidXPager(
+    actual val pagingData: Flow<PagingData<V>> = AndroidXPager(
         config = config,
         pagingSourceFactory = {
             PagingSource(
@@ -31,7 +30,7 @@ actual class Pager<K : Any, V : Any> actual constructor(
                 getItems
             )
         }
-    ).flow.asCommonFlow()
+    ).flow
 
     class PagingSource<K : Any, V : Any>(
         private val initialKey: K,

@@ -102,7 +102,7 @@ Multiplatform paging exposes paginators which you can use in your multiplatform 
 
 ```kotlin
 class MyMultiplatformController {
-    val pager = Pager<Int, String>(
+    private val pager = Pager<Int, String>(
         clientScope = coroutineScope,
         config = PagingConfig(
             pageSize = 10,
@@ -142,7 +142,7 @@ class MyFragment : Fragment() {
     override fun onViewCreated(...) {
         super.onViewCreated(...)
       
-        myMultiplatformController.pager.pagingData
+        myMultiplatformController.pagingData
             .onEach { myPagingDataAdapter.submitData(it) }
             .launchIn(viewLifecyleOwner.lifecyclerScope)     
     }
@@ -166,7 +166,7 @@ class MyViewController UIViewController, UITableViewDelegate, UITableViewDataSou
         super.viewDidLoad()
         // setup...
         
-        myMultiplatformController.paginator.pagedList.watch { [unowned self] nullableArray in
+        myMultiplatformController.pagingData.watch { [unowned self] nullableArray in
             guard let list = nullableArray?.compactMap({ $0 as? T }) else {
                 return
             }

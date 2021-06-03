@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       forCellReuseIdentifier: "Test"
     )
   
-    viewModel.pager.pagingData.watch { [unowned self] nullablePagingData in
+    viewModel.pagingData.watch { [unowned self] nullablePagingData in
       guard let list = nullablePagingData?.compactMap({ $0 as? String }) else {
         return
       }
@@ -36,28 +36,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       self.count = list.count
       self.testTableView.reloadData()
     }
-    
-//    viewModel.paginator.getState.watch { [unowned self] nullable in
-//      guard let state = nullable else {
-//        return
-//      }
-//
-//      switch(state) {
-//      case is PaginatorState.Complete: break
-//      case is PaginatorState.Loading: break
-//      case is PaginatorState.Empty: break
-//      case let errorState as PaginatorState.Error: break
-//      default: break
-//      }
-//    }
-//
-//    viewModel.paginator.totalCount.watch { [unowned self] nullable in
-//      guard let testCount = nullable as? Int else {
-//        return
-//      }
-//      self.count = testCount
-//      self.testTableView.reloadData()
-//    }
   }
 
 
