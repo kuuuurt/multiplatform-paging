@@ -1,22 +1,13 @@
-package com.kuuurt.paging.multiplatform.helpers
+
+package com.kuuurt.paging.sample.multiplatform.library.helpers
 
 import io.ktor.utils.io.core.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-/**
- * Copyright 2019, Kurt Renzo Acosta, All rights reserved.
- *
- * @author Kurt Renzo Acosta
- * @since 12/11/2019
- */
-
-@OptIn(ExperimentalCoroutinesApi::class)
-fun <T> ConflatedBroadcastChannel<T>.asCommonFlow(): CommonFlow<T> = CommonFlow(asFlow())
 fun <T> Flow<T>.asCommonFlow(): CommonFlow<T> = CommonFlow(this)
 
 class CommonFlow<T>(private val origin: Flow<T>) : Flow<T> by origin {

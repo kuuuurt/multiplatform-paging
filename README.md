@@ -144,7 +144,6 @@ class MyFragment : Fragment() {
 }
 ```
 
-
 ### iOS
 
 On iOS, it exposes `pagedList` as a `Flow<List<T>>` which can be observed and rendered to a `UITableView`

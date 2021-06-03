@@ -46,10 +46,10 @@ group = artifactGroup
 version = artifactVersion
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -67,7 +67,6 @@ android {
 }
 
 val COROUTINES_VERSION: String by rootProject.extra
-val KTOR_VERSION: String by rootProject.extra
 
 kotlin {
     android {
@@ -79,11 +78,10 @@ kotlin {
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
-        implementation("io.ktor:ktor-client-core:$KTOR_VERSION")
     }
 
     sourceSets["androidMain"].dependencies {
-        api("androidx.paging:paging-runtime:3.0.0-beta03")
+        api("androidx.paging:paging-runtime-ktx:3.0.0")
     }
 }
 
