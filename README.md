@@ -58,13 +58,13 @@ kotlin {
     ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosX64:0.4.0")
+            export("io.github.kuuuurt:multiplatform-paging-iosX64:0.4.1")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.0")
+            export("io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.1")
         }
     }
 }
@@ -79,10 +79,10 @@ kotlin {
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
     if (isDevice) {
         iosTarget = ::iosArm64
-        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.0"
+        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.1"
     } else {
         iosTarget = ::iosX64
-        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosX64:0.4.0"
+        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosX64:0.4.1"
     }
 
     iosTarget("ios") {
