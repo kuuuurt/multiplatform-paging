@@ -39,14 +39,13 @@ allprojects {
 
 On the module-level, add the library as an `api` dependency. The library needs to be propagated to the platforms.
 
-On Android, it's automatically handled by Gradle. It will also add `androidx.paging:paging-runtime:3.0.0-beta01` as a transitive depenency
+On Android, it's automatically handled by Gradle. It will also add `androidx.paging:paging-runtime:3.0.0` as a transitive depenency
 
 ```kotlin
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("io.github.kuuurt:multiplatform-paging:
-        ")
+        api("io.github.kuuurt:multiplatform-paging:0.4.2")
     }
 }
 ```
