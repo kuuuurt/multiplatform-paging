@@ -1,3 +1,3 @@
-## [0.4.1] - 2021-06-03
+## [0.4.2] - 2021-06-17
 ### What's new
-- Makes `hasNextPage` visible on iOS
+- Adds transform operators for `PagingData`

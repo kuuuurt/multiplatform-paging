@@ -52,7 +52,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
       withIdentifier: "Test",
       for: indexPath
     ) as! TestTableViewCell
-    
+      
     
     cell.txtTest.text = tests[indexPath.row]
     if (indexPath.row == count - 1) {
@@ -60,6 +60,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAtindexPath: IndexPath) {
+    viewModel.removeItem(item: tests[didSelectRowAtindexPath.row])
   }
   
   
