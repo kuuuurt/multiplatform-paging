@@ -12,6 +12,7 @@ Check the table below for the compatibilty across versions
 
 | Library    | Kotlin  | Paging        |
 | ---------- | ------- | ------------- |
+| 0.4.3      | 1.5.10  | 3.0.0         |
 | 0.4.2      | 1.5.10  | 3.0.0         |
 | 0.4.1      | 1.5.10  | 3.0.0         |
 | 0.4.0      | 1.5.10  | 3.0.0         |
@@ -46,7 +47,7 @@ On Android, it's automatically handled by Gradle. It will also add `androidx.pag
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("io.github.kuuurt:multiplatform-paging:0.4.2")
+        api("io.github.kuuurt:multiplatform-paging:0.4.3")
     }
 }
 ```
@@ -59,13 +60,13 @@ kotlin {
     ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosX64:0.4.2")
+            export("io.github.kuuuurt:multiplatform-paging-iosX64:0.4.3")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.2")
+            export("io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.3")
         }
     }
 }
@@ -80,10 +81,10 @@ kotlin {
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
     if (isDevice) {
         iosTarget = ::iosArm64
-        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.2"
+        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.3"
     } else {
         iosTarget = ::iosX64
-        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosX64:0.4.2"
+        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosX64:0.4.3"
     }
 
     iosTarget("ios") {
