@@ -46,7 +46,7 @@ On Android, it's automatically handled by Gradle. It will also add `androidx.pag
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("io.github.kuuurt:multiplatform-paging:0.4.2")
+        api("io.github.kuuuurt:multiplatform-paging:0.4.2")
     }
 }
 ```
