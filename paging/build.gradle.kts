@@ -81,7 +81,7 @@ kotlin {
     }
 
     sourceSets["androidMain"].dependencies {
-        api("androidx.paging:paging-runtime-ktx:3.0.0")
+        api("androidx.paging:paging-runtime-ktx:3.0.1")
     }
 }
 

@@ -2,14 +2,14 @@
 
 buildscript {
     ext {
-        KOTLIN_VERSION = "1.5.10"
-        COROUTINES_VERSION = "1.5.0-native-mt"
+        KOTLIN_VERSION = "1.5.30"
+        COROUTINES_VERSION = "1.5.1-native-mt"
         MP_PAGING_VERSION = "0.4.3"
     }
     repositories {
         mavenLocal()
+        mavenCentral()
         google()
-        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.2'
@@ -23,8 +23,8 @@ buildscript {
 allprojects {
     repositories {
         mavenLocal()
+        mavenCentral()
         google()
-        jcenter()
         maven { url "https://dl.bintray.com/korlibs/korlibs/" }
     }
 }
