@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 
 /**
@@ -21,16 +21,20 @@ actual class Pager<K : Any, V : Any> actual constructor(
     private val initialKey: K,
     private val getItems: suspend (K, Int) -> PagingResult<K, V>
 ) {
-    private val items = PagingData<V>()
 
-    private val _pagingData = MutableStateFlow<PagingData<V>?>(null)
-    actual val pagingData: Flow<PagingData<V>> get() = _pagingData.filterNotNull()
+    private data class State<K : Any, V : Any>(
+        val pagingData: PagingData<V>? = null,
+        val hasNextPage: Boolean = true,
+        val currentPagingResult: PagingResult<K, V>? = null
+    )
 
-    var hasNextPage = true
-        private set
+    private val state = MutableStateFlow<State<K, V>>(State())
 
-    private var currentPagingResult: PagingResult<K, V>? = null
+    actual val pagingData: Flow<PagingData<V>>
+        get() = state.mapNotNull { it.pagingData }
 
+    val hasNextPage: Boolean
+        get() = state.value.hasNextPage
 
     init {
         loadNext()
@@ -45,7 +49,8 @@ actual class Pager<K : Any, V : Any> actual constructor(
     }
 
     private fun loadItems(loadDirection: LoadDirection) {
-        val pagingResult = currentPagingResult
+        val currentState = state.value
+        val pagingResult = currentState.currentPagingResult
         val key = if (pagingResult == null) {
             initialKey
         } else {
@@ -58,12 +63,14 @@ actual class Pager<K : Any, V : Any> actual constructor(
         if (key != null && hasNextPage) {
             clientScope.launch {
                 val newPagingResult = getItems(key, config.pageSize)
-                items.addAll(newPagingResult.items)
-
-                hasNextPage = newPagingResult.items.size >= config.pageSize
-                _pagingData.value = PagingData<V>().apply { addAll(items) }
-
-                currentPagingResult = newPagingResult
+                val newPagingData = currentState.pagingData?.toMutableList()?.apply {
+                    addAll(newPagingResult.items)
+                }?.toPagingData() ?: newPagingResult.items.toPagingData()
+                state.value = currentState.copy(
+                    pagingData = newPagingData,
+                    hasNextPage = newPagingResult.items.size >= config.pageSize,
+                    currentPagingResult = newPagingResult
+                )
             }
         }
     }
