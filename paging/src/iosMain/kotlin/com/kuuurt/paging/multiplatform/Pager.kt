@@ -21,16 +21,15 @@ actual class Pager<K : Any, V : Any> actual constructor(
     private val initialKey: K,
     private val getItems: suspend (K, Int) -> PagingResult<K, V>
 ) {
-    private val items = PagingData<V>()
 
     private val _pagingData = MutableStateFlow<PagingData<V>?>(null)
     actual val pagingData: Flow<PagingData<V>> get() = _pagingData.filterNotNull()
 
-    var hasNextPage = true
-        private set
+    private val _hasNextPage = MutableStateFlow(true)
+    val hasNextPage: Boolean
+        get() = _hasNextPage.value
 
-    private var currentPagingResult: PagingResult<K, V>? = null
-
+    private val currentPagingResult: MutableStateFlow<PagingResult<K, V>?> = MutableStateFlow(null)
 
     init {
         loadNext()
@@ -45,7 +44,7 @@ actual class Pager<K : Any, V : Any> actual constructor(
     }
 
     private fun loadItems(loadDirection: LoadDirection) {
-        val pagingResult = currentPagingResult
+        val pagingResult = currentPagingResult.value
         val key = if (pagingResult == null) {
             initialKey
         } else {
@@ -58,12 +57,11 @@ actual class Pager<K : Any, V : Any> actual constructor(
         if (key != null && hasNextPage) {
             clientScope.launch {
                 val newPagingResult = getItems(key, config.pageSize)
-                items.addAll(newPagingResult.items)
-
-                hasNextPage = newPagingResult.items.size >= config.pageSize
-                _pagingData.value = PagingData<V>().apply { addAll(items) }
-
-                currentPagingResult = newPagingResult
+                _pagingData.value = _pagingData.value?.toMutableList()?.apply {
+                    addAll(newPagingResult.items)
+                }?.toPagingData() ?: newPagingResult.items.toPagingData()
+                _hasNextPage.value = newPagingResult.items.size >= config.pageSize
+                currentPagingResult.value = newPagingResult
             }
         }
     }
