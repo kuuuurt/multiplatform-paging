@@ -14,11 +14,13 @@ val MP_PAGING_VERSION: String by rootProject.extra
 
 val sonatypePropertiesFile = project.rootProject.file("sonatype.properties")
 val sonatypeProperties = Properties()
-sonatypeProperties.load(FileInputStream(sonatypePropertiesFile))
+if (sonatypePropertiesFile.exists()) {
+    sonatypeProperties.load(FileInputStream(sonatypePropertiesFile))
 
-rootProject.extra["signing.keyId"] = sonatypeProperties.getProperty("signing.key_id")
-rootProject.extra["signing.password"] = sonatypeProperties.getProperty("signing.password")
-rootProject.extra["signing.secretKeyRingFile"] = sonatypeProperties.getProperty("signing.secret_key_ring_file")
+    rootProject.extra["signing.keyId"] = sonatypeProperties.getProperty("signing.key_id")
+    rootProject.extra["signing.password"] = sonatypeProperties.getProperty("signing.password")
+    rootProject.extra["signing.secretKeyRingFile"] = sonatypeProperties.getProperty("signing.secret_key_ring_file")
+}
 
 val artifactName = "multiplatform-paging"
 val artifactGroup = "io.github.kuuuurt"
@@ -99,7 +101,9 @@ publishing {
 }
 
 signing {
-    sign(publishing.publications)
+    if (sonatypePropertiesFile.exists()) {
+        sign(publishing.publications)
+    }
 }
 
 val javadocJar by tasks.registering(Jar::class) {
