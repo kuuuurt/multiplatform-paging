@@ -78,12 +78,24 @@ kotlin {
 
     ios()
 
+    jvm("desktop") { compilations.all { kotlinOptions.jvmTarget = "11" } }
+
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
     }
 
-    sourceSets["androidMain"].dependencies {
-        api("androidx.paging:paging-runtime-ktx:3.0.1")
+    sourceSets["androidMain"].apply {
+        kotlin.srcDirs("src/jvmAndAndroidMain/kotlin")
+        dependencies {
+            api("androidx.paging:paging-common-ktx:3.0.1")
+        }
+    }
+
+    sourceSets["desktopMain"].apply {
+        kotlin.srcDirs("src/jvmAndAndroidMain/kotlin")
+        dependencies {
+            api("androidx.paging:paging-common-ktx:3.0.1")
+        }
     }
 }
 
