@@ -4,7 +4,6 @@ import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    id("com.android.library")
     id("org.jetbrains.kotlin.multiplatform")
     id("maven-publish")
     id("signing")
@@ -47,52 +46,18 @@ val frameworkName = "MultiplatformPaging"
 group = artifactGroup
 version = artifactVersion
 
-android {
-    compileSdkVersion(30)
-    defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(30)
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    sourceSets {
-        getByName("main") {
-            manifest.srcFile("src/androidMain/AndroidManifest.xml")
-        }
-    }
-}
-
 val COROUTINES_VERSION: String by rootProject.extra
 
 kotlin {
-    android {
-        publishAllLibraryVariants()
-        publishLibraryVariantsGroupedByFlavor = true
-    }
-
     ios()
 
-    jvm("desktop") { compilations.all { kotlinOptions.jvmTarget = "11" } }
+    jvm() { compilations.all { kotlinOptions.jvmTarget = "11" } }
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
     }
 
-    sourceSets["androidMain"].apply {
-        kotlin.srcDirs("src/jvmAndAndroidMain/kotlin")
-        dependencies {
-            api("androidx.paging:paging-common-ktx:3.0.1")
-        }
-    }
-
-    sourceSets["desktopMain"].apply {
-        kotlin.srcDirs("src/jvmAndAndroidMain/kotlin")
+    sourceSets["jvmMain"].apply {
         dependencies {
             api("androidx.paging:paging-common-ktx:3.0.1")
         }
