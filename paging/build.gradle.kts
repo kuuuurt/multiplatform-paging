@@ -57,10 +57,8 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
     }
 
-    sourceSets["jvmMain"].apply {
-        dependencies {
-            api("androidx.paging:paging-common-ktx:3.0.1")
-        }
+    sourceSets["jvmMain"].dependencies {
+        api("androidx.paging:paging-common-ktx:3.0.1")
     }
 }
 
