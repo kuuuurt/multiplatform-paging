@@ -92,7 +92,7 @@ kotlin {
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
         implementation("io.ktor:ktor-client-core:1.6.0")
-        api("io.github.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
+        implementation("io.github.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
     }
 
     sourceSets["androidMain"].dependencies {

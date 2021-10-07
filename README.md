@@ -12,6 +12,7 @@ Check the table below for the compatibilty across versions
 
 | Library    | Kotlin  | Paging        |
 | ---------- | ------- | ------------- |
+| 0.4.5      | 1.5.31  | 3.0.1         |
 | 0.4.4      | 1.5.30  | 3.0.1         |
 | 0.4.3      | 1.5.30  | 3.0.1         |
 | 0.4.2      | 1.5.10  | 3.0.0         |
@@ -40,18 +41,21 @@ allprojects {
 }
 ```
 
-On the module-level, add the library as an `api` dependency. The library needs to be propagated to the platforms.
-
-On Android, it's automatically handled by Gradle. It will also add `androidx.paging:paging-runtime:3.0.0` as a transitive depenency
+On the module, add the library in your dependencies.
 
 ```kotlin
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        api("io.github.kuuuurt:multiplatform-paging:0.4.4")
+        implementation("io.github.kuuuurt:multiplatform-paging:0.4.5")
     }
 }
 ```
+
+On Android, make sure to add `androidx.paging:paging-runtime` as a dependency
+*Note: On older versions, `androidx.paging:paging-runtime:3.0.0` was added  as a transitive depenency.*
+
+
 
 On iOS, you have to export it on your targets
 
@@ -61,13 +65,13 @@ kotlin {
     ...
     targets.named<KotlinNativeTarget>("iosX64") {
         binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosX64:0.4.4")
+            export("io.github.kuuuurt:multiplatform-paging-iosX64:0.4.5")
         }
     }
 
     targets.named<KotlinNativeTarget>("iosArm64") {
         binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.4")
+            export("io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.5")
         }
     }
 }
@@ -82,10 +86,10 @@ kotlin {
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
     if (isDevice) {
         iosTarget = ::iosArm64
-        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.4"
+        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.5"
     } else {
         iosTarget = ::iosX64
-        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosX64:0.4.4"
+        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosX64:0.4.5"
     }
 
     iosTarget("ios") {
