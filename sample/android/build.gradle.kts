@@ -4,11 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdk = 31
     defaultConfig {
         applicationId = "com.kuuurt.paging.multiplatform.sample"
-        minSdkVersion(21)
-        targetSdkVersion(29)
+
+        minSdk = 21
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -17,10 +18,13 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
-    
+
     packagingOptions {
         exclude("META-INF/*.kotlin_module")
     }
@@ -43,7 +47,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("com.google.android.material:material:1.2.0-alpha04")
     implementation(project(":sample:MultiplatformPagingLibrary"))
-    implementation("androidx.paging:paging-runtime-ktx:3.0.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
 
     testImplementation("junit:junit:4.12")
 

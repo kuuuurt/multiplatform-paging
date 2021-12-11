@@ -13,10 +13,10 @@ val MP_PAGING_VERSION: String by rootProject.extra
 val iosFrameworkName = "MultiplatformPaging"
 
 android {
-    compileSdkVersion(29)
+    compileSdk = 31
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(29)
+        minSdk = 21
+        targetSdk = 31
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,59 +43,31 @@ android {
 version = "1.0.0"
 
 kotlin {
+    android()
+    ios()
+
     cocoapods {
         summary = "Shared module for Android and iOS"
         homepage = "Link to a Kotlin/Native module homepage"
-        frameworkName = iosFrameworkName
-    }
 
-    ios()
-    
-    targets.named<KotlinNativeTarget>("iosX64") {
-        binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosX64:$MP_PAGING_VERSION")
+
+        framework {
+            baseName = iosFrameworkName
+            export("io.github.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
         }
     }
-
-    targets.named<KotlinNativeTarget>("iosArm64") {
-        binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosArm64:$MP_PAGING_VERSION")
-        }
-    }
-
-    //    If not using target shortcut
-//
-//    val isDevice = System.getenv("SDK_NAME")?.startsWith("iphoneos") == true
-//    val pagingIos: String
-//    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
-//    if (isDevice) {
-//        iosTarget = ::iosArm64
-//        pagingIos = "com.kuuuurt:multiplatform-paging-iosArm64:$MP_PAGING_VERSION"
-//    } else {
-//        iosTarget = ::iosX64
-//        pagingIos = "com.kuuuurt:multiplatform-paging-iosX64:$MP_PAGING_VERSION"
-//    }
-//
-//    iosTarget("ios") {
-//        compilations {
-//            val main by getting {
-//                kotlinOptions.freeCompilerArgs = listOf("-Xobjc-generics")
-//            }
-//        }
-//        binaries.withType<Framework>().configureEach {
-//            export(pagingIos)
-//        }
-//    }
-
-    android()
 
     sourceSets["commonMain"].dependencies {
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION")
-        implementation("io.ktor:ktor-client-core:1.6.0")
-        implementation("io.github.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
+        api("io.github.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
+        implementation("io.ktor:ktor-client-core:1.6.6")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION") {
+            version {
+                strictly("1.5.2-native-mt")
+            }
+        }
     }
 
     sourceSets["androidMain"].dependencies {
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
     }
 }

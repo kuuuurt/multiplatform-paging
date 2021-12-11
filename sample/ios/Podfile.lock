@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../multiplatform-library"
 
 SPEC CHECKSUMS:
-  MultiplatformPagingLibrary: 8867627ad6564512375106224f42a3b72d8a7c72
+  MultiplatformPagingLibrary: a6215fb23e964e897b8d62447773d3f36e65aab8
 
 PODFILE CHECKSUM: c5f6599014b55d7b66ed4c34abcd4e790335e753
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.11.2
