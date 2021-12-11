@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.multiplatform")
@@ -45,6 +42,7 @@ version = "1.0.0"
 kotlin {
     android()
     ios()
+    iosSimulatorArm64()
 
     cocoapods {
         summary = "Shared module for Android and iOS"
@@ -57,17 +55,31 @@ kotlin {
         }
     }
 
-    sourceSets["commonMain"].dependencies {
-        api("io.github.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
-        implementation("io.ktor:ktor-client-core:1.6.6")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION") {
-            version {
-                strictly("1.5.2-native-mt")
+    val commonMain by sourceSets.getting {
+        dependencies {
+            api("io.github.kuuuurt:multiplatform-paging:$MP_PAGING_VERSION")
+            implementation("io.ktor:ktor-client-core:1.6.6")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION") {
+                version {
+                    strictly("1.5.2-native-mt")
+                }
             }
         }
     }
 
-    sourceSets["androidMain"].dependencies {
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+    val androidMain by sourceSets.getting {
+        dependencies {
+            implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+        }
     }
+
+    val iosMain by sourceSets.getting
+    val iosTest by sourceSets.getting
+    val iosSimulatorArm64Main by sourceSets.getting
+    val iosSimulatorArm64Test by sourceSets.getting
+
+    // Set up dependencies between the source sets
+    iosSimulatorArm64Main.dependsOn(iosMain)
+    iosSimulatorArm64Test.dependsOn(iosTest)
 }
+
