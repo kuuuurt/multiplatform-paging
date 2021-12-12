@@ -48,7 +48,7 @@ On the module, add the library in your dependencies.
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        implementation("io.github.kuuuurt:multiplatform-paging:0.4.5")
+        implementation("io.github.kuuuurt:multiplatform-paging:0.4.6")
     }
 }
 ```
@@ -59,47 +59,25 @@ On Android, make sure to add `androidx.paging:paging-runtime` as a dependency
 
 
 On iOS, you have to export it on your targets
-
-If you're using the target shortcut for iOS:
 ```kotlin
 kotlin {
     ...
-    targets.named<KotlinNativeTarget>("iosX64") {
-        binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosX64:0.4.5")
+    cocoapods {
+        ...
+        framework {
+            ...
+            export("io.github.kuuuurt:multiplatform-paging:0.4.6")
         }
     }
 
-    targets.named<KotlinNativeTarget>("iosArm64") {
-        binaries.withType<Framework>().configureEach {
-            export("io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.5")
+    val commonMain by sourceSets.getting {
+        dependencies {
+            api("io.github.kuuuurt:multiplatform-paging:0.4.6")
+            ...
         }
     }
 }
 ```
-
-If you're using a switching mechanism:
-```kotlin
-kotlin {
-    ...
-    val isDevice = System.getenv("SDK_NAME")?.startsWith("iphoneos") == true
-    val pagingIos: String
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget
-    if (isDevice) {
-        iosTarget = ::iosArm64
-        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosArm64:0.4.5"
-    } else {
-        iosTarget = ::iosX64
-        pagingIos = "io.github.kuuuurt:multiplatform-paging-iosX64:0.4.5"
-    }
-
-    iosTarget("ios") {
-        ...
-        binaries.withType<Framework>().configureEach {
-            export(pagingIos)
-        }
-    }
-}
 ```
 
 ## Usage
