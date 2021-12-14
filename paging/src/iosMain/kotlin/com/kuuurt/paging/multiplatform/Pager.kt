@@ -35,7 +35,7 @@ actual class Pager<K : Any, V : Any> actual constructor(
         loadNext()
     }
 
-    fun refresh() {
+    actual fun refresh() {
         currentPagingResult.value = null
         _hasNextPage.value = false
         loadNext()

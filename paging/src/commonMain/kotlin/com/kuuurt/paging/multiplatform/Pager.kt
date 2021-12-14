@@ -21,4 +21,6 @@ expect class Pager<K: Any, V: Any>(
     getItems: suspend (K, Int) -> PagingResult<K, V>
 ) {
     val pagingData: Flow<PagingData<V>>
+
+    fun refresh()
 }
