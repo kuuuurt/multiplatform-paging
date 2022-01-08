@@ -169,7 +169,7 @@ class MyViewController UIViewController, UITableViewDelegate, UITableViewDataSou
 
 ### Jetpack Compose and SwiftUI
 
-For samples using Jetpack Compose and SwiftUI, you can refer to [MortyComposeKMM](https://github.com/joreilly/MortyComposeKMM) by @joreilly.
+For samples using Jetpack Compose and SwiftUI, you can refer to [MortyComposeKMM](https://github.com/joreilly/MortyComposeKMM) by [joreilly](https://github.com/joreilly).
 
 ## Maintainers
 
