@@ -2,8 +2,8 @@
 
 buildscript {
     ext {
-        KOTLIN_VERSION = "1.6.0"
-        COROUTINES_VERSION = "1.5.2-native-mt"
+        KOTLIN_VERSION = "1.6.10"
+        COROUTINES_VERSION = "1.6.0-native-mt"
         MP_PAGING_VERSION = "0.4.6"
     }
     repositories {
@@ -12,7 +12,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
 
         // NOTE: Do not place your application dependencies here; they belong

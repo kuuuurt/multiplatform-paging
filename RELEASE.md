@@ -1,6 +1,6 @@
-## [0.4.6] - 2021-12-11
+## [0.4.7] - 2022-01-17
 ### What's new
-- Adds target for `iosSimulatorArm64`
-- Library Updates
-  - Kotlin to 1.6.0
-  - Paging to 3.1.0  
+- Adds refresh for iOS
+- Library Updates:
+    - Kotlin to 1.6.10
+    - Coroutines to 1.6.0-native-mt
