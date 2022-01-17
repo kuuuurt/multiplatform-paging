@@ -49,7 +49,7 @@ On the module, add the library in your dependencies.
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        implementation("io.github.kuuuurt:multiplatform-paging:0.4.6")
+        implementation("io.github.kuuuurt:multiplatform-paging:0.4.7")
     }
 }
 ```
@@ -67,13 +67,13 @@ kotlin {
         ...
         framework {
             ...
-            export("io.github.kuuuurt:multiplatform-paging:0.4.6")
+            export("io.github.kuuuurt:multiplatform-paging:0.4.7")
         }
     }
 
     val commonMain by sourceSets.getting {
         dependencies {
-            api("io.github.kuuuurt:multiplatform-paging:0.4.6")
+            api("io.github.kuuuurt:multiplatform-paging:0.4.7")
             ...
         }
     }
