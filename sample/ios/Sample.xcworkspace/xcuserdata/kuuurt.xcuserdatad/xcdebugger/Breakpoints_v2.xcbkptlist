@@ -36,7 +36,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "0463C466-C0DB-4749-947B-9C30EEA6136D - d9c7cced15bb118b"
+                  uuid = "0463C466-C0DB-4749-947B-9C30EEA6136D - 9ee9ba4dd63e64ed"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -51,7 +51,7 @@
                   offsetFromSymbolStart = "1086">
                </Location>
                <Location
-                  uuid = "0463C466-C0DB-4749-947B-9C30EEA6136D - adf3011f345413ed"
+                  uuid = "0463C466-C0DB-4749-947B-9C30EEA6136D - eadd77bff7d1668b"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -109,9 +109,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            endingLineNumber = "97">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -125,9 +123,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "ViewController"
-            landmarkType = "3">
+            endingLineNumber = "89">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

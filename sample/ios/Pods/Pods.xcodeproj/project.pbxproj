@@ -9,9 +9,9 @@
 /* Begin PBXAggregateTarget section */
 		55E6FF070C2B1D85630270EAF9FA4109 /* MultiplatformPagingLibrary */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 2022D21907D1DCE08FE5C4A40F76268D /* Build configuration list for PBXAggregateTarget "MultiplatformPagingLibrary" */;
+			buildConfigurationList = ADBF90A2B8DDB1AF07E5963D0CB5CC3A /* Build configuration list for PBXAggregateTarget "MultiplatformPagingLibrary" */;
 			buildPhases = (
-				E1D197F9E7DECBED7BE8C4187B58EB14 /* [CP-User] Build MultiplatformPagingLibrary */,
+				146AC0FABF9C543812233D0CC874E8A8 /* [CP-User] Build MultiplatformPagingLibrary */,
 			);
 			dependencies = (
 			);
@@ -241,7 +241,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E1D197F9E7DECBED7BE8C4187B58EB14 /* [CP-User] Build MultiplatformPagingLibrary */ = {
+		146AC0FABF9C543812233D0CC874E8A8 /* [CP-User] Build MultiplatformPagingLibrary */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -249,7 +249,7 @@
 			name = "[CP-User] Build MultiplatformPagingLibrary";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "                if [ \"YES\" = \"$COCOAPODS_SKIP_KOTLIN_BUILD\" ]; then\n                  echo \"Skipping Gradle build task invocation due to COCOAPODS_SKIP_KOTLIN_BUILD environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION\n";
+			shellScript = "                if [ \"YES\" = \"$COCOAPODS_SKIP_KOTLIN_BUILD\" ]; then\n                  echo \"Skipping Gradle build task invocation due to COCOAPODS_SKIP_KOTLIN_BUILD environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -339,6 +339,23 @@
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
+		};
+		327CD706B047EF27831FF861BA1FC103 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E229C0E2705B00AD53386AE40E936426 /* MultiplatformPagingLibrary.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
 		};
 		353D2EB3545D27343B51B709D9C0420B /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -477,24 +494,7 @@
 			};
 			name = Release;
 		};
-		6F6959EA11B3B4B48601E554A71A487F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E229C0E2705B00AD53386AE40E936426 /* MultiplatformPagingLibrary.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7A9C8FCDD6C9B518B806A1FF8EEC8862 /* Debug */ = {
+		B29AD67CB296076FC87BC962AE8680E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5F38EE2C15217ED86C9E8A51B1D7D898 /* MultiplatformPagingLibrary.debug.xcconfig */;
 			buildSettings = {
@@ -522,20 +522,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2022D21907D1DCE08FE5C4A40F76268D /* Build configuration list for PBXAggregateTarget "MultiplatformPagingLibrary" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7A9C8FCDD6C9B518B806A1FF8EEC8862 /* Debug */,
-				6F6959EA11B3B4B48601E554A71A487F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				231528393B7084E13F97FF9EF804A1C0 /* Debug */,
 				353D2EB3545D27343B51B709D9C0420B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ADBF90A2B8DDB1AF07E5963D0CB5CC3A /* Build configuration list for PBXAggregateTarget "MultiplatformPagingLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B29AD67CB296076FC87BC962AE8680E6 /* Debug */,
+				327CD706B047EF27831FF861BA1FC103 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

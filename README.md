@@ -12,6 +12,7 @@ Check the table below for the compatibility across versions
 
 | Library    | Kotlin  | Paging        |
 | ---------- | ------- | ------------- |
+| 0.5.0      | 1.7.10  | 3.1.1         |
 | 0.4.7      | 1.6.10  | 3.1.0         |
 | 0.4.6      | 1.6.0   | 3.1.0         |
 | 0.4.5      | 1.5.31  | 3.0.1         |
@@ -49,15 +50,12 @@ On the module, add the library in your dependencies.
 kotlin {
     ...
     sourceSets["commonMain"].dependencies {
-        implementation("io.github.kuuuurt:multiplatform-paging:0.4.7")
+        implementation("io.github.kuuuurt:multiplatform-paging:{version}")
     }
 }
 ```
 
 On Android, make sure to add `androidx.paging:paging-runtime` as a dependency
-*Note: On older versions, `androidx.paging:paging-runtime:3.0.0` was added  as a transitive depenency.*
-
-
 
 On iOS, you have to export it on your targets
 ```kotlin
@@ -67,13 +65,13 @@ kotlin {
         ...
         framework {
             ...
-            export("io.github.kuuuurt:multiplatform-paging:0.4.7")
+            export("io.github.kuuuurt:multiplatform-paging:{version}")
         }
     }
 
     val commonMain by sourceSets.getting {
         dependencies {
-            api("io.github.kuuuurt:multiplatform-paging:0.4.7")
+            api("io.github.kuuuurt:multiplatform-paging:{version}")
             ...
         }
     }

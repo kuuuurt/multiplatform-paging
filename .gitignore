@@ -101,6 +101,6 @@ true
 .xcodeproj
 
 # Publishing
-2F043FD5.gpg
+*.gpg
 sonatype.properties
 bintray.properties
