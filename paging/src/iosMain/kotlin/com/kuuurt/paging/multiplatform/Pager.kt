@@ -1,5 +1,6 @@
 package com.kuuurt.paging.multiplatform
 
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +24,10 @@ actual class Pager<K : Any, V : Any> actual constructor(
 ) {
 
     private val _pagingData = MutableStateFlow<PagingData<V>?>(null)
-    actual val pagingData: Flow<PagingData<V>> get() = _pagingData.filterNotNull()
+    actual val pagingData: Flow<PagingData<V>> = _pagingData.filterNotNull()
+
+    private val _pagingState = MutableStateFlow<PagingState>(PagingState.Success)
+    val pagingState: Flow<PagingState> = _pagingState.filterNotNull()
 
     private val _hasNextPage = MutableStateFlow(true)
     val hasNextPage: Boolean
@@ -37,7 +41,7 @@ actual class Pager<K : Any, V : Any> actual constructor(
 
     fun refresh() {
         currentPagingResult.value = null
-        _hasNextPage.value = false
+        _hasNextPage.value = true
         loadNext()
     }
 
@@ -61,13 +65,21 @@ actual class Pager<K : Any, V : Any> actual constructor(
         }
 
         if (key != null && hasNextPage) {
-            clientScope.launch {
+            clientScope.launch(CoroutineExceptionHandler { _, throwable ->
+                _pagingState.value = PagingState.Error(throwable)
+            }) {
+                _pagingState.value = if (currentPagingResult.value?.items?.isEmpty() == true) {
+                    PagingState.LoadingInitial
+                } else {
+                    PagingState.LoadingMore
+                }
                 val newPagingResult = getItems(key, config.pageSize)
                 _pagingData.value = _pagingData.value?.toMutableList()?.apply {
                     addAll(newPagingResult.items)
                 }?.toPagingData() ?: newPagingResult.items.toPagingData()
                 _hasNextPage.value = newPagingResult.items.size >= config.pageSize
                 currentPagingResult.value = newPagingResult
+                _pagingState.value = PagingState.Success
             }
         }
     }
@@ -76,4 +88,11 @@ actual class Pager<K : Any, V : Any> actual constructor(
         PREVIOUS,
         NEXT
     }
+}
+
+sealed interface PagingState {
+    object Success : PagingState
+    object LoadingMore : PagingState
+    object LoadingInitial : PagingState
+    data class Error(val error: Throwable) : PagingState
 }
