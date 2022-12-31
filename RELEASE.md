@@ -1,8 +1,7 @@
-## [0.5.0] - 2022-09-08
+## [0.6.0] - 2022-12-31
 ### What's new
-- Fixes refresh for iOS
-- Adds `pagingState` for iOS to listen to loading states
+- Adds a common refresh function
 - Library Updates:
-  - Kotlin to 1.7.10
-  - Coroutines to 1.6.3
-  - AndroidX Paging to 3.1.1 
+  - Kotlin to 1.7.20
+  - Coroutines to 1.6.4
+  - AGP to 7.3.1
