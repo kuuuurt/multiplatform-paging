@@ -1,0 +1,68 @@
+apply from: "$rootDir/gradle/versions.gradle"
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+task javadocJar(type: Jar) {
+    archiveClassifier.set('javadoc')
+}
+
+artifacts {
+    archives javadocJar
+}
+
+group = "io.github.kuuuurt"
+version = ext["MP_PAGING_VERSION"]
+
+afterEvaluate {
+    apply from: "$rootDir/gradle/versions.gradle"
+
+    publishing {
+        publications {
+            withType(MavenPublication) {
+                if (name.contains("kotlinMultiplatform")) {
+                    artifactId "multiplatform-paging"
+                } else {
+                    artifactId "multiplatform-paging-$name"
+                }
+
+                groupId group
+                version version
+
+                artifact javadocJar
+
+                pom {
+                    name = "multiplatform-paging"
+                    description = "A Kotlin Multiplatform library for pagination on Android and iOS"
+                    url = "https://github.com/kuuuurt/multiplatform-paging"
+                    licenses {
+                        license {
+                            name = "Apache-2.0"
+                            url = "https://www.apache.org/licenses/LICENSE-2.0"
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'kuuuurt'
+                            name = 'Kurt Renzo Acosta'
+                            email = "kurt.r.acosta@gmail.com"
+                        }
+                    }
+                    scm {
+                        connection = "https://github.com/kuuuurt/multiplatform-paging.git"
+                        developerConnection = "https://github.com/kuuuurt/multiplatform-paging.git"
+                        url = "https://github.com/kuuuurt/multiplatform-paging"
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    useInMemoryPgpKeys(
+        rootProject.ext["signing.keyId"],
+        rootProject.ext["signing.key"],
+        rootProject.ext["signing.password"],
+    )
+    sign publishing.publications
+}

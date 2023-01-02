@@ -4,8 +4,10 @@ plugins {
     id("org.jetbrains.kotlin.native.cocoapods")
 }
 
-val COROUTINES_VERSION: String by rootProject.extra
-val MP_PAGING_VERSION: String by rootProject.extra
+apply(from = "$rootDir/gradle/versions.gradle")
+
+val MP_PAGING_VERSION = ext["MP_PAGING_VERSION"]
+val COROUTINES_VERSION = ext["COROUTINES_VERSION"]
 
 val iosFrameworkName = "MultiplatformPaging"
 
