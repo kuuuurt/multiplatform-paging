@@ -2,9 +2,9 @@
 
 buildscript {
     ext {
-        KOTLIN_VERSION = "1.7.20"
+        KOTLIN_VERSION = "1.8.0"
         COROUTINES_VERSION = "1.6.4"
-        MP_PAGING_VERSION = "0.6.0"
+        MP_PAGING_VERSION = "0.6.1"
     }
     repositories {
         mavenLocal()

@@ -12,6 +12,7 @@ Check the table below for the compatibility across versions
 
 | Library | Kotlin | Paging        |
 |---------|--------| ------------- |
+| 0.6.1   | 1.8.0  | 3.1.1         |
 | 0.6.0   | 1.7.20 | 3.1.1         |
 | 0.5.0   | 1.7.10 | 3.1.1         |
 | 0.4.7   | 1.6.10 | 3.1.0         |
@@ -113,7 +114,6 @@ class MyMultiplatformController {
 ```
 
 *`CommonFlow` is a helper we can use to consume `Flow` on iOS. See [`FlowHelpers`](https://github.com/kuuuurt/multiplatform-paging/blob/develop/sample/multiplatform-library/src/commonMain/kotlin/com/kuuurt/paging/sample/multiplatform/library/helpers/FlowHelpers.kt)*
-
 
 ### Android
 

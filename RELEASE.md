@@ -1,7 +1,4 @@
-## [0.6.0] - 2022-12-31
+## [0.6.1] - 2023-01-02
 ### What's new
-- Adds a common refresh function
 - Library Updates:
-  - Kotlin to 1.7.20
-  - Coroutines to 1.6.4
-  - AGP to 7.3.1
+  - Kotlin to 1.8.0
