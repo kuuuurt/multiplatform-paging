@@ -12,6 +12,7 @@ Check the table below for the compatibility across versions
 
 | Library | Kotlin | Paging        |
 |---------|--------| ------------- |
+| 0.6.2   | 1.8.0  | 3.1.1         |
 | 0.6.1   | 1.8.0  | 3.1.1         |
 | 0.6.0   | 1.7.20 | 3.1.1         |
 | 0.5.0   | 1.7.10 | 3.1.1         |
