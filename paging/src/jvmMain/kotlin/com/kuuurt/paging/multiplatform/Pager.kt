@@ -22,13 +22,16 @@ actual class Pager<K : Any, V : Any> actual constructor(
     initialKey: K,
     getItems: suspend (K, Int) -> PagingResult<K, V>
 ) {
-    private val source = PagingSource(
-        initialKey,
-        getItems
-    )
+    private var source: PagingSource<K, V>? = null
+
     actual val pagingData: Flow<PagingData<V>> = AndroidXPager(
         config = config,
-        pagingSourceFactory = { source }
+        pagingSourceFactory = {
+            PagingSource(
+                initialKey,
+                getItems
+            ).also { source = it }
+        }
     ).flow
 
     class PagingSource<K : Any, V : Any>(
@@ -69,6 +72,6 @@ actual class Pager<K : Any, V : Any> actual constructor(
     }
 
     actual fun refresh() {
-        source.invalidate()
+        source?.invalidate()
     }
 }
