@@ -7,9 +7,15 @@ package com.kuuurt.paging.multiplatform
  * @since 06/11/2020
  */
 
-actual class PagingData<T : Any> internal constructor(items: List<T>) : List<T> by items
+actual class PagingData<T : Any> internal constructor(items: List<T>) : List<T> by items {
+    actual companion object {
+        actual fun <T : Any> empty(): PagingData<T> {
+            return PagingData(emptyList())
+        }
+    }
+}
 
-internal fun <T: Any> List<T>.toPagingData(): PagingData<T> =
+internal fun <T : Any> List<T>.toPagingData(): PagingData<T> =
     PagingData(this)
 
 actual suspend fun <T : Any> PagingData<T>.filter(predicate: suspend (T) -> Boolean): PagingData<T> {

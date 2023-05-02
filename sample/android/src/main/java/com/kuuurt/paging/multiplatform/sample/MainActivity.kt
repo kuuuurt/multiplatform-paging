@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.RecyclerView
 import com.kuuurt.paging.sample.multiplatform.library.MainViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onEmpty
 
 /**
  * Copyright 2020, Kurt Renzo Acosta, All rights reserved.
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             .launchIn(lifecycleScope)
 
         viewModel.pagingData
+            .onEmpty { testAdapter.submitData(PagingData.empty()) }
             .onEach { testAdapter.submitData(it) }
             .launchIn(lifecycleScope)
     }
