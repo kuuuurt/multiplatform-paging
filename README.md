@@ -4,6 +4,12 @@
 
 A Kotlin Multiplatform library for pagination.
 
+## :warning: **Important Notice**
+
+This repository is no longer actively maintained.
+
+If you're looking for more features or alternative solutions, check out [Cash App's Multiplatform Paging library](https://github.com/cashapp/multiplatform-paging)
+
 ## Setup
 
 This library is used on Kotlin Multiplatform that targets Android and iOS.
