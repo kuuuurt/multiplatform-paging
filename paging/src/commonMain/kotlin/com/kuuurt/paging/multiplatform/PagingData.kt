@@ -8,7 +8,12 @@ package com.kuuurt.paging.multiplatform
  * @since 06/11/2020
  */
 
-expect class PagingData<T : Any>
+expect class PagingData<T : Any> {
+
+    companion object {
+        fun <T : Any> empty(): PagingData<T>
+    }
+}
 
 expect suspend fun <T : Any> PagingData<T>.filter(predicate: suspend (T) -> Boolean): PagingData<T>
 
